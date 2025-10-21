@@ -2,24 +2,27 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "./ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "./ui/select";
 import { Loader2 } from "lucide-react";
 
-type DocumentType = 'nit' | 'cedula' | 'tarjeta_identidad' | 'pasaporte';
+type DocumentType = "nit" | "cedula" | "tarjeta_identidad" | "pasaporte";
 
 interface RegisterFormData {
   email: string;
   password: string;
   documentType: DocumentType;
   documentNumber: string;
-  // For NIT
   businessName?: string;
   address?: string;
-  // For natural person
   firstName?: string;
   lastName?: string;
   birthDate?: string;
-  // Common
   phoneNumber: string;
 }
 
@@ -35,26 +38,18 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [documentNumber, setDocumentNumber] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
-  
-  // NIT fields
   const [businessName, setBusinessName] = useState("");
   const [address, setAddress] = useState("");
-  
-  // Natural person fields
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [birthDate, setBirthDate] = useState("");
-  
   const [isLoading, setIsLoading] = useState(false);
-  
-  const isNIT = documentType === 'nit';
+
+  const isNIT = documentType === "nit";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (password !== confirmPassword) {
-      return;
-    }
+    if (password !== confirmPassword) return;
 
     setIsLoading(true);
     try {
@@ -64,16 +59,10 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
         documentType,
         documentNumber,
         phoneNumber,
-        ...(isNIT ? {
-          businessName,
-          address,
-        } : {
-          firstName,
-          lastName,
-          birthDate,
-        })
+        ...(isNIT
+          ? { businessName, address }
+          : { firstName, lastName, birthDate }),
       };
-      
       await onSubmit(formData);
     } finally {
       setIsLoading(false);
@@ -81,33 +70,58 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 w-full">
-      <div className="space-y-4">
+    <form
+      onSubmit={handleSubmit}
+      className="space-y-6 w-full max-w-3xl mx-auto"
+    >
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+        {/* Tipo de documento */}
         <div className="space-y-2">
-          <Label htmlFor="document-type" className="text-foreground font-medium">
+          <Label
+            htmlFor="document-type"
+            className="text-foreground font-medium"
+          >
             Tipo de documento
           </Label>
-          <Select value={documentType} onValueChange={(value) => setDocumentType(value as DocumentType)}>
-            <SelectTrigger className="h-12 border-border focus:border-primary transition-colors">
+          <Select
+            value={documentType}
+            onValueChange={(value) =>
+              setDocumentType(value as DocumentType)
+            }
+          >
+            <SelectTrigger
+              className="h-12 border border-border focus:border-primary transition-colors 
+                         bg-white dark:bg-background appearance-none"
+            >
               <SelectValue placeholder="Seleccione tipo de documento" />
             </SelectTrigger>
-            <SelectContent>
+            <SelectContent
+              className="bg-white dark:bg-background border border-border shadow-sm"
+            >
               <SelectItem value="cedula">Cédula</SelectItem>
-              <SelectItem value="tarjeta_identidad">Tarjeta de Identidad</SelectItem>
+              <SelectItem value="tarjeta_identidad">
+                Tarjeta de Identidad
+              </SelectItem>
               <SelectItem value="pasaporte">Pasaporte</SelectItem>
               <SelectItem value="nit">NIT</SelectItem>
             </SelectContent>
           </Select>
         </div>
 
+        {/* Número de documento */}
         <div className="space-y-2">
-          <Label htmlFor="document-number" className="text-foreground font-medium">
-            {isNIT ? 'Número de NIT' : 'Número de documento'}
+          <Label
+            htmlFor="document-number"
+            className="text-foreground font-medium"
+          >
+            {isNIT ? "Número de NIT" : "Número de documento"}
           </Label>
           <Input
             id="document-number"
             type="text"
-            placeholder={isNIT ? 'Ej: 900123456-7' : 'Número de documento'}
+            placeholder={
+              isNIT ? "Ej: 900123456-7" : "Número de documento"
+            }
             value={documentNumber}
             onChange={(e) => setDocumentNumber(e.target.value)}
             required
@@ -116,10 +130,14 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
           />
         </div>
 
+        {/* Campos dinámicos */}
         {isNIT ? (
           <>
             <div className="space-y-2">
-              <Label htmlFor="business-name" className="text-foreground font-medium">
+              <Label
+                htmlFor="business-name"
+                className="text-foreground font-medium"
+              >
                 Razón social
               </Label>
               <Input
@@ -135,7 +153,10 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="address" className="text-foreground font-medium">
+              <Label
+                htmlFor="address"
+                className="text-foreground font-medium"
+              >
                 Dirección
               </Label>
               <Input
@@ -153,7 +174,10 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
         ) : (
           <>
             <div className="space-y-2">
-              <Label htmlFor="first-name" className="text-foreground font-medium">
+              <Label
+                htmlFor="first-name"
+                className="text-foreground font-medium"
+              >
                 Nombre
               </Label>
               <Input
@@ -169,7 +193,10 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="last-name" className="text-foreground font-medium">
+              <Label
+                htmlFor="last-name"
+                className="text-foreground font-medium"
+              >
                 Apellido
               </Label>
               <Input
@@ -184,8 +211,11 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
               />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="birth-date" className="text-foreground font-medium">
+          <div className="space-y-2 md:col-span-2">
+              <Label
+                htmlFor="birth-date"
+                className="text-foreground font-medium"
+              >
                 Fecha de nacimiento
               </Label>
               <Input
@@ -200,9 +230,11 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             </div>
           </>
         )}
-
         <div className="space-y-2">
-          <Label htmlFor="register-email" className="text-foreground font-medium">
+          <Label
+            htmlFor="register-email"
+            className="text-foreground font-medium"
+          >
             Correo electrónico
           </Label>
           <Input
@@ -216,9 +248,11 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             className="h-12 border-border focus:border-primary transition-colors"
           />
         </div>
-
         <div className="space-y-2">
-          <Label htmlFor="phone-number" className="text-foreground font-medium">
+          <Label
+            htmlFor="phone-number"
+            className="text-foreground font-medium"
+          >
             Número de teléfono
           </Label>
           <Input
@@ -232,9 +266,11 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             className="h-12 border-border focus:border-primary transition-colors"
           />
         </div>
-
         <div className="space-y-2">
-          <Label htmlFor="register-password" className="text-foreground font-medium">
+          <Label
+            htmlFor="register-password"
+            className="text-foreground font-medium"
+          >
             Contraseña
           </Label>
           <Input
@@ -251,9 +287,11 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             Debe contener al menos 8 caracteres y un carácter especial
           </p>
         </div>
-
         <div className="space-y-2">
-          <Label htmlFor="confirm-password" className="text-foreground font-medium">
+          <Label
+            htmlFor="confirm-password"
+            className="text-foreground font-medium"
+          >
             Confirmar contraseña
           </Label>
           <Input
@@ -266,13 +304,17 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             disabled={isLoading}
             className="h-12 border-border focus:border-primary transition-colors"
           />
-          {password && confirmPassword && password !== confirmPassword && (
-            <p className="text-xs text-destructive">Las contraseñas no coinciden</p>
-          )}
+          {password &&
+            confirmPassword &&
+            password !== confirmPassword && (
+              <p className="text-xs text-destructive">
+                Las contraseñas no coinciden
+              </p>
+            )}
         </div>
       </div>
 
-      <div className="space-y-4">
+      <div className="space-y-3">
         <Button
           type="submit"
           variant="auth"
