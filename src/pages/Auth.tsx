@@ -2,8 +2,8 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import companyLogo from "../assets/login-hero.jpg";
 import { useAuth, type RegisterFormData } from "../hook/use-auth";
-import { LoginForm } from "../components/LoginForm";
-import { RegisterForm } from "../components/RegisrterForm";
+import { LoginForm } from "..//components/auth/LoginForm";
+import { RegisterForm } from "../components/auth/RegisrterForm";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -32,10 +32,22 @@ const Auth = () => {
 
   return (
     <div className="min-h-screen bg-gray-200 flex items-center justify-center p-4">
-      <div className="w-full max-w-md ">
-        <div className="bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl border border-white/30 p-8 transition-transform duration-300 ">
+      <div
+        className={`w-full transition-all duration-300 ${isLogin ? "max-w-md" : "max-w-2xl"
+          }`}
+      >
+        <div
+          className={`rounded-2xl shadow-2xl border border-white/30 transition-all duration-300
+        ${isLogin
+              ? "bg-white/80 backdrop-blur-lg p-8"
+              : "bg-white/90 backdrop-blur-md p-6"
+            }`}
+          style={{
+            minHeight: isLogin ? "auto" : "80vh", // reduce altura en registro
+          }}
+        >
           {/* Logo */}
-          <div className="flex justify-center mb-8">
+          <div className="flex justify-center mb-6">
             <img
               src={companyLogo}
               alt="Logo de la empresa"
@@ -44,7 +56,7 @@ const Auth = () => {
           </div>
 
           {/* Título */}
-          <div className="text-center mb-8">
+          <div className="text-center mb-6">
             <h1 className="text-3xl font-bold text-foreground mb-2">
               {isLogin ? "Bienvenido de nuevo" : "Crear cuenta nueva"}
             </h1>
@@ -72,6 +84,7 @@ const Auth = () => {
         </div>
       </div>
     </div>
+
   );
 };
 

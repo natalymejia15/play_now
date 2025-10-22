@@ -1,14 +1,14 @@
 import { useState } from "react";
-import { Button } from "./ui/button";
-import { Input } from "./ui/input";
-import { Label } from "./ui/label";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
+import { Label } from "../ui/label";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "./ui/select";
+} from "../ui/select";
 import { Loader2 } from "lucide-react";
 
 type DocumentType = "nit" | "cedula" | "tarjeta_identidad" | "pasaporte";
@@ -41,7 +41,9 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
   const [businessName, setBusinessName] = useState("");
   const [address, setAddress] = useState("");
   const [firstName, setFirstName] = useState("");
+  const [secondFirstName, setSecondFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [secondLastName, setSecondLastName] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
@@ -72,10 +74,9 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
   return (
     <form
       onSubmit={handleSubmit}
-      className="space-y-6 w-full max-w-3xl mx-auto"
+      className="space-y-6 w-full max-w-5xl mx-auto"
     >
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-        {/* Tipo de documento */}
         <div className="space-y-2">
           <Label
             htmlFor="document-type"
@@ -107,8 +108,6 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             </SelectContent>
           </Select>
         </div>
-
-        {/* Número de documento */}
         <div className="space-y-2">
           <Label
             htmlFor="document-number"
@@ -151,20 +150,19 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
                 className="h-12 border-border focus:border-primary transition-colors"
               />
             </div>
-
             <div className="space-y-2">
               <Label
-                htmlFor="address"
+                htmlFor="register-email"
                 className="text-foreground font-medium"
               >
-                Dirección
+                Correo electrónico
               </Label>
               <Input
-                id="address"
-                type="text"
-                placeholder="Dirección de la empresa"
-                value={address}
-                onChange={(e) => setAddress(e.target.value)}
+                id="register-email"
+                type="email"
+                placeholder="usuario@ejemplo.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={isLoading}
                 className="h-12 border-border focus:border-primary transition-colors"
@@ -191,18 +189,36 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
                 className="h-12 border-border focus:border-primary transition-colors"
               />
             </div>
+            <div className="space-y-2">
+              <Label
+                htmlFor="second-name"
+                className="text-foreground font-medium"
+              >
+                Segundo nombre
+              </Label>
+              <Input
+                id="second-name"
+                type="text"
+                placeholder="Segundo nombre"
+                value={secondFirstName}
+                onChange={(e) => setSecondFirstName(e.target.value)}
+                required
+                disabled={isLoading}
+                className="h-12 border-border focus:border-primary transition-colors"
+              />
+            </div>
 
             <div className="space-y-2">
               <Label
                 htmlFor="last-name"
                 className="text-foreground font-medium"
               >
-                Apellido
+                Primer apellido
               </Label>
               <Input
                 id="last-name"
                 type="text"
-                placeholder="Apellido"
+                placeholder="Primer apellido"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 required
@@ -211,18 +227,37 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
               />
             </div>
 
-          <div className="space-y-2 md:col-span-2">
+            <div className="space-y-2">
               <Label
-                htmlFor="birth-date"
+                htmlFor="second-last-name"
                 className="text-foreground font-medium"
               >
-                Fecha de nacimiento
+                Segundo apellido
               </Label>
               <Input
-                id="birth-date"
-                type="date"
-                value={birthDate}
-                onChange={(e) => setBirthDate(e.target.value)}
+                id="second-last-name"
+                type="text"
+                placeholder="Segundo apellido"
+                value={secondLastName}
+                onChange={(e) => setSecondLastName(e.target.value)}
+                required
+                disabled={isLoading}
+                className="h-12 border-border focus:border-primary transition-colors"
+              />
+            </div>
+            <div className="space-y-2 md:col-span-2">
+              <Label
+                htmlFor="register-email"
+                className="text-foreground font-medium"
+              >
+                Correo electrónico
+              </Label>
+              <Input
+                id="register-email"
+                type="email"
+                placeholder="usuario@ejemplo.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={isLoading}
                 className="h-12 border-border focus:border-primary transition-colors"
@@ -230,19 +265,20 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             </div>
           </>
         )}
+
         <div className="space-y-2">
           <Label
-            htmlFor="register-email"
+            htmlFor="address"
             className="text-foreground font-medium"
           >
-            Correo electrónico
+            Dirección
           </Label>
           <Input
-            id="register-email"
-            type="email"
-            placeholder="usuario@ejemplo.com"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            id="address"
+            type="text"
+            placeholder="Dirección de la empresa"
+            value={address}
+            onChange={(e) => setAddress(e.target.value)}
             required
             disabled={isLoading}
             className="h-12 border-border focus:border-primary transition-colors"
@@ -265,52 +301,6 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             disabled={isLoading}
             className="h-12 border-border focus:border-primary transition-colors"
           />
-        </div>
-        <div className="space-y-2">
-          <Label
-            htmlFor="register-password"
-            className="text-foreground font-medium"
-          >
-            Contraseña
-          </Label>
-          <Input
-            id="register-password"
-            type="password"
-            placeholder="••••••••"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            disabled={isLoading}
-            className="h-12 border-border focus:border-primary transition-colors"
-          />
-          <p className="text-xs text-muted-foreground">
-            Debe contener al menos 8 caracteres y un carácter especial
-          </p>
-        </div>
-        <div className="space-y-2">
-          <Label
-            htmlFor="confirm-password"
-            className="text-foreground font-medium"
-          >
-            Confirmar contraseña
-          </Label>
-          <Input
-            id="confirm-password"
-            type="password"
-            placeholder="••••••••"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-            disabled={isLoading}
-            className="h-12 border-border focus:border-primary transition-colors"
-          />
-          {password &&
-            confirmPassword &&
-            password !== confirmPassword && (
-              <p className="text-xs text-destructive">
-                Las contraseñas no coinciden
-              </p>
-            )}
         </div>
       </div>
 

@@ -1,1 +1,19 @@
 @import "tailwindcss";
+
+:root {
+  --sidebar-width: 260px;
+  --sidebar-collapsed-width: 72px;
+  --sidebar-bg: hsl(0 0% 98%);
+  --sidebar-fg: hsl(240 5% 15%);
+}
+
+[data-state="expanded"] .sidebar {
+  width: var(--sidebar-width);
+}
+
+.sidebar {
+  width: var(--sidebar-width);
+  background-color: var(--sidebar-bg);
+  color: var(--sidebar-fg);
+  transition: width 0.25s ease;
+}
