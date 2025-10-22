@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import companyLogo from '../assets/login-hero.jpg';
+import companyLogo from '../../assets/login-hero.jpg';
 import { ArrowLeft, Mail, Send } from 'lucide-react';
 import { z } from 'zod';
-import { emailValidationSchema } from '../utils/validation';
-import { Card, CardContent, CardHeader } from './ui/card';
-import { Button } from './ui/button';
-import { Label } from './ui/label';
-import { Input } from './ui/input';
+import { emailValidationSchema } from '../../utils/validation';
+import { Card, CardContent, CardHeader } from '../ui/card';
+import { Button } from '../ui/button';
+import { Label } from '../ui/label';
+import { Input } from '../ui/input';
 import { useNavigate } from 'react-router-dom';
 
 const forgotPasswordSchema = z.object({
