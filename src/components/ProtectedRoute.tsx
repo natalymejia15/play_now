@@ -2,21 +2,29 @@ import { useContext } from "react";
 import { UserContext } from "../context/UserContext";
 import { Navigate } from "react-router-dom";
 
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-    const userCtx = useContext(UserContext);
+interface ProtectedRouteProps {
+  children: React.ReactNode;
+  allowedRoles?: number[]; // opcional: restringir por roles
+}
 
-    if (!userCtx) {
-        throw new Error("ProtectedRoute debe esatar dentro de UserProvider");
-    }
+function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
+  const userCtx = useContext(UserContext);
 
-    const { user } = userCtx;
+  if (!userCtx) {
+    throw new Error("ProtectedRoute debe estar dentro de UserProvider");
+  }
 
-    if (!user) {
-        return <Navigate to="/login" replace/>
-    }
+  const { user } = userCtx;
 
-    return <>{children}</>;
+  if (!user) {
+    return <Navigate to="/" replace />;
+  }
 
+  if (allowedRoles && !allowedRoles.includes(user.idRol)) {
+    return <Navigate to="/not-authorized" replace />;
+  }
+
+  return <>{children}</>;
 }
 
 export default ProtectedRoute;
