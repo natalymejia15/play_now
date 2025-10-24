@@ -10,21 +10,10 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Loader2 } from "lucide-react";
+import type { RegisterFormData } from "../../interfaces/register.interfaces";
 
-type DocumentType = "nit" | "cc" ;
+type DocumentType = "NIT" | "CC";
 
-interface RegisterFormData {
-  email: string;
-  password: string;
-  documentType: DocumentType;
-  documentNumber: string;
-  businessName?: string;
-  address?: string;
-  firstName?: string;
-  lastName?: string;
-  birthDate?: string;
-  phoneNumber: string;
-}
 
 interface RegisterFormProps {
   onSubmit: (data: RegisterFormData) => Promise<void>;
@@ -32,10 +21,8 @@ interface RegisterFormProps {
 }
 
 export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
-  const [documentType, setDocumentType] = useState<DocumentType>("cc");
+  const [documentType, setDocumentType] = useState<DocumentType>("CC");
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [documentNumber, setDocumentNumber] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [businessName, setBusinessName] = useState("");
@@ -44,32 +31,41 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
   const [secondFirstName, setSecondFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [secondLastName, setSecondLastName] = useState("");
-  const [birthDate, setBirthDate] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const isNIT = documentType === "nit";
+  const isNIT = documentType === "NIT";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (password !== confirmPassword) return;
-
     setIsLoading(true);
+
     try {
       const formData: RegisterFormData = {
-        email,
-        password,
-        documentType,
-        documentNumber,
-        phoneNumber,
-        ...(isNIT
-          ? { businessName, address }
-          : { firstName, lastName, birthDate }),
+        tipoDocumento: documentType.toUpperCase() as "CC" | "NIT",
+        numeroDocumento: documentNumber,
+        primerNombre: !isNIT ? firstName : "",
+        segundoNombre: !isNIT ? secondFirstName : "",
+        primerApellido: !isNIT ? lastName : "",
+        segundoApellido: !isNIT ? secondLastName : "",
+        razonSocial: isNIT ? businessName : "",
+        correo: email,
+        celular: phoneNumber,
+        direccion: address,
+        password: documentNumber,
+        idRol: 3,
       };
+
       await onSubmit(formData);
+
+    } catch (error: any) {
+      console.error("Error en handleSubmit:", error);
+      if (error.response) console.error("Respuesta del backend:", error.response.data);
     } finally {
       setIsLoading(false);
     }
   };
+
+
 
   return (
     <form
@@ -99,8 +95,8 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             <SelectContent
               className="bg-white dark:bg-background border border-border shadow-sm"
             >
-              <SelectItem value="cc">Cédula</SelectItem>
-              <SelectItem value="nit">NIT</SelectItem>
+              <SelectItem value="CC">Cédula</SelectItem>
+              <SelectItem value="NIT">NIT</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -115,7 +111,7 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             id="document-number"
             type="text"
             placeholder={
-              isNIT ? "Ej: 900123456-7" : "Número de documento"
+              isNIT ? "Ej: 900123456" : "Número de documento"
             }
             value={documentNumber}
             onChange={(e) => setDocumentNumber(e.target.value)}
@@ -125,7 +121,6 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
           />
         </div>
 
-        {/* Campos dinámicos */}
         {isNIT ? (
           <>
             <div className="space-y-2">
@@ -198,7 +193,6 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
                 placeholder="Segundo nombre"
                 value={secondFirstName}
                 onChange={(e) => setSecondFirstName(e.target.value)}
-                required
                 disabled={isLoading}
                 className="h-12 border-border focus:border-primary transition-colors"
               />
@@ -236,7 +230,6 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
                 placeholder="Segundo apellido"
                 value={secondLastName}
                 onChange={(e) => setSecondLastName(e.target.value)}
-                required
                 disabled={isLoading}
                 className="h-12 border-border focus:border-primary transition-colors"
               />
@@ -306,7 +299,7 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
           variant="auth"
           size="lg"
           className="w-full h-12 text-base border bg-blue-600 text-white"
-          disabled={isLoading || password !== confirmPassword}
+          disabled={isLoading}
         >
           {isLoading ? (
             <>

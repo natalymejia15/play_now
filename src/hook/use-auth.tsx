@@ -1,67 +1,72 @@
-import { useState, useEffect } from "react";
-import { toast } from "./use-toast"; 
+import { useState, useEffect, useContext } from "react";
+import { toast } from "./use-toast";
+import axios from "axios";
+import { UserContext } from "../context/UserContext";
 
-export interface RegisterFormData {
-  email: string;
-  password: string;
-  documentType: 'nit' | 'cc';
-  documentNumber: string;
-  phoneNumber: string;
-  businessName?: string;
-  address?: string;
-  firstName?: string;
-  lastName?: string;
-  birthDate?: string;
-}
+
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
 export const useAuth = () => {
-  const [user, setUser] = useState<{ email: string } | null>(null);
-  const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [session, setSession] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  const { login } = useContext(UserContext)!;
 
   useEffect(() => {
-    const savedUser = localStorage.getItem("mock_user");
-    if (savedUser) setUser(JSON.parse(savedUser));
+    const storedUser = localStorage.getItem("user");
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+      setSession(true);
+    }
+    setLoading(false);
   }, []);
 
   const signIn = async (email: string, password: string) => {
-    setLoading(true);
-    await new Promise((res) => setTimeout(res, 1000)); 
-    setLoading(false);
+    try {
+      const response = await axios.post(`${API_URL}/auth/login`, {
+        correo: email,
+        password,
+      });
 
-    const mockUser = { email };
-    setUser(mockUser);
-    localStorage.setItem("mock_user", JSON.stringify(mockUser));
+      const { token, user } = response.data;
+      localStorage.setItem("token", token);
+      localStorage.setItem("user", JSON.stringify(user));
 
-    toast?.({
-      title: "Inicio de sesión exitoso",
-      description: `Bienvenido, ${email}`,
-    });
+      if (user) {
+        login(user);
+        toast({
+          title: "¡Bienvenido!",
+          description: "Has iniciado sesión correctamente",
+        });
+      }
 
-    return { data: mockUser, error: null };
+       return { user, error: null as string | null };
+    } catch (err: any) {
+      toast({
+        variant: "destructive",
+        title: "Error de autenticación",
+        description:
+          "El campo usuario o contraseña son incorrectos",
+      });
+      return { error: err };
+    }
   };
 
-  const signUp = async (formData: RegisterFormData) => {
-    setLoading(true);
-    await new Promise((res) => setTimeout(res, 1000));
-    setLoading(false);
-
-    const mockUser = { email: formData.email };
-    setUser(mockUser);
-    localStorage.setItem("mock_user", JSON.stringify(mockUser));
-
-    toast?.({
-      title: "Registro completado",
-      description: "Tu cuenta se ha creado correctamente",
-    });
-
-    return { data: mockUser, error: null };
-  };
+  
 
   const signOut = async () => {
+    try {
+      await axios.post(`${API_URL}/auth/logout`);
+    } catch {
+    }
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
     setUser(null);
-    localStorage.removeItem("mock_user");
+    setSession(null);
+    localStorage.removeItem("user");
 
-    toast?.({
+    toast({
       title: "Sesión cerrada",
       description: "Has cerrado sesión correctamente",
     });
@@ -69,10 +74,9 @@ export const useAuth = () => {
 
   return {
     user,
-    session: null,
+    session,
     loading,
     signIn,
-    signUp,
     signOut,
   };
 };
