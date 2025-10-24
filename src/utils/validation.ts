@@ -1,6 +1,5 @@
 import { z } from 'zod';
 
-// Email validation schema according to user story requirements
 export const emailValidationSchema = z
   .string()
   .trim()
@@ -8,7 +7,6 @@ export const emailValidationSchema = z
   .email({ message: "Verificar correo" })
   .max(255, { message: "El correo debe tener menos de 255 caracteres" });
 
-// Password validation schema - must have special character
 export const passwordValidationSchema = z
   .string()
   .min(6, { message: "La contraseña debe tener al menos 6 caracteres" })
@@ -17,13 +15,11 @@ export const passwordValidationSchema = z
   })
   .max(128, { message: "La contraseña debe tener menos de 128 caracteres" });
 
-// Login form validation schema
 export const loginSchema = z.object({
   email: emailValidationSchema,
   password: z.string().nonempty({ message: "La contraseña es requerida" })
 });
 
-// Registration form validation schema
 export const registrationSchema = z.object({
   email: emailValidationSchema,
   password: passwordValidationSchema,

@@ -11,7 +11,7 @@ import {
 } from "../ui/select";
 import { Loader2 } from "lucide-react";
 
-type DocumentType = "nit" | "cedula" | "tarjeta_identidad" | "pasaporte";
+type DocumentType = "nit" | "cc" ;
 
 interface RegisterFormData {
   email: string;
@@ -32,7 +32,7 @@ interface RegisterFormProps {
 }
 
 export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
-  const [documentType, setDocumentType] = useState<DocumentType>("cedula");
+  const [documentType, setDocumentType] = useState<DocumentType>("cc");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -99,11 +99,7 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             <SelectContent
               className="bg-white dark:bg-background border border-border shadow-sm"
             >
-              <SelectItem value="cedula">Cédula</SelectItem>
-              <SelectItem value="tarjeta_identidad">
-                Tarjeta de Identidad
-              </SelectItem>
-              <SelectItem value="pasaporte">Pasaporte</SelectItem>
+              <SelectItem value="cc">Cédula</SelectItem>
               <SelectItem value="nit">NIT</SelectItem>
             </SelectContent>
           </Select>

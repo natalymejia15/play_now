@@ -21,18 +21,13 @@ function App() {
           <Route path="/" element={<AuthPage />} />
           <Route path="/dashboard" element={<Dashboard />} />
           
-          {/* Super Admin Routes */}
           <Route path="/super-admin/dashboard" element={<SuperAdminDashboard />} />
           <Route path="/super-admin/users" element={<UsersManagement />} />
           
-          {/* Admin Routes */}
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
           <Route path="/admin/courts" element={<CourtsManagement />} />
           
-          {/* Client Routes */}
           <Route path="/client/home" element={<ClientHome />} />
-          
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
     </TooltipProvider>

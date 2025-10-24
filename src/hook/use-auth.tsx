@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import { toast } from "./use-toast"; // o comenta esta línea si no usas toast
+import { toast } from "./use-toast"; 
 
 export interface RegisterFormData {
   email: string;
   password: string;
-  documentType: 'nit' | 'cedula' | 'tarjeta_identidad' | 'pasaporte';
+  documentType: 'nit' | 'cc';
   documentNumber: string;
   phoneNumber: string;
   businessName?: string;
@@ -18,7 +18,6 @@ export const useAuth = () => {
   const [user, setUser] = useState<{ email: string } | null>(null);
   const [loading, setLoading] = useState(false);
 
-  // Simula sesión persistente
   useEffect(() => {
     const savedUser = localStorage.getItem("mock_user");
     if (savedUser) setUser(JSON.parse(savedUser));
@@ -26,15 +25,13 @@ export const useAuth = () => {
 
   const signIn = async (email: string, password: string) => {
     setLoading(true);
-    await new Promise((res) => setTimeout(res, 1000)); // simula carga
+    await new Promise((res) => setTimeout(res, 1000)); 
     setLoading(false);
 
-    // Simula autenticación exitosa
     const mockUser = { email };
     setUser(mockUser);
     localStorage.setItem("mock_user", JSON.stringify(mockUser));
 
-    // Mensaje visual (opcional)
     toast?.({
       title: "Inicio de sesión exitoso",
       description: `Bienvenido, ${email}`,
