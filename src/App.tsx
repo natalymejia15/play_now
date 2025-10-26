@@ -11,6 +11,7 @@ import CourtsManagement from "./pages/admin/CourtsManagement";
 import ClientHome from "./pages/client/ClientHome";
 import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./components/ProtectedRoute";
+import ForgotPasswordForm from "./pages/ForgotPasswordForm";
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
       <Sonner />
       <Routes>
         <Route path="/" element={<AuthPage />} />
-
+        <Route path="/forgot-password" element={<ForgotPasswordForm />} />
         <Route
           path="/super-admin/dashboard"
           element={

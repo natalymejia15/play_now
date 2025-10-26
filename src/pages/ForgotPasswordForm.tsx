@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import companyLogo from '../../assets/login-hero.jpg';
+import companyLogo from '../assets/login-hero.jpg';
 import { ArrowLeft, Mail, Send } from 'lucide-react';
 import { z } from 'zod';
-import { emailValidationSchema } from '../../utils/validation';
-import { Card, CardContent, CardHeader } from '../ui/card';
-import { Button } from '../ui/button';
-import { Label } from '../ui/label';
-import { Input } from '../ui/input';
+import { emailValidationSchema } from '../utils/validation';
+import { Card, CardContent, CardHeader } from '../components/ui/card';
+import { Button } from '../components/ui/button';
+import { Label } from '../components/ui/label';
+import { Input } from '../components/ui/input';
 import { useNavigate } from 'react-router-dom';
 
 const forgotPasswordSchema = z.object({
@@ -18,7 +18,7 @@ const forgotPasswordSchema = z.object({
 type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 
 
-export const ForgotPasswordForm = () => {
+const ForgotPasswordForm = () => {
    const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
@@ -156,7 +156,7 @@ export const ForgotPasswordForm = () => {
           <Button
             type="button"
             variant="outline"
-            onClick={() => navigate("/login")}
+            onClick={() => navigate("/")}
             className="w-full"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
@@ -167,3 +167,5 @@ export const ForgotPasswordForm = () => {
     </div>
   );
 }
+
+export default ForgotPasswordForm;
