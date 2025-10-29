@@ -5,7 +5,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card";
 import { LockIcon, EyeIcon, EyeOffIcon, Send } from "lucide-react";
-import companyLogo from "../assets/login-hero.jpg";
+import companyLogo from "../assets/login-hero.png";
 import { useChangePassword } from "../hook/use-change-password";
 
 const ChangePassword = () => {
@@ -18,7 +18,7 @@ const ChangePassword = () => {
   const { changePassword, isLoading, error } = useChangePassword(token);
 
   useEffect(() => {
-    document.title = "Cambiar Contraseña - Plataforma";
+    document.title = "Cambiar Contraseña - Play now";
   }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -28,35 +28,37 @@ const ChangePassword = () => {
 
 
   return (
-    <div className="min-h-screen bg-gradient-subtle flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md animate-fade-in">
-        <Card className="w-full shadow-medium border border-border bg-gradient-subtle rounded-2xl">
+        <Card className="bg-white backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200 p-8">
           <CardHeader className="space-y-2 text-center">
             <div className="flex justify-center">
-              <img src={companyLogo} alt="Logo" className="h-16 w-16 object-contain" />
+              <img src={companyLogo} alt="Logo" className="h-30 object-contain" />
             </div>
-            <CardTitle className="text-3xl font-bold bg-gradient-primary bg-clip-text text-transparent">
-              Cambiar Contraseña
-            </CardTitle>
-            <CardDescription className="text-muted-foreground text-lg">
-              Ingresa tu nueva contraseña
-            </CardDescription>
+            <div className="space-y-2">
+              <CardTitle className="text-2xl font-bold text-foreground">
+                Cambiar Contraseña
+              </CardTitle>
+              <CardDescription className="text-muted-foreground">
+                Ingresa tu nueva contraseña
+              </CardDescription>
+            </div>
             {error && <p className="text-sm text-destructive">{error}</p>}
           </CardHeader>
 
           <CardContent className="space-y-6">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="newPassword" className="text-sm font-medium">Nueva contraseña</Label>
+                <Label htmlFor="newPassword" className="text-sm font-medium text-foreground">Nueva contraseña</Label>
                 <div className="relative">
-                  <LockIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
+                  <LockIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground text-gray-500"/>
                   <Input
                     id="newPassword"
                     type={showNewPassword ? "text" : "password"}
                     placeholder="Mínimo 8 caracteres"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
-                    className="pl-10 pr-10 h-12 border border-border rounded-lg bg-background/90 focus:border-green-500 focus:ring-1 focus:ring-green-200 transition-all"
+                    className="pl-10 h-12 border border-gray-300 rounded-lg bg-gray-50 focus:border-green-400 focus:ring-1 focus:ring-green-200 transition-colors"
                     required
                   />
                   <button
@@ -70,7 +72,7 @@ const ChangePassword = () => {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword" className="text-sm font-medium">Confirmar contraseña</Label>
+                <Label htmlFor="confirmPassword" className="text-sm font-medium text-foreground">Confirmar contraseña</Label>
                 <div className="relative">
                   <LockIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 h-4 w-4" />
                   <Input
@@ -79,7 +81,7 @@ const ChangePassword = () => {
                     placeholder="Confirma tu contraseña"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="pl-10 pr-10 h-12 border border-border rounded-lg bg-background/90 focus:border-green-500 focus:ring-1 focus:ring-green-200 transition-all"
+                    className="pl-10 h-12 border border-gray-300 rounded-lg bg-gray-50 focus:border-green-400 focus:ring-1 focus:ring-green-200 transition-colors"
                     required
                   />
                   <button

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hook/use-auth";
 import { LoginForm } from "../components/auth/LoginForm";
 import { RegisterForm } from "../components/auth/RegisrterForm";
-import companyLogo from "@/assets/login-hero.jpg";
+import companyLogo from "../assets/login-hero.png";
 import type { RegisterFormData } from "../interfaces/register.interfaces";
 import { useRegister } from "../hook/use-register";
 
@@ -55,7 +55,7 @@ const Auth = () => {
             <img
               src={companyLogo}
               alt="Logo de la empresa"
-              className="h-20 w-auto object-contain"
+              className="h-30 w-auto object-contain"
             />
           </div>
 

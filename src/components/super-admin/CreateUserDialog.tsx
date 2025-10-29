@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -41,6 +41,11 @@ export const CreateUserDialog = ({ open, onOpenChange }: CreateUserDialogProps) 
   const handleChange = (field: string, value: string) => {
     setForm(prev => ({ ...prev, [field]: value }));
   };
+
+  useEffect(() => {
+    document.title = "Gestión de Centros Comerciales- Play now";
+  }, []);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

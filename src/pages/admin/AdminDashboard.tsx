@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import { AdminLayout } from "../../components/layouts/AdminLayout";
 
 export default function AdminDashboard() {
+    useEffect(() => {
+      document.title = "Dashboard- Play now";
+    }, []);
+  
   return (
     <AdminLayout>
       <div>

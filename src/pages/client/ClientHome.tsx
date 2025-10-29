@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import { ClientLayout } from "../../components/layouts/ClientLayout";
 
 export default function ClientHome() {
+  useEffect(() => {
+    document.title = "Dashboard- Play now";
+  }, []);
+
   return (
     <ClientLayout>
       <div className="text-center py-12">

@@ -1,6 +1,11 @@
+import { useEffect } from "react";
 import { SuperAdminLayout } from "../../components/layouts/SuperAdminLayout";
 
 export default function SuperAdminDashboard() {
+  useEffect(() => {
+    document.title = "Dashboard- Play now";
+  }, []);
+
   return (
     <SuperAdminLayout>
       <div>

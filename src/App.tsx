@@ -32,7 +32,7 @@ function App() {
           }
         />
         <Route
-          path="/super-admin/users"
+          path="/super-admin/malls"
           element={
             <ProtectedRoute allowedRoles={[1]}>
               <UsersManagement />

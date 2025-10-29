@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -24,6 +24,10 @@ export const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
       setIsLoading(false);
     }
   };
+  
+  useEffect(() => {
+    document.title = "Login- Play now";
+  }, []);
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6 w-full">
