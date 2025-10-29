@@ -19,7 +19,7 @@ type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 
 
 const ForgotPasswordForm = () => {
-   const navigate = useNavigate();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [emailSent, setEmailSent] = useState(false);
 
@@ -31,28 +31,28 @@ const ForgotPasswordForm = () => {
   });
 
   const onSubmit = async (data: ForgotPasswordFormData) => {
-  setIsLoading(true);
+    setIsLoading(true);
 
-  try {
-    await new Promise((resolve) => setTimeout(resolve, 1500)); 
+    try {
+      await new Promise((resolve) => setTimeout(resolve, 1500));
 
-    setEmailSent(true);
-  } catch (error) {
-    console.error("Password reset error:", error);
-  } finally {
-    setIsLoading(false);
-  }
-};
+      setEmailSent(true);
+    } catch (error) {
+      console.error("Password reset error:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   if (emailSent) {
     return (
       <div className="min-h-screen bg-gradient-surface flex items-center justify-center p-4">
-        <Card className="w-full max-w-md shadow-auth border-0 bg-card">
+        <Card className="w-full max-w-md shadow-medium border border-border rounded-2xl bg-card">
           <CardHeader className="text-center space-y-6 pb-8">
             <div className="flex justify-center">
-              <img 
-                src={companyLogo} 
-                alt="Logo de la empresa" 
+              <img
+                src={companyLogo}
+                alt="Logo de la empresa"
                 className="h-16 w-16 object-contain"
               />
             </div>
@@ -79,8 +79,8 @@ const ForgotPasswordForm = () => {
             <Button
               type="button"
               variant="outline"
-              onClick={() => navigate("/login")}
-              className="w-full"
+              onClick={() => navigate("/")}
+              className="w-full border-border hover:border-green-500 hover:bg-green-50 transition-colors"
             >
               <ArrowLeft className="h-4 w-4 mr-2" />
               Volver al inicio de sesión
@@ -93,12 +93,12 @@ const ForgotPasswordForm = () => {
 
   return (
     <div className="min-h-screen bg-gradient-surface flex items-center justify-center p-4">
-      <Card className="w-full max-w-md shadow-auth border-0 bg-card">
+      <Card className="w-full max-w-md shadow-medium border border-border rounded-2xl bg-card">
         <CardHeader className="text-center space-y-6 pb-8">
           <div className="flex justify-center">
-            <img 
-              src={companyLogo} 
-              alt="Logo de la empresa" 
+            <img
+              src={companyLogo}
+              alt="Logo de la empresa"
               className="h-16 w-16 object-contain"
             />
           </div>
@@ -122,7 +122,7 @@ const ForgotPasswordForm = () => {
                   id="email"
                   type="email"
                   placeholder="usuario@ejemplo.com"
-                  className="pl-10 h-12 border-border focus:border-input-focus focus:ring-input-focus"
+                  className="pl-10 h-12 border border-border rounded-lg bg-background/90 focus:border-green-500 focus:ring-1 focus:ring-green-200 transition-all"
                   {...form.register('email')}
                 />
               </div>
@@ -137,11 +137,11 @@ const ForgotPasswordForm = () => {
               type="submit"
               variant="auth"
               disabled={isLoading}
-              className="mt-6 bg-blue-600 text-white" 
+              className="mt-6 w-full h-12 bg-green-600 text-white hover:bg-green-700 transition-colors"
             >
               {isLoading ? (
                 <div className="flex items-center space-x-2">
-                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-primary-foreground"></div>
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
                   <span>Enviando...</span>
                 </div>
               ) : (
@@ -157,7 +157,7 @@ const ForgotPasswordForm = () => {
             type="button"
             variant="outline"
             onClick={() => navigate("/")}
-            className="w-full"
+            className="w-full mt-2 border-border hover:border-green-500 hover:bg-green-50 transition-colors"
           >
             <ArrowLeft className="h-4 w-4 mr-2" />
             Volver al inicio de sesión
@@ -165,6 +165,7 @@ const ForgotPasswordForm = () => {
         </CardContent>
       </Card>
     </div>
+
   );
 }
 

@@ -38,6 +38,7 @@ export const useAuth = () => {
         toast({
           title: "¡Bienvenido!",
           description: "Has iniciado sesión correctamente",
+          variant: "success", 
         });
       }
 
@@ -53,24 +54,36 @@ export const useAuth = () => {
     }
   };
 
-  
-
   const signOut = async () => {
-    try {
-      await axios.post(`${API_URL}/auth/logout`);
-    } catch {
+  try {
+    const token = localStorage.getItem("token");
+
+    if (token) {
+      await axios.post(`${API_URL}/auth/logout`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
     }
+  } catch (err) {
+    console.warn("Error al cerrar sesión:", err);
+  } finally {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
     setUser(null);
     setSession(null);
-    localStorage.removeItem("user");
-
+    delete axios.defaults.headers.common["Authorization"];
     toast({
       title: "Sesión cerrada",
       description: "Has cerrado sesión correctamente",
     });
-  };
+    window.location.href = "/";
+    window.history.pushState(null, "", window.location.href);
+    window.onpopstate = function () {
+      window.history.go(1);
+    };
+  }
+};
 
   return {
     user,
