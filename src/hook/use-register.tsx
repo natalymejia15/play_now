@@ -18,6 +18,7 @@ export const useRegister = () => {
       toast({
         title: "¡Registro exitoso!",
         description: "Tu cuenta ha sido creada correctamente",
+        variant:"success"
       });
 
       return { data: response.data, error: null };

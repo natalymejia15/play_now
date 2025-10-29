@@ -50,6 +50,7 @@ const ChangePassword = () => {
         toast({
             title: "Contraseña actualizada",
             description: "Tu contraseña ha sido cambiada exitosamente",
+            variant:"success"
         });
 
         setIsLoading(false);
