@@ -5,7 +5,7 @@ import { Input } from "../components/ui/input";
 import { Label } from "../components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card";
 import { LockIcon, EyeIcon, EyeOffIcon, Send } from "lucide-react";
-import companyLogo from "../assets/login-hero.png";
+import companyLogo from "../assets/logo.png";
 import { useChangePassword } from "../hook/use-change-password";
 
 const ChangePassword = () => {

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../hook/use-auth";
 import { LoginForm } from "../components/auth/LoginForm";
 import { RegisterForm } from "../components/auth/RegisrterForm";
-import companyLogo from "../assets/login-hero.png";
+import companyLogo from "../assets/logo.png";
 import type { RegisterFormData } from "../interfaces/register.interfaces";
 import { useRegister } from "../hook/use-register";
 

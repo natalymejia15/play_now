@@ -3,12 +3,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useNavigate } from 'react-router-dom';
 import { Mail, Send, ArrowLeft } from 'lucide-react';
-
 import { Card, CardHeader, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Label } from '../components/ui/label';
 import { Input } from '../components/ui/input';
-import companyLogo from '../assets/login-hero.png';
+import companyLogo from '../assets/logo.png';
 import { emailValidationSchema } from '../utils/validation';
 import { useForgotPassword } from '../hook/use-forgot-password';
 
