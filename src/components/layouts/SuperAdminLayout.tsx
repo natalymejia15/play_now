@@ -20,7 +20,7 @@ import { LayoutDashboard, Users, LogOut } from "lucide-react";
 
 const menuItems = [
   { title: "Dashboard", url: "/super-admin/dashboard", icon: LayoutDashboard },
-  { title: "Gestionar Usuarios", url: "/super-admin/users", icon: Users },
+  { title: "Gestionar CC", url: "/super-admin/users", icon: Users },
 ];
 
 interface SuperAdminLayoutProps {
@@ -40,12 +40,12 @@ function InnerContent({ children }: { children: ReactNode }) {
 
   return (
     <SidebarInset
-      className="flex flex-col flex-1 transition-all duration-200 bg-gray-100"
+      className="flex flex-col flex-1 transition-all duration-300 bg-white"
       style={{ marginLeft, minHeight: "100vh" }}
     >
-      <header className="h-16 border-b border-gray-300 flex items-center px-6 bg-gray-200 sticky top-0 z-10">
-        <SidebarTrigger className="text-gray-700" />
-        <h1 className="ml-4 text-lg font-semibold text-gray-900">
+      <header className="h-16 border-b border-green-200 flex items-center px-6 bg-white sticky top-0 z-10">
+        <SidebarTrigger className="text-green-700 hover:text-green-900 transition-colors" />
+        <h1 className="ml-4 text-lg font-semibold text-green-900">
           Panel de Administración
         </h1>
       </header>
@@ -66,21 +66,21 @@ export const SuperAdminLayout = ({ children }: SuperAdminLayoutProps) => {
 
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen w-full bg-gray-100 text-gray-800">
+      <div className="flex min-h-screen w-full text-gray-800 bg-white">
         <Sidebar
           variant="sidebar"
           collapsible="offcanvas"
-          className="bg-gray-200 border-r border-gray-300"
+          className="bg-green-50 border-r border-green-200 shadow-lg"
         >
           <div className="flex flex-col h-full">
-            <div className="p-4 border-b border-gray-300">
-              <h2 className="text-lg font-semibold text-gray-900">Super Admin</h2>
-              <p className="text-sm text-gray-600 truncate">{user?.email}</p>
+            <div className="p-4 border-b border-green-200">
+              <h2 className="text-lg font-semibold text-green-900">Super Admin</h2>
+              <p className="text-sm text-green-700 truncate">{user?.email}</p>
             </div>
 
             <SidebarContent className="flex-1">
               <SidebarGroup>
-                <SidebarGroupLabel className="text-gray-700">Menú Principal</SidebarGroupLabel>
+                <SidebarGroupLabel className="text-green-700 font-medium">Menú Principal</SidebarGroupLabel>
                 <SidebarGroupContent>
                   <SidebarMenu>
                     {menuItems.map((item) => (
@@ -89,14 +89,14 @@ export const SuperAdminLayout = ({ children }: SuperAdminLayoutProps) => {
                           <NavLink
                             to={item.url}
                             className={({ isActive }) =>
-                              `flex items-center px-3 py-2 rounded-md transition-colors ${
+                              `flex items-center px-3 py-2 rounded-lg transition-all duration-200 ${
                                 isActive
-                                  ? "bg-gray-400 text-gray-900 font-medium"
-                                  : "hover:bg-gray-300 text-gray-700"
+                                  ? "bg-green-200 text-green-900 font-semibold shadow-inner"
+                                  : "hover:bg-green-100 hover:text-green-800"
                               }`
                             }
                           >
-                            <item.icon className="mr-2 h-4 w-4 text-gray-700" />
+                            <item.icon className="mr-2 h-5 w-5 text-green-700" />
                             <span>{item.title}</span>
                           </NavLink>
                         </SidebarMenuButton>
@@ -107,13 +107,13 @@ export const SuperAdminLayout = ({ children }: SuperAdminLayoutProps) => {
               </SidebarGroup>
             </SidebarContent>
 
-            <div className="p-4 border-t border-gray-300 mt-auto">
+            <div className="p-4 border-t border-green-200 mt-auto">
               <Button
                 onClick={handleSignOut}
                 variant="outline"
-                className="w-full border-gray-400 text-gray-700 hover:bg-gray-300"
+                className="w-full border-green-400 text-green-700 hover:bg-green-100 hover:text-green-900 transition-all"
               >
-                <LogOut className="mr-2 h-4 w-4" />
+                <LogOut className="mr-2 h-5 w-5" />
                 Cerrar Sesión
               </Button>
             </div>

@@ -7,76 +7,49 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { Button } from "../ui/button";
-import { Eye, Pencil, Trash2 } from "lucide-react";
-import { useToast } from "../../hook/use-toast";
+import { useCreateMall } from "../../hook/use-mall";
 
-interface User {
-  id: string;
-  email: string;
-  role: string;
-}
 
 export const UsersTable = () => {
-  const [users, setUsers] = useState<User[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const { toast } = useToast();
-
-  const fetchUsers = async () => {
-   
-  };
+  const { malls, fetchMalls, fetching } = useCreateMall();
+  const [localMalls, setLocalMalls] = useState(malls);
 
   useEffect(() => {
-    fetchUsers();
+    setLocalMalls(malls);
+  }, [malls]);
+
+  useEffect(() => {
+    fetchMalls();
   }, []);
 
-  const handleDelete = async (userId: string) => {
-   
-  };
 
-  if (isLoading) {
-    return <div>Cargando...</div>;
-  }
+  if (fetching) return <div>Cargando centros comerciales...</div>;
 
   return (
     <div className="border rounded-lg">
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Email</TableHead>
-            <TableHead>Rol</TableHead>
-            <TableHead className="text-right">Acciones</TableHead>
+            <TableHead>Nombre del Centro</TableHead>
+            <TableHead>Dirección</TableHead>
+            <TableHead>Teléfono</TableHead>
+            <TableHead>Ciudad</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
-          {users.length === 0 ? (
+          {malls.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={3} className="text-center text-muted-foreground">
-                No hay administradores registrados
+              <TableCell colSpan={4} className="text-center text-muted-foreground">
+                No hay centros comerciales registrados
               </TableCell>
             </TableRow>
           ) : (
-            users.map((user) => (
-              <TableRow key={user.id}>
-                <TableCell>{user.email}</TableCell>
-                <TableCell className="capitalize">{user.role}</TableCell>
-                <TableCell className="text-right">
-                  <div className="flex justify-end gap-2">
-                    <Button variant="ghost" size="icon">
-                      <Eye className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="icon">
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                    <Button 
-                      variant="ghost" 
-                      size="icon"
-                      onClick={() => handleDelete(user.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </TableCell>
+            malls.map((mall) => (
+              <TableRow key={mall.nombreCentro}>
+                <TableCell>{mall.nombreCentro}</TableCell>
+                <TableCell>{mall.direccion}</TableCell>
+                <TableCell>{mall.telefono}</TableCell>
+                <TableCell>{mall.ciudad}</TableCell>
               </TableRow>
             ))
           )}

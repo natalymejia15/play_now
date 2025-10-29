@@ -14,7 +14,6 @@ import type { RegisterFormData } from "../../interfaces/register.interfaces";
 
 type DocumentType = "NIT" | "CC";
 
-
 interface RegisterFormProps {
   onSubmit: (data: RegisterFormData) => Promise<void>;
   onToggleForm: () => void;
@@ -56,7 +55,6 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
       };
 
       await onSubmit(formData);
-
     } catch (error: any) {
       console.error("Error en handleSubmit:", error);
       if (error.response) console.error("Respuesta del backend:", error.response.data);
@@ -65,69 +63,46 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
     }
   };
 
-
+  const inputClass =
+    "h-12 border border-gray-300 rounded-lg bg-gray-50 focus:border-green-400 focus:ring-1 focus:ring-green-200 transition-colors";
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="space-y-6 w-full max-w-5xl mx-auto"
-    >
+    <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-5xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
+        {/* Tipo de documento */}
         <div className="space-y-2">
-          <Label
-            htmlFor="document-type"
-            className="text-foreground font-medium"
-          >
+          <Label htmlFor="document-type" className="text-gray-700 font-medium">
             Tipo de documento
           </Label>
-          <Select
-            value={documentType}
-            onValueChange={(value) =>
-              setDocumentType(value as DocumentType)
-            }
-          >
-            <SelectTrigger
-              className="h-12 border border-border focus:border-primary transition-colors 
-                         bg-white dark:bg-background appearance-none"
-            >
+          <Select value={documentType} onValueChange={(value) => setDocumentType(value as DocumentType)}>
+            <SelectTrigger className={`h-12 border border-gray-300 rounded-lg bg-gray-50 focus:border-green-400 focus:ring-1 focus:ring-green-200 transition-colors`}>
               <SelectValue placeholder="Seleccione tipo de documento" />
             </SelectTrigger>
-            <SelectContent
-              className="bg-white dark:bg-background border border-border shadow-sm"
-            >
+            <SelectContent className="bg-white border border-gray-300 shadow-sm">
               <SelectItem value="CC">Cédula</SelectItem>
               <SelectItem value="NIT">NIT</SelectItem>
             </SelectContent>
           </Select>
         </div>
         <div className="space-y-2">
-          <Label
-            htmlFor="document-number"
-            className="text-foreground font-medium"
-          >
+          <Label htmlFor="document-number" className="text-gray-700 font-medium">
             {isNIT ? "Número de NIT" : "Número de documento"}
           </Label>
           <Input
             id="document-number"
             type="text"
-            placeholder={
-              isNIT ? "Ej: 900123456" : "Número de documento"
-            }
+            placeholder={isNIT ? "Ej: 900123456" : "Número de documento"}
             value={documentNumber}
             onChange={(e) => setDocumentNumber(e.target.value)}
             required
             disabled={isLoading}
-            className="h-12 border-border focus:border-primary transition-colors"
+            className={inputClass}
           />
         </div>
-
         {isNIT ? (
           <>
             <div className="space-y-2">
-              <Label
-                htmlFor="business-name"
-                className="text-foreground font-medium"
-              >
+              <Label htmlFor="business-name" className="text-gray-700 font-medium">
                 Razón social
               </Label>
               <Input
@@ -138,14 +113,11 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
                 onChange={(e) => setBusinessName(e.target.value)}
                 required
                 disabled={isLoading}
-                className="h-12 border-border focus:border-primary transition-colors"
+                className={inputClass}
               />
             </div>
             <div className="space-y-2">
-              <Label
-                htmlFor="register-email"
-                className="text-foreground font-medium"
-              >
+              <Label htmlFor="register-email" className="text-gray-700 font-medium">
                 Correo electrónico
               </Label>
               <Input
@@ -156,17 +128,14 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={isLoading}
-                className="h-12 border-border focus:border-primary transition-colors"
+                className={inputClass}
               />
             </div>
           </>
         ) : (
           <>
             <div className="space-y-2">
-              <Label
-                htmlFor="first-name"
-                className="text-foreground font-medium"
-              >
+              <Label htmlFor="first-name" className="text-gray-700 font-medium">
                 Nombre
               </Label>
               <Input
@@ -177,14 +146,11 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
                 onChange={(e) => setFirstName(e.target.value)}
                 required
                 disabled={isLoading}
-                className="h-12 border-border focus:border-primary transition-colors"
+                className={inputClass}
               />
             </div>
             <div className="space-y-2">
-              <Label
-                htmlFor="second-name"
-                className="text-foreground font-medium"
-              >
+              <Label htmlFor="second-name" className="text-gray-700 font-medium">
                 Segundo nombre
               </Label>
               <Input
@@ -194,15 +160,11 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
                 value={secondFirstName}
                 onChange={(e) => setSecondFirstName(e.target.value)}
                 disabled={isLoading}
-                className="h-12 border-border focus:border-primary transition-colors"
+                className={inputClass}
               />
             </div>
-
             <div className="space-y-2">
-              <Label
-                htmlFor="last-name"
-                className="text-foreground font-medium"
-              >
+              <Label htmlFor="last-name" className="text-gray-700 font-medium">
                 Primer apellido
               </Label>
               <Input
@@ -213,15 +175,11 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
                 onChange={(e) => setLastName(e.target.value)}
                 required
                 disabled={isLoading}
-                className="h-12 border-border focus:border-primary transition-colors"
+                className={inputClass}
               />
             </div>
-
             <div className="space-y-2">
-              <Label
-                htmlFor="second-last-name"
-                className="text-foreground font-medium"
-              >
+              <Label htmlFor="second-last-name" className="text-gray-700 font-medium">
                 Segundo apellido
               </Label>
               <Input
@@ -231,14 +189,11 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
                 value={secondLastName}
                 onChange={(e) => setSecondLastName(e.target.value)}
                 disabled={isLoading}
-                className="h-12 border-border focus:border-primary transition-colors"
+                className={inputClass}
               />
             </div>
             <div className="space-y-2 md:col-span-2">
-              <Label
-                htmlFor="register-email"
-                className="text-foreground font-medium"
-              >
+              <Label htmlFor="register-email" className="text-gray-700 font-medium">
                 Correo electrónico
               </Label>
               <Input
@@ -249,17 +204,14 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={isLoading}
-                className="h-12 border-border focus:border-primary transition-colors"
+                className={inputClass}
               />
             </div>
           </>
         )}
 
         <div className="space-y-2">
-          <Label
-            htmlFor="address"
-            className="text-foreground font-medium"
-          >
+          <Label htmlFor="address" className="text-gray-700 font-medium">
             Dirección
           </Label>
           <Input
@@ -270,14 +222,11 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             onChange={(e) => setAddress(e.target.value)}
             required
             disabled={isLoading}
-            className="h-12 border-border focus:border-primary transition-colors"
+            className={inputClass}
           />
         </div>
         <div className="space-y-2">
-          <Label
-            htmlFor="phone-number"
-            className="text-foreground font-medium"
-          >
+          <Label htmlFor="phone-number" className="text-gray-700 font-medium">
             Número de teléfono
           </Label>
           <Input
@@ -288,7 +237,7 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             onChange={(e) => setPhoneNumber(e.target.value)}
             required
             disabled={isLoading}
-            className="h-12 border-border focus:border-primary transition-colors"
+            className={inputClass}
           />
         </div>
       </div>
@@ -296,9 +245,7 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
       <div className="space-y-3">
         <Button
           type="submit"
-          variant="auth"
-          size="lg"
-          className="w-full h-12 text-base border bg-blue-600 text-white"
+          className="w-full h-12 text-base border border-green-600 bg-green-600 text-white rounded-lg shadow-sm hover:bg-green-700 transition-colors"
           disabled={isLoading}
         >
           {isLoading ? (
@@ -314,8 +261,7 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
         <Button
           type="button"
           variant="outline"
-          size="lg"
-          className="w-full h-12 text-base border-primary/30 hover:border-primary hover:bg-primary/5"
+          className="w-full h-12 text-base border border-green-600 text-green-600 rounded-lg hover:bg-green-50 transition-colors"
           onClick={onToggleForm}
           disabled={isLoading}
         >

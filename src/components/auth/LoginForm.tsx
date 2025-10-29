@@ -29,7 +29,7 @@ export const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
     <form onSubmit={handleSubmit} className="space-y-6 w-full">
       <div className="space-y-4">
         <div className="space-y-2">
-          <Label htmlFor="email" className="font-medium text-grey-500">
+          <Label htmlFor="email" className="font-medium text-gray-700">
             Correo electrónico
           </Label>
           <Input
@@ -40,12 +40,12 @@ export const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
             onChange={(e) => setEmail(e.target.value)}
             required
             disabled={isLoading}
-            className="h-12 border border-grey-100 focus:border-primary border-grey-400 bg-grey-500"
+            className="h-12 border border-gray-300 rounded-lg bg-gray-50 focus:border-green-400 focus:ring-1 focus:ring-green-200 transition-colors"
           />
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="password" className="text-foreground font-medium">
+          <Label htmlFor="password" className="text-gray-700 font-medium">
             Contraseña
           </Label>
           <Input
@@ -56,7 +56,7 @@ export const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
             onChange={(e) => setPassword(e.target.value)}
             required
             disabled={isLoading}
-            className="h-12 border-border focus:border-primary transition-colors"
+            className="h-12 border border-gray-300 rounded-lg bg-gray-50 focus:border-green-400 focus:ring-1 focus:ring-green-200 transition-colors"
           />
         </div>
       </div>
@@ -64,9 +64,7 @@ export const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
       <div className="space-y-4">
         <Button
           type="submit"
-          variant="auth"
-          size="lg"
-          className="w-full h-12 text-base border bg-blue-600 text-white"
+          className="w-full h-12 text-base border border-green-600 bg-green-600 text-white rounded-lg shadow-sm hover:bg-green-700 transition-colors"
           disabled={isLoading}
         >
           {isLoading ? (
@@ -82,15 +80,18 @@ export const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
         <Button
           type="button"
           variant="outline"
-          size="lg"
-          className="w-full h-12 text-base border-blue-40 hover:border-primary hover:bg-primary/5 "
+          className="w-full h-12 text-base border border-green-600 text-green-600 rounded-lg hover:bg-green-50 transition-colors"
           onClick={onToggleForm}
           disabled={isLoading}
         >
           Registrar nueva cuenta
         </Button>
+
         <div className="text-center">
-          <Link to="/forgot-password" className="text-primary hover:text-primary-hover transition-smooth text-sm font-medium">
+          <Link
+            to="/forgot-password"
+            className="text-green-600 hover:text-green-700 transition-colors text-sm font-medium"
+          >
             ¿Olvidaste tu contraseña?
           </Link>
         </div>
