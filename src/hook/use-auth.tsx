@@ -15,12 +15,22 @@ export const useAuth = () => {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-      setUser(JSON.parse(storedUser));
+    const storedToken = localStorage.getItem("token");
+
+    if (storedUser && storedToken) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
       setSession(true);
+      axios.defaults.headers.common["Authorization"] = `Bearer ${storedToken}`;
+
+      login(parsedUser, storedToken);
     }
+
+
     setLoading(false);
   }, []);
+
+
 
   const signIn = async (email: string, password: string) => {
     try {
@@ -34,7 +44,7 @@ export const useAuth = () => {
       localStorage.setItem("user", JSON.stringify(user));
 
       if (user) {
-        login(user);
+        login(user, token);
         toast({
           title: "¡Bienvenido!",
           description: "Has iniciado sesión correctamente",

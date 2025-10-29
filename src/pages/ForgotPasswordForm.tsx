@@ -1,15 +1,16 @@
-import { useState } from 'react';
-import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
-import companyLogo from '../assets/login-hero.jpg';
-import { ArrowLeft, Mail, Send } from 'lucide-react';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { emailValidationSchema } from '../utils/validation';
-import { Card, CardContent, CardHeader } from '../components/ui/card';
+import { useNavigate } from 'react-router-dom';
+import { Mail, Send, ArrowLeft } from 'lucide-react';
+
+import { Card, CardHeader, CardContent } from '../components/ui/card';
 import { Button } from '../components/ui/button';
 import { Label } from '../components/ui/label';
 import { Input } from '../components/ui/input';
-import { useNavigate } from 'react-router-dom';
+import companyLogo from '../assets/login-hero.jpg';
+import { emailValidationSchema } from '../utils/validation';
+import { useForgotPassword } from '../hook/use-forgot-password';
 
 const forgotPasswordSchema = z.object({
   email: emailValidationSchema,
@@ -17,32 +18,16 @@ const forgotPasswordSchema = z.object({
 
 type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 
-
 const ForgotPasswordForm = () => {
   const navigate = useNavigate();
-  const [isLoading, setIsLoading] = useState(false);
-  const [emailSent, setEmailSent] = useState(false);
+  const { isLoading, emailSent, error, sendResetEmail } = useForgotPassword();
 
   const form = useForm<ForgotPasswordFormData>({
     resolver: zodResolver(forgotPasswordSchema),
-    defaultValues: {
-      email: '',
-    },
+    defaultValues: { email: '' },
   });
 
-  const onSubmit = async (data: ForgotPasswordFormData) => {
-    setIsLoading(true);
-
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-
-      setEmailSent(true);
-    } catch (error) {
-      console.error("Password reset error:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const onSubmit = (data: ForgotPasswordFormData) => sendResetEmail(data.email);
 
   if (emailSent) {
     return (
@@ -50,11 +35,7 @@ const ForgotPasswordForm = () => {
         <Card className="w-full max-w-md shadow-medium border border-border rounded-2xl bg-card">
           <CardHeader className="text-center space-y-6 pb-8">
             <div className="flex justify-center">
-              <img
-                src={companyLogo}
-                alt="Logo de la empresa"
-                className="h-16 w-16 object-contain"
-              />
+              <img src={companyLogo} alt="Logo de la empresa" className="h-16 w-16 object-contain" />
             </div>
             <div className="space-y-2">
               <h1 className="text-2xl font-bold text-foreground">Correo Enviado</h1>
@@ -65,16 +46,6 @@ const ForgotPasswordForm = () => {
           </CardHeader>
 
           <CardContent className="space-y-6">
-            <div className="text-center space-y-4">
-              <div className="flex justify-center">
-                <div className="h-16 w-16 bg-success/10 rounded-full flex items-center justify-center">
-                  <Mail className="h-8 w-8 text-success" />
-                </div>
-              </div>
-              <p className="text-sm text-muted-foreground">
-                Si el correo existe en nuestro sistema, recibirás un enlace para restablecer tu contraseña.
-              </p>
-            </div>
 
             <Button
               type="button"
@@ -96,11 +67,7 @@ const ForgotPasswordForm = () => {
       <Card className="w-full max-w-md shadow-medium border border-border rounded-2xl bg-card">
         <CardHeader className="text-center space-y-6 pb-8">
           <div className="flex justify-center">
-            <img
-              src={companyLogo}
-              alt="Logo de la empresa"
-              className="h-16 w-16 object-contain"
-            />
+            <img src={companyLogo} alt="Logo de la empresa" className="h-16 w-16 object-contain" />
           </div>
           <div className="space-y-2">
             <h1 className="text-2xl font-bold text-foreground">Recuperar Contraseña</h1>
@@ -127,10 +94,9 @@ const ForgotPasswordForm = () => {
                 />
               </div>
               {form.formState.errors.email && (
-                <p className="text-sm text-destructive">
-                  {form.formState.errors.email.message}
-                </p>
+                <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
               )}
+              {error && <p className="text-sm text-destructive">{error}</p>}
             </div>
 
             <Button
@@ -145,7 +111,7 @@ const ForgotPasswordForm = () => {
                   <span>Enviando...</span>
                 </div>
               ) : (
-                <div className="flex items-center space-x-2 ">
+                <div className="flex items-center space-x-2">
                   <Send className="h-4 w-4" />
                   <span>Enviar enlace</span>
                 </div>
@@ -165,8 +131,7 @@ const ForgotPasswordForm = () => {
         </CardContent>
       </Card>
     </div>
-
   );
-}
+};
 
 export default ForgotPasswordForm;

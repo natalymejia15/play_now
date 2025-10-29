@@ -10,9 +10,9 @@ import AdminDashboard from "./pages/admin/AdminDashboard";
 import CourtsManagement from "./pages/admin/CourtsManagement";
 import ClientHome from "./pages/client/ClientHome";
 import NotFound from "./pages/NotFound";
-import ProtectedRoute from "./components/ProtectedRoute";
 import ForgotPasswordForm from "./pages/ForgotPasswordForm";
 import ChangePassword from "./pages/ChangePassword";
+import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
@@ -22,7 +22,7 @@ function App() {
       <Routes>
         <Route path="/" element={<AuthPage />} />
         <Route path="/forgot-password" element={<ForgotPasswordForm />} />
-          <Route path="/change-password" element={<ChangePassword />} />
+       <Route path="/users/reset-password/:token" element={<ChangePassword />} />
         <Route
           path="/super-admin/dashboard"
           element={
