@@ -1,7 +1,8 @@
 import type { User } from "./user"
 
-export type UserContextType ={
+export interface UserContextType {
     user: User | null;
-     login: (userData: User) => void; 
-    logout:() => void;
+    loading: boolean;
+    login: (userData: User, token: string) => void; 
+    logout: () => void;
 }

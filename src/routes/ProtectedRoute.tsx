@@ -4,7 +4,7 @@ import { Navigate } from "react-router-dom";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
-  allowedRoles?: number[]; // opcional: restringir por roles
+  allowedRoles?: number[]; 
 }
 
 function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
@@ -14,7 +14,11 @@ function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
     throw new Error("ProtectedRoute debe estar dentro de UserProvider");
   }
 
-  const { user } = userCtx;
+  const { user, loading } = userCtx;
+
+  if (loading) {
+    return <div>Cargando...</div>; 
+  }
 
   if (!user) {
     return <Navigate to="/" replace />;
@@ -26,5 +30,6 @@ function ProtectedRoute({ children, allowedRoles }: ProtectedRouteProps) {
 
   return <>{children}</>;
 }
+
 
 export default ProtectedRoute;

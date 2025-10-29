@@ -14,15 +14,11 @@ export const useUserRole = () => {
       setIsLoading(false);
       return;
     }
-
-    // Mapea el idRol (numérico) al nombre del rol
     const roleMap: Record<number, UserRole> = {
       1: "superAdmin",
       2: "admin",
       3: "usuario",
     };
-
-    // Si el backend usa 'id_rol' o 'roleId', ajusta aquí
     const userRoleId = user.id_rol || user.roleId || user.idRol;
 
     if (userRoleId && roleMap[userRoleId]) {

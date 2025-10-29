@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import {
   Table,
   TableBody,
@@ -8,6 +9,11 @@ import {
 } from "../ui/table";
 
 export const CourtsTable = () => {
+
+  useEffect(() => {
+    document.title = "Gestión de Canchas- Play now";
+  }, []);
+
   return (
     <div className="border rounded-lg">
       <Table>

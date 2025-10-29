@@ -20,7 +20,7 @@ import { LayoutDashboard, Users, LogOut } from "lucide-react";
 
 const menuItems = [
   { title: "Dashboard", url: "/super-admin/dashboard", icon: LayoutDashboard },
-  { title: "Gestionar CC", url: "/super-admin/users", icon: Users },
+  { title: "Gestionar CC", url: "/super-admin/malls", icon: Users },
 ];
 
 interface SuperAdminLayoutProps {

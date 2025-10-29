@@ -23,9 +23,6 @@ export const CreateCourtDialog = ({ open, onOpenChange }: CreateCourtDialogProps
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-
-    // TODO: Implementar lógica para crear cancha
-    
     setIsLoading(false);
     setName("");
     setLocation("");

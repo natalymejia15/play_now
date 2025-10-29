@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
@@ -33,6 +33,12 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const isNIT = documentType === "NIT";
+
+
+  useEffect(() => {
+    document.title = "Registrar- Play now";
+  }, []);
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
