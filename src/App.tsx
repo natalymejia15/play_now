@@ -16,59 +16,64 @@ import ProtectedRoute from "./routes/ProtectedRoute";
 
 function App() {
   return (
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <Routes>
-        <Route path="/" element={<AuthPage />} />
-        <Route path="/forgot-password" element={<ForgotPasswordForm />} />
-       <Route path="/users/reset-password/:token" element={<ChangePassword />} />
-        <Route
-          path="/super-admin/dashboard"
-          element={
-            <ProtectedRoute allowedRoles={[1]}>
-              <SuperAdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/super-admin/malls"
-          element={
-            <ProtectedRoute allowedRoles={[1]}>
-              <UsersManagement />
-            </ProtectedRoute>
-          }
-        />
+    <div
+      className="min-h-screen bg-cover bg-center"
+      style={{ backgroundImage: "url('/src/assets/login-hero.png')" }}
+    >
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <Routes>
+          <Route path="/" element={<AuthPage />} />
+          <Route path="/forgot-password" element={<ForgotPasswordForm />} />
+          <Route path="/users/reset-password/:token" element={<ChangePassword />} />
+          <Route
+            path="/super-admin/dashboard"
+            element={
+              <ProtectedRoute allowedRoles={[1]}>
+                <SuperAdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/super-admin/malls"
+            element={
+              <ProtectedRoute allowedRoles={[1]}>
+                <UsersManagement />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/admin/dashboard"
-          element={
-            <ProtectedRoute allowedRoles={[2]}>
-              <AdminDashboard />
-            </ProtectedRoute>
-          }
-        />
-        <Route
-          path="/admin/courts"
-          element={
-            <ProtectedRoute allowedRoles={[2]}>
-              <CourtsManagement />
-            </ProtectedRoute>
-          }
-        />
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute allowedRoles={[2]}>
+                <AdminDashboard />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/courts"
+            element={
+              <ProtectedRoute allowedRoles={[2]}>
+                <CourtsManagement />
+              </ProtectedRoute>
+            }
+          />
 
-        <Route
-          path="/client/home"
-          element={
-            <ProtectedRoute allowedRoles={[3]}>
-              <ClientHome />
-            </ProtectedRoute>
-          }
-        />
-        <Route path="/dashboard" element={<Dashboard />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </TooltipProvider>
+          <Route
+            path="/client/home"
+            element={
+              <ProtectedRoute allowedRoles={[3]}>
+                <ClientHome />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </TooltipProvider>
+    </div>
   );
 }
 
