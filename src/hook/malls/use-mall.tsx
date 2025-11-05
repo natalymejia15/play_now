@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
-import type { IMall } from "../types/mall";
-import type { IAdmin } from "../types/admin";
+import type { IMall } from "../../types/mall";
+import type { IAdmin } from "../../types/admin";
 import axios from "axios";
-import { toast } from "./use-toast";
+import { toast } from "../use-toast";
 
 interface ICreateMallPayload {
   mall: IMall;

@@ -6,7 +6,7 @@ import { Label } from "../components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../components/ui/card";
 import { LockIcon, EyeIcon, EyeOffIcon, Send } from "lucide-react";
 import companyLogo from "../assets/logo.png";
-import { useChangePassword } from "../hook/use-change-password";
+import { useChangePassword } from "../hook/password/use-change-password";
 
 const ChangePassword = () => {
   const { token } = useParams<{ token: string }>();

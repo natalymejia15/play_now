@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { LogOut } from "lucide-react";
-import { useAuth } from "../../hook/use-auth";
+import { useAuth } from "../../hook/auth/use-auth";
 import type { ReactNode } from "react";
 
 interface ClientLayoutProps {

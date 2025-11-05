@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../hook/use-auth";
+import { useAuth } from "../hook/auth/use-auth";
 import { LoginForm } from "../components/auth/LoginForm";
 import { RegisterForm } from "../components/auth/RegisrterForm";
 import companyLogo from "../assets/logo.png";
 import type { RegisterFormData } from "../interfaces/register.interfaces";
-import { useRegister } from "../hook/use-register";
+import { useRegister } from "../hook/users/use-register";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(true);

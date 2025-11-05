@@ -9,7 +9,7 @@ import { Label } from '../components/ui/label';
 import { Input } from '../components/ui/input';
 import companyLogo from '../assets/logo.png';
 import { emailValidationSchema } from '../utils/validation';
-import { useForgotPassword } from '../hook/use-forgot-password';
+import { useForgotPassword } from '../hook/password/use-forgot-password';
 
 const forgotPasswordSchema = z.object({
   email: emailValidationSchema,

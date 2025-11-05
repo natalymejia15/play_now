@@ -13,6 +13,7 @@ import NotFound from "./pages/NotFound";
 import ForgotPasswordForm from "./pages/ForgotPasswordForm";
 import ChangePassword from "./pages/ChangePassword";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -69,6 +70,7 @@ function App() {
               </ProtectedRoute>
             }
           />
+           <Route path="/profile" element={<Profile />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
