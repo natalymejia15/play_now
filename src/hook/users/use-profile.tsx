@@ -32,8 +32,6 @@ export const useProfile = (userId?: number) => {
     try {
       setLoading(true);
       const { data } = await axios.get(`${API_URL}/${userId}`);
-
-      // 🔄 Mapeamos los campos del backend al formato del frontend
       const mappedData = {
         email: data.correo || "",
         first_name: data.primerNombre || "",
@@ -42,7 +40,7 @@ export const useProfile = (userId?: number) => {
         segundo_apellido: data.segundoApellido || "",
         document_type: data.tipoDocumento || "",
         document_number: data.numeroDocumento || "",
-        birth_date: data.birth_date || "", // si tu backend aún no lo tiene
+        birth_date: data.birth_date || "",
         phone_number: data.celular || "",
         address: data.direccion || "",
         business_name: data.razonSocial || "",
@@ -76,7 +74,6 @@ export const useProfile = (userId?: number) => {
     try {
       setLoading(true);
 
-      // 🔁 Mapeamos del frontend al formato del backend
       const payload = {
         correo: profile.email,
         primerNombre: profile.first_name,
@@ -95,6 +92,7 @@ export const useProfile = (userId?: number) => {
       toast({
         title: "Éxito",
         description: "Perfil actualizado correctamente",
+        variant:"success"
       });
       setEditing(false);
       setBackup(profile);

@@ -5,7 +5,7 @@ import { Toaster } from "./components/ui/toaster";
 import { Toaster as Sonner } from "./components/ui/sonner";
 import AuthPage from "./pages/Auth";
 import SuperAdminDashboard from "./pages/super-admin/SuperAdminDashboard";
-import UsersManagement from "./pages/super-admin/UsersManagement";
+import UsersManagement from "./pages/super-admin/MallsManagement";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import CourtsManagement from "./pages/admin/CourtsManagement";
 import ClientHome from "./pages/client/ClientHome";
@@ -14,6 +14,7 @@ import ForgotPasswordForm from "./pages/ForgotPasswordForm";
 import ChangePassword from "./pages/ChangePassword";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Profile from "./pages/Profile";
+import MallDetails from "./pages/super-admin/MallDetails";
 
 function App() {
   return (
@@ -41,6 +42,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={[1]}>
                 <UsersManagement />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/super-admin/mall/:id"
+            element={
+              <ProtectedRoute allowedRoles={[1]}>
+                <MallDetails />
               </ProtectedRoute>
             }
           />

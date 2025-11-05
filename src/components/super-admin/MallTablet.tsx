@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   Table,
   TableBody,
@@ -7,59 +7,43 @@ import {
   TableHeader,
   TableRow,
 } from "../ui/table";
-import { useCreateMall } from "../../hook/malls/use-mall";
 import { Button } from "../ui/button";
 import { Eye, Pencil, Trash2 } from "lucide-react";
 import { EditMallDialog } from "./EditMallDialog";
-import type { User } from "../../types/user";
+import type { IMall } from "../../types/mall";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "../ui/alert-dialog";
 import { useNavigate } from "react-router-dom";
-import { useToast } from "../../hook/use-toast";
+import { useMalls } from "../../hook/malls/use-mall";
 
-
-export const UsersTable = () => {
-  const { malls, fetchMalls, fetching } = useCreateMall();
-  const [localMalls, setLocalMalls] = useState(malls);
+export const MallsTable = () => {
+  const { malls, fetching, deleteMall } = useMalls();
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const [mallToEdit, setMallToEdit] = useState<IMall | null>(null);
+  const [mallToDelete, setMallToDelete] = useState<IMall | null>(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [selectedUserId, setSelectedUserId] = useState<string | null>(null);
-  const [userToDelete, setUserToDelete] = useState<User | null>(null);
   const navigate = useNavigate();
-  const { toast } = useToast();
 
-
-  const handleViewMall = (mallId?: string) => {
-    if (mallId) {
-      navigate(`/super-admin/mall/${mallId}`);
-    } else {
-      toast({
-        title: "Sin centro comercial",
-        description: "Este usuario no tiene un centro comercial asignado",
-        variant: "destructive",
-      });
-    }
-  };
-
-   const handleEdit = (userId: string) => {
-    setSelectedUserId(userId);
+  const handleEdit = (mall: IMall) => {
+    setMallToEdit(mall);
     setIsEditDialogOpen(true);
   };
 
-  const handleDeleteClick = (user: User) => {
-    setUserToDelete(user);
+  const handleDeleteClick = (mall: IMall) => {
+    setMallToDelete(mall);
     setIsDeleteDialogOpen(true);
   };
-  const fetchUsers = async () => {
 
+  const handleConfirmDelete = async () => {
+    if (mallToDelete?.id) {
+      await deleteMall(mallToDelete.id);
+      setIsDeleteDialogOpen(false);
+    }
   };
-  useEffect(() => {
-    setLocalMalls(malls);
-  }, [malls]);
 
-  useEffect(() => {
-    fetchMalls();
-  }, []);
-
+  const handleViewMall = (mallId?: number) => {
+    if (!mallId) return;
+    navigate(`/super-admin/mall/${mallId}`);
+  };
 
   if (fetching) return <div>Cargando centros comerciales...</div>;
 
@@ -68,52 +52,48 @@ export const UsersTable = () => {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead>Nombre del Centro</TableHead>
+            <TableHead>Centro Comercial</TableHead>
             <TableHead>Dirección</TableHead>
             <TableHead>Teléfono</TableHead>
             <TableHead>Ciudad</TableHead>
+            <TableHead>Administrador</TableHead>
+            <TableHead>Correo</TableHead>
+            <TableHead>Celular</TableHead>
             <TableHead>Acciones</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           {malls.length === 0 ? (
             <TableRow>
-              <TableCell colSpan={4} className="text-center text-muted-foreground">
+              <TableCell colSpan={8} className="text-center text-muted-foreground">
                 No hay centros comerciales registrados
               </TableCell>
             </TableRow>
           ) : (
             malls.map((mall) => (
-              <TableRow key={mall.nombreCentro}>
+              <TableRow key={mall.id}>
                 <TableCell>{mall.nombreCentro}</TableCell>
                 <TableCell>{mall.direccion}</TableCell>
                 <TableCell>{mall.telefono}</TableCell>
                 <TableCell>{mall.ciudad}</TableCell>
                 <TableCell>
-
+                  {mall.administrador
+                    ? `${mall.administrador.primerNombre} ${mall.administrador.primerApellido}`
+                    : "Sin asignar"}
+                </TableCell>
+                <TableCell>{mall.administrador?.correo || "-"}</TableCell>
+                <TableCell>{mall.administrador?.celular || "-"}</TableCell>
+                <TableCell>
                   <div className="flex justify-end gap-2">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleViewMall}
-                      title="Ver centro comercial"
-                    >
+                    <Button variant="ghost" size="icon" onClick={() => handleViewMall(mall.id)} title="Ver centro comercial">
                       <Eye className="h-4 w-4" />
                     </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleEdit}
-                      title="Editar usuario"
-                    >
+
+                    <Button variant="ghost" size="icon" onClick={() => handleEdit(mall)} title="Editar">
                       <Pencil className="h-4 w-4" />
                     </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleDeleteClick}
-                      title="Eliminar usuario"
-                    >
+
+                    <Button variant="ghost" size="icon" onClick={() => handleDeleteClick(mall)} title="Eliminar">
                       <Trash2 className="h-4 w-4" />
                     </Button>
                   </div>
@@ -123,25 +103,28 @@ export const UsersTable = () => {
           )}
         </TableBody>
       </Table>
+
       <EditMallDialog
         open={isEditDialogOpen}
         onOpenChange={setIsEditDialogOpen}
-        userId={selectedUserId}
-        onSuccess={fetchUsers}
+        mall={mallToEdit}
       />
 
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>¿Está seguro de eliminar este usuario?</AlertDialogTitle>
+            <AlertDialogTitle>¿Eliminar este centro comercial?</AlertDialogTitle>
             <AlertDialogDescription>
-              Esta acción no se puede deshacer. Se eliminará permanentemente el usuario{" "}
-              <span className="font-semibold">{userToDelete?.email}</span> y su rol de administrador.
+              Esta acción eliminará permanentemente{" "}
+              <span className="font-semibold">{mallToDelete?.nombreCentro}</span>.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
             <AlertDialogCancel>Cancelar</AlertDialogCancel>
-            <AlertDialogAction className="bg-destructive hover:bg-destructive/90">
+            <AlertDialogAction
+              className="bg-destructive hover:bg-destructive/90"
+              onClick={handleConfirmDelete}
+            >
               Eliminar
             </AlertDialogAction>
           </AlertDialogFooter>
