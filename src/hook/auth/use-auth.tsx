@@ -1,7 +1,7 @@
 import { useState, useEffect, useContext } from "react";
-import { toast } from "./use-toast";
+import { toast } from "../use-toast";
 import axios from "axios";
-import { UserContext } from "../context/UserContext";
+import { UserContext } from "../../context/UserContext";
 
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
@@ -39,7 +39,7 @@ export const useAuth = () => {
         password,
       });
 
-      const { token, user } = response.data;
+      const { token, user, message } = response.data;
       localStorage.setItem("token", token);
       localStorage.setItem("user", JSON.stringify(user));
 
@@ -47,20 +47,24 @@ export const useAuth = () => {
         login(user, token);
         toast({
           title: "¡Bienvenido!",
-          description: "Has iniciado sesión correctamente",
+          description: message || "Has iniciado sesión correctamente",
           variant: "success",
         });
       }
 
       return { user, error: null as string | null };
     } catch (err: any) {
+      const errorMessage =
+        err.response?.data?.message ||
+        "El campo usuario o contraseña son incorrectos.";
+
       toast({
         variant: "destructive",
         title: "Error de autenticación",
-        description:
-          "El campo usuario o contraseña son incorrectos",
+        description: errorMessage,
       });
-      return { error: err };
+
+      return { error: errorMessage };
     }
   };
 

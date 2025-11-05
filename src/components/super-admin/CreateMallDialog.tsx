@@ -11,14 +11,14 @@ import { Label } from "../ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Loader2, Building2, User } from "lucide-react";
 import { ScrollArea } from "../ui/scroll-area";
-import { useCreateMall } from "../../hook/use-mall";
+import { useCreateMall } from "../../hook/malls/use-create-mall";
 
-interface CreateUserDialogProps {
+interface CreateMallDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-export const CreateUserDialog = ({ open, onOpenChange }: CreateUserDialogProps) => {
+export const CreateMallDialog = ({ open, onOpenChange }: CreateMallDialogProps) => {
   const { createMall, isLoading } = useCreateMall();
 
   const [form, setForm] = useState({
@@ -106,8 +106,6 @@ export const CreateUserDialog = ({ open, onOpenChange }: CreateUserDialogProps) 
         <ScrollArea className="max-h-[calc(90vh-8rem)] pr-4 bg-transparent">
 
           <form onSubmit={handleSubmit} className="space-y-6">
-
-            {/* Información Centro Comercial */}
             <div className="space-y-4 p-6 rounded-xl border border-green-100 bg-white/80 shadow-sm backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-4">
                 <Building2 className="h-5 w-5 text-green-600" />
@@ -178,8 +176,6 @@ export const CreateUserDialog = ({ open, onOpenChange }: CreateUserDialogProps) 
                 </div>
               </div>
             </div>
-
-            {/* Información Administrador */}
             <div className="space-y-4 p-6 rounded-xl border border-blue-100 bg-white/80 shadow-sm backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-4">
                 <User className="h-5 w-5 text-green-800" />
@@ -187,7 +183,6 @@ export const CreateUserDialog = ({ open, onOpenChange }: CreateUserDialogProps) 
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {/* Tipo Documento */}
                 <div className="space-y-2">
                   <Label htmlFor="tipoDocumento">Tipo de Documento *</Label>
                   <Select

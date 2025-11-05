@@ -1,8 +1,8 @@
 import axios from "axios";
 import { z } from "zod";
-import { toast } from "./use-toast";
-import type { RegisterFormData } from "../interfaces/register.interfaces";
-import { companySchema, naturalPersonSchema } from "../utils/validation";
+import { toast } from "../use-toast";
+import type { RegisterFormData } from "../../interfaces/register.interfaces";
+import { companySchema, naturalPersonSchema } from "../../utils/validation";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 

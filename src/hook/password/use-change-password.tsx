@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { useToast } from "./use-toast";
+import { useToast } from "../use-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import type { ChangePasswordParams } from "../types/change";
+import type { ChangePasswordParams } from "../../types/change";
 
 const API_URL =  import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 

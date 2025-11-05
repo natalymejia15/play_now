@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useAuth } from "./use-auth";
+import { useAuth } from "../auth/use-auth";
 
 export type UserRole = "superAdmin" | "admin" | "usuario" | null;
 

@@ -2,18 +2,15 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
-
-interface LoginFormProps {
-  onSubmit: (email: string, password: string) => Promise<void>;
-  onToggleForm: () => void;
-}
+import type { LoginFormProps } from "../../interfaces/auth.interfaces";
 
 export const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,24 +44,36 @@ export const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
             className="h-12 border border-gray-300 rounded-lg bg-gray-50 focus:border-green-400 focus:ring-1 focus:ring-green-200 transition-colors"
           />
         </div>
-
         <div className="space-y-2">
-          <Label htmlFor="password" className="text-gray-700 font-medium">
-            Contraseña
-          </Label>
+        <Label htmlFor="password" className="text-gray-700 font-medium">
+          Contraseña
+        </Label>
+        <div className="relative">
           <Input
             id="password"
-            type="password"
+            type={showPassword ? "text" : "password"}
             placeholder="••••••••"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
             disabled={isLoading}
-            className="h-12 border border-gray-300 rounded-lg bg-gray-50 focus:border-green-400 focus:ring-1 focus:ring-green-200 transition-colors"
+            className="h-12 pr-12 border border-gray-300 rounded-lg bg-gray-50 focus:border-green-400 focus:ring-1 focus:ring-green-200 transition-colors"
           />
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
+            tabIndex={-1}
+          >
+            {showPassword ? (
+              <EyeOff className="h-5 w-5" />
+            ) : (
+              <Eye className="h-5 w-5" />
+            )}
+          </button>
         </div>
       </div>
-
+      </div>
       <div className="space-y-4">
         <Button
           type="submit"

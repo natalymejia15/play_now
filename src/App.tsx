@@ -5,7 +5,7 @@ import { Toaster } from "./components/ui/toaster";
 import { Toaster as Sonner } from "./components/ui/sonner";
 import AuthPage from "./pages/Auth";
 import SuperAdminDashboard from "./pages/super-admin/SuperAdminDashboard";
-import UsersManagement from "./pages/super-admin/UsersManagement";
+import UsersManagement from "./pages/super-admin/MallsManagement";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import CourtsManagement from "./pages/admin/CourtsManagement";
 import ClientHome from "./pages/client/ClientHome";
@@ -13,6 +13,10 @@ import NotFound from "./pages/NotFound";
 import ForgotPasswordForm from "./pages/ForgotPasswordForm";
 import ChangePassword from "./pages/ChangePassword";
 import ProtectedRoute from "./routes/ProtectedRoute";
+import Profile from "./pages/Profile";
+import MallDetails from "./pages/super-admin/MallDetails";
+import CrearReservasPage from "./pages/client/CrearReservaPage";
+import HistoricoReservasPage from "./pages/client/HistoricoReservasPage";
 
 function App() {
   return (
@@ -43,6 +47,14 @@ function App() {
               </ProtectedRoute>
             }
           />
+           <Route
+            path="/super-admin/mall/:id"
+            element={
+              <ProtectedRoute allowedRoles={[1]}>
+                <MallDetails />
+              </ProtectedRoute>
+            }
+          />
 
           <Route
             path="/admin/dashboard"
@@ -69,6 +81,23 @@ function App() {
               </ProtectedRoute>
             }
           />
+           <Route
+            path="/client/courts"
+            element={
+              <ProtectedRoute allowedRoles={[3]}>
+                <CrearReservasPage />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/client/historico"
+            element={
+              <ProtectedRoute allowedRoles={[3]}>
+                <HistoricoReservasPage />
+              </ProtectedRoute>
+            }
+          />
+           <Route path="/profile" element={<Profile />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
