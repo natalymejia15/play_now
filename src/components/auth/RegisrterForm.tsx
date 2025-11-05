@@ -10,14 +10,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Loader2 } from "lucide-react";
-import type { RegisterFormData } from "../../interfaces/register.interfaces";
-
-type DocumentType = "NIT" | "CC";
-
-interface RegisterFormProps {
-  onSubmit: (data: RegisterFormData) => Promise<void>;
-  onToggleForm: () => void;
-}
+import type { RegisterFormData, RegisterFormProps } from "../../interfaces/register.interfaces";
+import type { DocumentType } from "../../types/document";
 
 export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
   const [documentType, setDocumentType] = useState<DocumentType>("CC");
@@ -34,11 +28,9 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
 
   const isNIT = documentType === "NIT";
 
-
   useEffect(() => {
     document.title = "Registrar- Play now";
   }, []);
-
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -75,7 +67,6 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
   return (
     <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-5xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
-        {/* Tipo de documento */}
         <div className="space-y-2">
           <Label htmlFor="document-type" className="text-gray-700 font-medium">
             Tipo de documento

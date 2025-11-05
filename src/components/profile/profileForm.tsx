@@ -53,8 +53,6 @@ export const ProfileForm = ({ userId }: ProfileFormProps) => {
                 className="bg-blue-100 text-blue-900 border-blue-200 focus:ring-2 focus:ring-blue-300"
               />
             </div>
-
-            {/* Tipo de Documento */}
             <div className="space-y-1">
               <Label htmlFor="document_type" className="text-blue-800 font-medium">Tipo de Documento</Label>
               <Select
@@ -70,8 +68,6 @@ export const ProfileForm = ({ userId }: ProfileFormProps) => {
                 </SelectTrigger>
                 <SelectContent className="bg-green-50 text-blue-900 border border-blue-200 shadow-md">
                   <SelectItem value="CC">Cédula</SelectItem>
-                  <SelectItem value="TI">Tarjeta de Identidad</SelectItem>
-                  <SelectItem value="PA">Pasaporte</SelectItem>
                   <SelectItem value="NIT">NIT</SelectItem>
                 </SelectContent>
               </Select>

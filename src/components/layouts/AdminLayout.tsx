@@ -1,4 +1,3 @@
-import { useMemo, type ReactNode } from "react";
 import { useNavigate, NavLink } from "react-router-dom";
 import {
   Sidebar,
@@ -10,47 +9,13 @@ import {
   SidebarMenuItem,
   SidebarMenuButton,
   SidebarProvider,
-  SidebarTrigger,
-  SidebarInset,
-  useSidebar,
 } from "../ui/sidebar";
-import { LayoutDashboard, MapPin, LogOut, User } from "lucide-react";
+import { LogOut, User } from "lucide-react";
 import { Button } from "../ui/button";
 import { useAuth } from "../../hook/auth/use-auth";
-
-const menuItems = [
-  { title: "Dashboard", url: "/admin/dashboard", icon: LayoutDashboard },
-  { title: "Gestionar Canchas", url: "/admin/courts", icon: MapPin },
-];
-
-interface AdminLayoutProps {
-  children: ReactNode;
-}
-
-function InnerContent({ children }: { children: ReactNode }) {
-  const { state, isMobile } = useSidebar();
-
-  const SIDEBAR_OPEN_WIDTH = "14rem";
-  const SIDEBAR_ICON_WIDTH = "3rem";
-
-  const marginLeft = useMemo(() => {
-    if (isMobile) return "0";
-    return state === "expanded" ? SIDEBAR_OPEN_WIDTH : SIDEBAR_ICON_WIDTH;
-  }, [state, isMobile]);
-
-  return (
-    <SidebarInset
-      className="flex flex-col flex-1 transition-all duration-300 bg-white"
-      style={{ marginLeft, minHeight: "100vh" }}
-    >
-      <header className="h-16 border-b border-green-200 flex items-center px-6 bg-white sticky top-0 z-10">
-        <SidebarTrigger className="text-green-700 hover:text-green-900 transition-colors" />
-      </header>
-
-      <main className="flex-1 p-6 overflow-auto">{children}</main>
-    </SidebarInset>
-  );
-}
+import { menuItems } from "../../config/navItems";
+import type { AdminLayoutProps } from "../../interfaces/layout.interfaces";
+import { InnerContent } from "./InnerContent";
 
 export const AdminLayout = ({ children }: AdminLayoutProps) => {
   const navigate = useNavigate();
@@ -70,14 +35,10 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
           className="bg-green-50 border-r border-green-200 shadow-lg"
         >
           <div className="flex flex-col h-full">
-            
-            {/* === ENCABEZADO === */}
             <div className="p-4 border-b border-green-200">
               <h2 className="text-lg font-semibold text-green-900">Administrador</h2>
               <p className="text-sm text-green-700 truncate">{user?.email}</p>
             </div>
-
-            {/* === MENÚ PRINCIPAL === */}
             <SidebarContent className="flex-1">
               <SidebarGroup>
                 <SidebarGroupLabel className="text-green-700 font-medium">
@@ -108,8 +69,6 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
                 </SidebarGroupContent>
               </SidebarGroup>
             </SidebarContent>
-
-            {/* === MI PERFIL (ABAJO, SOBRE CERRAR SESIÓN) === */}
             <div className="p-4 border-t border-green-200">
               <SidebarMenu>
                 <SidebarMenuItem>
@@ -130,7 +89,6 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
-
               <Button
                 onClick={handleSignOut}
                 variant="outline"
@@ -142,7 +100,6 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
             </div>
           </div>
         </Sidebar>
-
         <InnerContent>{children}</InnerContent>
       </div>
     </SidebarProvider>

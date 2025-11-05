@@ -1,45 +1,64 @@
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { LogOut } from "lucide-react";
 import { useAuth } from "../../hook/auth/use-auth";
-import type { ReactNode } from "react";
-
-interface ClientLayoutProps {
-  children: ReactNode;
-}
+import { navItems } from "../../config/navItems";
+import type { ClientLayoutProps } from "../../interfaces/layout.interfaces";
 
 export const ClientLayout = ({ children }: ClientLayoutProps) => {
   const navigate = useNavigate();
-  const { signOut, user } = useAuth();
+  const { signOut } = useAuth();
 
   const handleSignOut = async () => {
     await signOut();
     navigate("/");
   };
 
-  return (
-    <div className="min-h-screen bg-white text-gray-800">
-      <header className="border-b border-green-200 bg-white sticky top-0 z-10 shadow-sm">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <h1 className="text-xl font-semibold text-green-900">Reservas</h1>
-          <div className="flex items-center gap-4">
-            <span className="text-sm text-green-700 truncate">{user?.email}</span>
-            <Button
-              onClick={handleSignOut}
-              variant="outline"
-              size="sm"
-              className="border-green-400 text-green-700 hover:bg-green-100 hover:text-green-900 transition-all"
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              Cerrar Sesión
-            </Button>
+return (
+    <div className="min-h-screen flex flex-col bg-gradient-to-br from-green-50 to-white text-gray-800">
+      <header className="sticky top-0 z-20 bg-white/80 backdrop-blur-md border-b border-green-100 shadow-sm">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="grid grid-cols-3 items-center h-16">
+            <nav className="flex items-center gap-2">
+              {navItems.map((item) => (
+                <NavLink
+                  key={item.name}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `flex items-center gap-2 px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 ${
+                      isActive
+                        ? "bg-green-100 text-green-900 shadow-inner"
+                        : "text-green-700 hover:bg-green-50 hover:text-green-900"
+                    }`
+                  }
+                >
+                  <item.icon className="h-4 w-4" />
+                  <span className="hidden sm:inline">{item.name}</span>
+                </NavLink>
+              ))}
+            </nav>
+
+            <div className="flex justify-center">
+              <h1 className="text-lg font-semibold text-green-900 tracking-wide">
+                Reserva de canchas
+              </h1>
+            </div>
+
+            <div className="flex justify-end items-center gap-3">
+              <Button
+                onClick={handleSignOut}
+                variant="ghost"
+                size="sm"
+                className="text-green-700 hover:text-green-900 hover:bg-green-100 transition-all"
+              >
+                <LogOut className="h-4 w-4 mr-2" />
+                Salir
+              </Button>
+            </div>
           </div>
         </div>
       </header>
-
-      <main className="container mx-auto px-4 py-8">
-        {children}
-      </main>
+      <main className="flex-1 max-w-7xl mx-auto w-full px-6 py-8">{children}</main>
     </div>
   );
 };

@@ -15,6 +15,8 @@ import ChangePassword from "./pages/ChangePassword";
 import ProtectedRoute from "./routes/ProtectedRoute";
 import Profile from "./pages/Profile";
 import MallDetails from "./pages/super-admin/MallDetails";
+import CrearReservasPage from "./pages/client/CrearReservaPage";
+import HistoricoReservasPage from "./pages/client/HistoricoReservasPage";
 
 function App() {
   return (
@@ -76,6 +78,22 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={[3]}>
                 <ClientHome />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/client/courts"
+            element={
+              <ProtectedRoute allowedRoles={[3]}>
+                <CrearReservasPage />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/client/historico"
+            element={
+              <ProtectedRoute allowedRoles={[3]}>
+                <HistoricoReservasPage />
               </ProtectedRoute>
             }
           />

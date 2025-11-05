@@ -12,3 +12,8 @@ export interface RegisterFormData {
   password: string;                 
   idRol: number;                     
 }
+
+export interface RegisterFormProps {
+  onSubmit: (data: RegisterFormData) => Promise<void>;
+  onToggleForm: () => void;
+}
