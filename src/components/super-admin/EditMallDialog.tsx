@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -17,9 +16,8 @@ import {
 } from "../ui/select";
 import { Loader2, Building2, User } from "lucide-react";
 import { ScrollArea } from "../ui/scroll-area";
-import { useToast } from "../../hook/use-toast";
-import axios from "axios";
 import type { IMall } from "../../types/mall";
+import { useEditMall } from "../../hook/malls/use-edit-mall";
 
 interface EditMallDialogProps {
   open: boolean;
@@ -28,112 +26,9 @@ interface EditMallDialogProps {
   onSuccess?: () => void;
 }
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
 export const EditMallDialog = ({ open, onOpenChange, mall, onSuccess }: EditMallDialogProps) => {
-  const { toast } = useToast();
-  const [isLoading, setIsLoading] = useState(false);
-
-  const [form, setForm] = useState({
-    nombreCentro: "",
-    direccionMall: "",
-    telefono: "",
-    ciudad: "",
-    tipoDocumento: "CC",
-    numeroDocumento: "",
-    primerNombre: "",
-    segundoNombre: "",
-    primerApellido: "",
-    segundoApellido: "",
-    correo: "",
-    celular: "",
-    direccionAdmin: "",
-  });
-
-  useEffect(() => {
-    if (mall && open) {
-      setForm({
-        nombreCentro: mall.nombreCentro || "",
-        direccionMall: mall.direccion || "",
-        telefono: mall.telefono || "",
-        ciudad: mall.ciudad || "",
-        tipoDocumento: mall.administrador?.tipoDocumento || "CC",
-        numeroDocumento: mall.administrador?.numeroDocumento || "",
-        primerNombre: mall.administrador?.primerNombre || "",
-        segundoNombre: mall.administrador?.segundoNombre || "",
-        primerApellido: mall.administrador?.primerApellido || "",
-        segundoApellido: mall.administrador?.segundoApellido || "",
-        correo: mall.administrador?.correo || "",
-        celular: mall.administrador?.celular || "",
-        direccionAdmin: mall.administrador?.direccion || "",
-      });
-    }
-  }, [mall, open]);
-
-  const handleChange = (field: string, value: string) => {
-    setForm((prev) => ({ ...prev, [field]: value }));
-  };
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!mall?.id) return;
-
-    const token = localStorage.getItem("token");
-    if (!token) {
-      toast({
-        title: "Error",
-        description: "No se encontró token de autenticación",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    setIsLoading(true);
-
-    try {
-      const payload = {
-        mall: {
-          nombreCentro: form.nombreCentro,
-          direccion: form.direccionMall,
-          telefono: form.telefono,
-          ciudad: form.ciudad,
-        },
-        admin: {
-          tipoDocumento: form.tipoDocumento,
-          numeroDocumento: form.numeroDocumento,
-          primerNombre: form.primerNombre,
-          segundoNombre: form.segundoNombre,
-          primerApellido: form.primerApellido,
-          segundoApellido: form.segundoApellido,
-          correo: form.correo,
-          celular: form.celular,
-          direccion: form.direccionAdmin,
-        },
-      };
-
-      await axios.put(`${API_URL}/malls/${mall.id}`, payload, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
-
-      toast({
-        title: "Éxito",
-        description: "Centro comercial actualizado correctamente",
-        variant: "success",
-      });
-
-      onSuccess?.();
-      onOpenChange(false);
-    } catch (error: any) {
-      console.error("Error actualizando mall:", error);
-      toast({
-        title: "Error",
-        description: error?.response?.data?.message || "No se pudo actualizar el centro comercial",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+  const { handleChange, handleSubmit, isLoading, form } = useEditMall({ open, onOpenChange, mall, onSuccess })
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -146,7 +41,6 @@ export const EditMallDialog = ({ open, onOpenChange, mall, onSuccess }: EditMall
 
         <ScrollArea className="max-h-[calc(90vh-8rem)] pr-4">
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Información Centro Comercial */}
             <div className="space-y-4 p-6 rounded-xl border border-green-100 bg-white/80 shadow-sm backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-4">
                 <Building2 className="h-5 w-5 text-green-600" />
@@ -212,8 +106,6 @@ export const EditMallDialog = ({ open, onOpenChange, mall, onSuccess }: EditMall
                 </div>
               </div>
             </div>
-
-            {/* Información Administrador */}
             <div className="space-y-4 p-6 rounded-xl border border-blue-100 bg-white/80 shadow-sm backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-4">
                 <User className="h-5 w-5 text-green-800" />

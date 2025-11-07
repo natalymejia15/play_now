@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "../ui/table";
 import { Button } from "../ui/button";
-import { Loader2, Pencil, Trash } from "lucide-react";
+import { Eye, Loader2, Pencil, Trash } from "lucide-react";
 import { useCourt } from "../../hook/courts/use-courts";
 import type { Court } from "../../types/courts";
 import {
@@ -21,17 +21,26 @@ import {
   AlertDialogHeader,
   AlertDialogTitle
 } from "../ui/alert-dialog";
+import { EditCourtDialog } from "./EditCourtsDialog";
+import { useNavigate } from "react-router-dom";
 
 export const CourtsTable = () => {
   const { courts, fetchCourts, loading, deleteCourts } = useCourt();
   const [courtsToDelete, setCourtsToDelete] = useState<Court | null>(null);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [selectedCourt, setSelectedCourt] = useState<Court | null>(null);
+  const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = "Gestión de Canchas - Play Now";
     fetchCourts();
   }, []);
 
+  const handleEditClick = (court: Court) => {
+    setSelectedCourt(court);
+    setIsEditDialogOpen(true);
+  };
   const handleDeleteClick = (court: Court) => {
     setCourtsToDelete(court);
     setIsDeleteDialogOpen(true);
@@ -43,6 +52,12 @@ export const CourtsTable = () => {
       setIsDeleteDialogOpen(false);
     }
   };
+
+  const handleViewCourts = (courtsId?: number) => {
+    if (!courtsId) return;
+    navigate(`/admin/courts/${courtsId}`);
+  };
+
   return (
     <div className="border rounded-lg">
       <Table>
@@ -93,11 +108,14 @@ export const CourtsTable = () => {
                 </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
+                    <Button variant="ghost" size="icon" onClick={() => handleViewCourts(court.id)} title="Ver centro comercial">
+                      <Eye className="h-4 w-4" />
+                    </Button>
                     <Button
                       variant="outline"
                       size="icon"
                       className="h-8 w-8"
-                      onClick={() => console.log("Editar cancha", court.id)}
+                      onClick={() => handleEditClick(court)}
                     >
                       <Pencil className="h-4 w-4" />
                     </Button>
@@ -116,6 +134,12 @@ export const CourtsTable = () => {
           )}
         </TableBody>
       </Table>
+      <EditCourtDialog
+        open={isEditDialogOpen}
+        onOpenChange={setIsEditDialogOpen}
+        court={selectedCourt}
+        refreshCourts={fetchCourts}
+      />
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
         <AlertDialogContent>
           <AlertDialogHeader>

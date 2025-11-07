@@ -18,6 +18,7 @@ import MallDetails from "./pages/super-admin/MallDetails";
 import CrearReservasPage from "./pages/client/CrearReservaPage";
 import HistoricoReservasPage from "./pages/client/HistoricoReservasPage";
 import HistoryAdmin from "./pages/admin/HistoryAdmin";
+import CourtsDetailsPage from "./pages/admin/CourtsDetails";
 
 function App() {
   return (
@@ -70,6 +71,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={[2]}>
                 <CourtsManagement />
+              </ProtectedRoute>
+            }
+          />
+           <Route
+            path="/admin/courts/:id"
+            element={
+              <ProtectedRoute allowedRoles={[2]}>
+                <CourtsDetailsPage />
               </ProtectedRoute>
             }
           />

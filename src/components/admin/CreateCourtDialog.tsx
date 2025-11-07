@@ -10,6 +10,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Loader2 } from "lucide-react";
 import { useCreateCourt } from "../../hook/courts/use-create-court";
+import { toast } from "../../hook/use-toast";
 
 interface CreateCourtDialogProps {
   open: boolean;
@@ -66,6 +67,16 @@ export const CreateCourtDialog = ({ open, onOpenChange }: CreateCourtDialogProps
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const user = JSON.parse(localStorage.getItem("user") || "{}");
+    if (!user?.mallId) {
+      toast({
+        title: "Error",
+        description: "No se encontró el centro comercial asociado al usuario.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     const formData = new FormData();
     formData.append("nombreCancha", nombreCancha);
     formData.append("horarioInicio", horarioInicio);
@@ -77,6 +88,7 @@ export const CreateCourtDialog = ({ open, onOpenChange }: CreateCourtDialogProps
     formData.append("responsable", responsable);
     formData.append("detalles", detalles);
     formData.append("capacidad", capacidad);
+    formData.append("mallId", user.mallId);
     if (imagen) formData.append("imagen", imagen);
 
     try {
