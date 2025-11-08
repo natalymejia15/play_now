@@ -144,7 +144,7 @@ export const EditCourtDialog = ({
               <Label>Imagen actual</Label>
               {court.imagen && (
                 <img
-                  src={`http://localhost:4000/uploads/${court.imagen}`}
+                  src={`http://localhost:4000/api/uploads/${court.imagen}`}
                   alt={court.nombreCancha}
                   className="w-full h-40 object-cover rounded-md mb-2"
                 />

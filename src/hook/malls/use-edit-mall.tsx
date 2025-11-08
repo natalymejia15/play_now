@@ -75,10 +75,23 @@ export const useEditMall = ({ open, onOpenChange, mall, onSuccess }: EditMallDia
 
         try {
             const payload = {
-                nombreCentro: form.nombreCentro,
-                direccion: form.direccionMall,
-                telefono: form.telefono,
-                ciudad: form.ciudad
+                mall: {
+                    nombreCentro: form.nombreCentro,
+                    direccion: form.direccionMall,
+                    telefono: form.telefono,
+                    ciudad: form.ciudad,
+                },
+                admin: {
+                    tipoDocumento: form.tipoDocumento,
+                    numeroDocumento: form.numeroDocumento,
+                    primerNombre: form.primerNombre,
+                    segundoNombre: form.segundoNombre,
+                    primerApellido: form.primerApellido,
+                    segundoApellido: form.segundoApellido,
+                    correo: form.correo,
+                    celular: form.celular,
+                    direccion: form.direccionAdmin,
+                },
             };
 
             await axios.put(`${API_URL}/malls/${mall.id}`, payload, {
@@ -108,5 +121,5 @@ export const useEditMall = ({ open, onOpenChange, mall, onSuccess }: EditMallDia
         }
     };
 
-    return { handleChange, handleSubmit,isLoading, form}
+    return { handleChange, handleSubmit, isLoading, form }
 }

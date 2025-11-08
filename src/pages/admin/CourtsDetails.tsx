@@ -8,7 +8,7 @@ import { useCourt } from "../../hook/courts/use-courts";
 import { AdminLayout } from "../../components/layouts/AdminLayout";
 
 export default function CourtDetailsPage() {
-    const { id, fetchCourtsDetails, isLoading, court, API_URL_IMAGE } = useCourt();
+    const { id, fetchCourtsDetails, isLoading, court, API_URL } = useCourt();
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -140,7 +140,7 @@ export default function CourtDetailsPage() {
                         <CardContent className="flex justify-center">
                             {court.imagen ? (
                                 <img
-                                    src={`${API_URL_IMAGE}/uploads/${court.imagen}`}
+                                    src={`${API_URL}/uploads/${court.imagen}`}
                                     alt={court.nombreCancha}
                                     className="rounded-2xl shadow-md object-cover w-full max-w-md h-64"
                                 />

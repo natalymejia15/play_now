@@ -68,7 +68,8 @@ export const CourtsTable = () => {
             <TableHead>Responsable</TableHead>
             <TableHead>Valor Hora</TableHead>
             <TableHead>Capacidad</TableHead>
-            <TableHead>Estado</TableHead>
+            <TableHead>Hora inicio</TableHead>
+            <TableHead>Hora fin</TableHead>
             <TableHead className="text-right">Acciones</TableHead>
           </TableRow>
         </TableHeader>
@@ -99,13 +100,8 @@ export const CourtsTable = () => {
                 <TableCell>{court.responsable}</TableCell>
                 <TableCell>${court.valorHora.toLocaleString()}</TableCell>
                 <TableCell>{court.capacidad}</TableCell>
-                <TableCell>
-                  {court.mallId ? (
-                    <span className="text-green-600 font-medium">Asignada</span>
-                  ) : (
-                    <span className="text-gray-500">Sin asignar</span>
-                  )}
-                </TableCell>
+                <TableCell>{court.horarioInicio} </TableCell>
+                <TableCell>{court.horarioFin} </TableCell>
                 <TableCell className="text-right">
                   <div className="flex justify-end gap-2">
                     <Button variant="ghost" size="icon" onClick={() => handleViewCourts(court.id)} title="Ver centro comercial">

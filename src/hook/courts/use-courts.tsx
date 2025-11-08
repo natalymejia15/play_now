@@ -5,7 +5,6 @@ import axios from "axios";
 import { useParams } from "react-router-dom";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
-const API_URL_IMAGE = import.meta.env.VITE_API_URL || "http://localhost:4000";
 export const useCourt = () => {
     const [courts, setCourts] = useState<Court[]>([]);
     const [loading, setLoading] = useState(true);
@@ -150,6 +149,6 @@ export const useCourt = () => {
         fetchCourtsDetails,
         id,
         court,
-        API_URL_IMAGE
+        API_URL
     }
 }
