@@ -76,7 +76,7 @@ export const CourtsTable = () => {
         <TableBody>
           {loading ? (
             <TableRow>
-              <TableCell colSpan={7} className="text-center py-6">
+              <TableCell colSpan={7} className="text-center text-muted-foreground">
                 <div className="flex items-center justify-center space-x-2 text-muted-foreground">
                   <Loader2 className="h-5 w-5 animate-spin" />
                   <span>Cargando canchas...</span>
@@ -95,7 +95,7 @@ export const CourtsTable = () => {
           ) : (
             courts.map((court) => (
               <TableRow key={court.id}>
-                <TableCell className="font-medium">{court.nombreCancha}</TableCell>
+                <TableCell>{court.nombreCancha}</TableCell>
                 <TableCell>{court.direccion}</TableCell>
                 <TableCell>{court.responsable}</TableCell>
                 <TableCell>${court.valorHora.toLocaleString()}</TableCell>
@@ -108,18 +108,18 @@ export const CourtsTable = () => {
                       <Eye className="h-4 w-4" />
                     </Button>
                     <Button
-                      variant="outline"
+                      variant="ghost"
                       size="icon"
-                      className="h-8 w-8"
                       onClick={() => handleEditClick(court)}
+                      title="Editar"
                     >
                       <Pencil className="h-4 w-4" />
                     </Button>
                     <Button
-                      variant="destructive"
+                      variant="ghost"
                       size="icon"
-                      className="h-8 w-8"
                       onClick={() => handleDeleteClick(court)}
+                      title="Eliminar"
                     >
                       <Trash className="h-4 w-4" />
                     </Button>
@@ -137,18 +137,18 @@ export const CourtsTable = () => {
         refreshCourts={fetchCourts}
       />
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent>
+        <AlertDialogContent className="border border-green-500 bg-green-50 text-green-900">
           <AlertDialogHeader>
-            <AlertDialogTitle>¿Eliminar este centro comercial?</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogTitle className="text-green-700">¿Eliminar este centro comercial?</AlertDialogTitle>
+            <AlertDialogDescription className="text-green-800">
               Esta acción eliminará permanentemente{" "}
               <span className="font-semibold">{courtsToDelete?.nombreCancha}</span>.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogCancel className="bg-white hover:bg-gray-100 border border-gray-300 text-gray-700">Cancelar</AlertDialogCancel>
             <AlertDialogAction
-              className="bg-destructive hover:bg-destructive/90"
+             className="bg-green-600 hover:bg-green-700 text-white"
               onClick={handleConfirmDelete}
             >
               Eliminar

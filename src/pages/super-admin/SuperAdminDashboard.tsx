@@ -36,7 +36,7 @@ interface DashboardStats {
   newUsers: { mes: string; count: number }[];
 }
 
-const COLORS = ["#3b82f6", "#10b981", "#a855f7", "#f59e0b"]; // azul, verde, violeta, dorado
+const COLORS = ["#3b82f6", "#10b981", "#a855f7", "#f59e0b"]; 
 
 export default function SuperAdminDashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);

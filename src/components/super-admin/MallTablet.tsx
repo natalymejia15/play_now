@@ -59,7 +59,7 @@ export const MallsTable = () => {
             <TableHead>Administrador</TableHead>
             <TableHead>Correo</TableHead>
             <TableHead>Celular</TableHead>
-            <TableHead>Acciones</TableHead>
+            <TableHead className="text-right">Acciones</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
