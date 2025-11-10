@@ -91,6 +91,9 @@ export const CreateMallDialog = ({ open, onOpenChange }: CreateMallDialogProps) 
       });
 
       onOpenChange(false);
+      setTimeout(() => {
+        window.location.reload();
+      }, 800);
     } catch (error) {
       console.error("Error creando mall:", error);
     }

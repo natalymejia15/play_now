@@ -74,7 +74,6 @@ export const useMalls = () => {
   const fetchMallDetails = async () => {
     try {
       setIsLoading(true);
-      const token = localStorage.getItem("token");
       const { data } = await axios.get(`${API_URL}/malls/${id}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
@@ -97,9 +96,9 @@ export const useMalls = () => {
           segundo_apellido: data.administrador.segundoApellido,
           email: data.administrador.correo,
           phone_number: data.administrador.celular,
-          document_type: "",
-          document_number: "",
-          address: "",
+          document_type: data.administrador.tipoDocumento,
+          document_number: data.administrador.numeroDocumento,
+          address: data.administrador.direccion,
         }
         : null;
 

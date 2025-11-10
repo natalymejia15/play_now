@@ -17,6 +17,8 @@ import Profile from "./pages/Profile";
 import MallDetails from "./pages/super-admin/MallDetails";
 import CrearReservasPage from "./pages/client/CrearReservaPage";
 import HistoricoReservasPage from "./pages/client/HistoricoReservasPage";
+import HistoryAdmin from "./pages/admin/HistoryAdmin";
+import CourtsDetailsPage from "./pages/admin/CourtsDetails";
 
 function App() {
   return (
@@ -47,7 +49,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-           <Route
+          <Route
             path="/super-admin/mall/:id"
             element={
               <ProtectedRoute allowedRoles={[1]}>
@@ -72,7 +74,22 @@ function App() {
               </ProtectedRoute>
             }
           />
-
+           <Route
+            path="/admin/courts/:id"
+            element={
+              <ProtectedRoute allowedRoles={[2]}>
+                <CourtsDetailsPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/history"
+            element={
+              <ProtectedRoute allowedRoles={[2]}>
+                <HistoryAdmin />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/client/home"
             element={
@@ -81,7 +98,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-           <Route
+          <Route
             path="/client/courts"
             element={
               <ProtectedRoute allowedRoles={[3]}>
@@ -89,7 +106,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-           <Route
+          <Route
             path="/client/historico"
             element={
               <ProtectedRoute allowedRoles={[3]}>
@@ -97,7 +114,7 @@ function App() {
               </ProtectedRoute>
             }
           />
-           <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
