@@ -1,16 +1,28 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft, Building2, MapPin, Phone, User, Mail, FileText } from "lucide-react";
+import { 
+  ArrowLeft, 
+  Building2, 
+  MapPin, 
+  Phone, 
+  User, 
+  Mail, 
+  FileText 
+} from "lucide-react";
 import { SuperAdminLayout } from "../../components/layouts/SuperAdminLayout";
 import { Skeleton } from "../../components/ui/skeleton";
 import { Button } from "../../components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
+import { 
+  Card, 
+  CardContent, 
+  CardDescription, 
+  CardHeader, 
+  CardTitle 
+} from "../../components/ui/card";
 import { useMalls } from "../../hook/malls/use-mall";
 
-
-
 export default function MallDetails() {
-  const { id, fetchMallDetails, isLoading, mall, admin, getDocumentTypeLabel } = useMalls()
+  const { id, fetchMallDetails, isLoading, mall, admin, getDocumentTypeLabel } = useMalls();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,9 +34,9 @@ export default function MallDetails() {
   if (isLoading) {
     return (
       <SuperAdminLayout>
-        <div className="space-y-6">
+        <div className="space-y-6 animate-pulse">
           <Skeleton className="h-10 w-64" />
-          <Skeleton className="h-[400px] w-full" />
+          <Skeleton className="h-[400px] w-full rounded-2xl" />
         </div>
       </SuperAdminLayout>
     );
@@ -33,10 +45,15 @@ export default function MallDetails() {
   if (!mall) {
     return (
       <SuperAdminLayout>
-        <div className="text-center py-12">
-          <h2 className="text-2xl font-bold mb-4">Centro comercial no encontrado</h2>
-          <Button onClick={() => navigate("/super-admin/malls")}>
-            <ArrowLeft className="mr-2 h-4 w-4" />
+        <div className="flex flex-col items-center justify-center py-20">
+          <h2 className="text-3xl font-semibold mb-6 text-muted-foreground">
+            Centro comercial no encontrado
+          </h2>
+          <Button 
+            onClick={() => navigate("/super-admin/malls")} 
+            className="gap-2"
+          >
+            <ArrowLeft className="h-4 w-4" />
             Volver a la lista
           </Button>
         </div>
@@ -46,129 +63,88 @@ export default function MallDetails() {
 
   return (
     <SuperAdminLayout>
-      <div className="space-y-6">
-        <div className="flex items-center gap-4">
-          <Button variant="outline" onClick={() => navigate("/super-admin/malls")}>
-            <ArrowLeft className="mr-2 h-4 w-4" />
-            Volver
-          </Button>
-          <h1 className="text-3xl font-bold">Detalles del Centro Comercial</h1>
+      <div className="space-y-8">
+        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={() => navigate("/super-admin/malls")}
+              className="rounded-full shadow-sm hover:bg-muted transition"
+            >
+              <ArrowLeft className="h-4 w-4 mr-1" />
+              Volver
+            </Button>
+            <h1 className="text-3xl font-bold tracking-tight text-primary">
+              Detalles del Centro Comercial
+            </h1>
+          </div>
         </div>
-
-        <div className="grid gap-6 md:grid-cols-2">
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center gap-2">
-                <Building2 className="h-5 w-5 text-primary" />
+        <div className="grid gap-8 md:grid-cols-2">
+           <Card className="shadow-sm hover:shadow-md transition-all duration-300 border border-border/60 rounded-2xl">
+              <CardHeader className="bg-gradient-to-r from-blue-100/60 to-green-50 rounded-t-2xl">
+                <CardTitle className="flex items-center gap-2 text-green-700">
+                <Building2 className="h-5 w-5" />
                 Información del Centro Comercial
               </CardTitle>
-              <CardDescription>Datos del centro comercial registrado</CardDescription>
+              <CardDescription className="text-sm text-muted-foreground">
+                Datos generales del centro comercial registrado
+              </CardDescription>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
-                <div className="flex items-start gap-2">
-                  <Building2 className="h-4 w-4 mt-1 text-muted-foreground" />
+            <CardContent className="space-y-4 py-6">
+              {[
+                { icon: <Building2 />, label: "Nombre", value: mall.nombre_centro },
+                { icon: <MapPin />, label: "Dirección", value: mall.direccion },
+                { icon: <MapPin />, label: "Ciudad", value: mall.ciudad },
+                { icon: <Phone />, label: "Teléfono", value: mall.telefono },
+              ].map((item, index) => (
+                <div 
+                  key={index} 
+                  className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted/40 transition"
+                >
+                  <div className="text-green-700 mt-1">{item.icon}</div>
                   <div>
-                    <p className="text-sm font-medium text-muted-foreground">Nombre</p>
-                    <p className="text-base">{mall.nombre_centro}</p>
+                    <p className="text-sm font-medium text-muted-foreground">
+                      {item.label}
+                    </p>
+                    <p className="text-base font-semibold">{item.value}</p>
                   </div>
                 </div>
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-start gap-2">
-                  <MapPin className="h-4 w-4 mt-1 text-muted-foreground" />
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">Dirección</p>
-                    <p className="text-base">{mall.direccion}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-start gap-2">
-                  <MapPin className="h-4 w-4 mt-1 text-muted-foreground" />
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">Ciudad</p>
-                    <p className="text-base">{mall.ciudad}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="space-y-2">
-                <div className="flex items-start gap-2">
-                  <Phone className="h-4 w-4 mt-1 text-muted-foreground" />
-                  <div>
-                    <p className="text-sm font-medium text-muted-foreground">Teléfono</p>
-                    <p className="text-base">{mall.telefono}</p>
-                  </div>
-                </div>
-              </div>
+              ))}
             </CardContent>
           </Card>
           {admin && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2">
-                  <User className="h-5 w-5 text-primary" />
+             <Card className="shadow-sm hover:shadow-md transition-all duration-300 border border-border/60 rounded-2xl">
+              <CardHeader className="bg-gradient-to-r from-blue-100/60 to-green-50 rounded-t-2xl">
+                <CardTitle className="flex items-center gap-2 text-green-700">
+                  <User className="h-5 w-5" />
                   Administrador Asignado
                 </CardTitle>
-                <CardDescription>Información del administrador del centro</CardDescription>
+                <CardDescription className="text-sm text-muted-foreground">
+                  Información del administrador del centro comercial
+                </CardDescription>
               </CardHeader>
-              <CardContent className="space-y-4">
-                <div className="space-y-2">
-                  <div className="flex items-start gap-2">
-                    <User className="h-4 w-4 mt-1 text-muted-foreground" />
+              <CardContent className="space-y-4 py-6">
+                {[
+                  { icon: <User />, label: "Nombre Completo", value: `${admin.first_name} ${admin.segundo_nombre ?? ""} ${admin.last_name} ${admin.segundo_apellido ?? ""}` },
+                  { icon: <FileText />, label: "Documento", value: `${getDocumentTypeLabel(admin.document_type)} - ${admin.document_number}` },
+                  { icon: <Mail />, label: "Email", value: admin.email },
+                  { icon: <Phone />, label: "Teléfono", value: admin.phone_number },
+                  { icon: <MapPin />, label: "Dirección", value: admin.address },
+                ].map((item, index) => (
+                  <div 
+                    key={index} 
+                    className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted/40 transition"
+                  >
+                    <div className="text-green-700 mt-1">{item.icon}</div>
                     <div>
-                      <p className="text-sm font-medium text-muted-foreground">Nombre Completo</p>
-                      <p className="text-base">
-                        {admin.first_name} {admin.segundo_nombre} {admin.last_name} {admin.segundo_apellido}
+                      <p className="text-sm font-medium text-muted-foreground">
+                        {item.label}
                       </p>
+                      <p className="text-base font-semibold">{item.value}</p>
                     </div>
                   </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-start gap-2">
-                    <FileText className="h-4 w-4 mt-1 text-muted-foreground" />
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground">Documento</p>
-                      <p className="text-base">
-                        {getDocumentTypeLabel(admin.document_type)} - {admin.document_number}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-start gap-2">
-                    <Mail className="h-4 w-4 mt-1 text-muted-foreground" />
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground">Email</p>
-                      <p className="text-base">{admin.email}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-start gap-2">
-                    <Phone className="h-4 w-4 mt-1 text-muted-foreground" />
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground">Teléfono</p>
-                      <p className="text-base">{admin.phone_number}</p>
-                    </div>
-                  </div>
-                </div>
-
-                <div className="space-y-2">
-                  <div className="flex items-start gap-2">
-                    <MapPin className="h-4 w-4 mt-1 text-muted-foreground" />
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground">Dirección</p>
-                      <p className="text-base">{admin.address}</p>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </CardContent>
             </Card>
           )}

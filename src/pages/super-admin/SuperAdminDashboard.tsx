@@ -16,7 +16,13 @@ import {
   Line,
 } from "recharts";
 import { SuperAdminLayout } from "../../components/layouts/SuperAdminLayout";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../../components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "../../components/ui/card";
 import { Skeleton } from "../../components/ui/skeleton";
 
 interface DashboardStats {
@@ -30,19 +36,13 @@ interface DashboardStats {
   newUsers: { mes: string; count: number }[];
 }
 
-const COLORS = [
-  "hsl(var(--chart-1))",
-  "hsl(var(--chart-2))",
-  "hsl(var(--chart-3))",
-  "hsl(var(--chart-4))",
-];
+const COLORS = ["#3b82f6", "#10b981", "#a855f7", "#f59e0b"]; // azul, verde, violeta, dorado
 
 export default function SuperAdminDashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simula carga inicial
     setTimeout(() => {
       const mockStats: DashboardStats = {
         totalMalls: 8,
@@ -76,9 +76,7 @@ export default function SuperAdminDashboard() {
           { mes: "Mayo", count: 65 },
           { mes: "Junio", count: 90 },
         ],
-
       };
-
       setStats(mockStats);
       setIsLoading(false);
     }, 1000);
@@ -106,72 +104,80 @@ export default function SuperAdminDashboard() {
 
   return (
     <SuperAdminLayout>
-      <div className="space-y-6">
-        <h1 className="text-3xl font-bold mb-6">Dashboard</h1>
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-          <Card>
+      <div className="space-y-8">
+        <h1 className="text-3xl font-bold text-green-900">Panel General</h1>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <Card className="bg-blue-50 border-blue-200 hover:shadow-lg transition">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">
+              <CardTitle className="text-blue-700 text-sm font-medium">
                 Centros Comerciales
               </CardTitle>
-              <Building2 className="h-4 w-4 text-muted-foreground" />
+              <div className="bg-blue-100 p-2 rounded-full">
+                <Building2 className="h-5 w-5 text-blue-600" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats?.totalMalls}</div>
+              <div className="text-3xl font-bold text-blue-800">{stats?.totalMalls}</div>
             </CardContent>
           </Card>
-
-          <Card>
+          <Card className="bg-green-50 border-green-200 hover:shadow-lg transition">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Total Usuarios</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-green-700 text-sm font-medium">Total Usuarios</CardTitle>
+              <div className="bg-green-100 p-2 rounded-full">
+                <Users className="h-5 w-5 text-green-600" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats?.totalUsers}</div>
+              <div className="text-3xl font-bold text-green-800">{stats?.totalUsers}</div>
             </CardContent>
           </Card>
-
-          <Card>
+          <Card className="bg-purple-50 border-purple-200 hover:shadow-lg transition">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Administradores</CardTitle>
-              <UserCog className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-purple-700 text-sm font-medium">
+                Administradores
+              </CardTitle>
+              <div className="bg-purple-100 p-2 rounded-full">
+                <UserCog className="h-5 w-5 text-purple-600" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats?.totalAdmins}</div>
+              <div className="text-3xl font-bold text-purple-800">{stats?.totalAdmins}</div>
             </CardContent>
           </Card>
-
-          <Card>
+          <Card className="bg-amber-50 border-amber-200 hover:shadow-lg transition">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
-              <CardTitle className="text-sm font-medium">Clientes</CardTitle>
-              <UserCheck className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-amber-700 text-sm font-medium">Clientes</CardTitle>
+              <div className="bg-amber-100 p-2 rounded-full">
+                <UserCheck className="h-5 w-5 text-amber-600" />
+              </div>
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats?.totalClients}</div>
+              <div className="text-3xl font-bold text-amber-800">{stats?.totalClients}</div>
             </CardContent>
           </Card>
         </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          <Card>
+        <div className="grid gap-6 md:grid-cols-2">
+          <Card className="shadow-md border-blue-200">
             <CardHeader>
-              <CardTitle>Centros Comerciales por Ciudad</CardTitle>
+              <CardTitle className="text-blue-700">Centros Comerciales por Ciudad</CardTitle>
               <CardDescription>Distribución geográfica</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
                 <BarChart data={stats?.mallsByCity}>
-                  <CartesianGrid strokeDasharray="3 3" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#dbeafe" />
                   <XAxis dataKey="ciudad" />
                   <YAxis />
                   <Tooltip />
-                  <Bar dataKey="count" fill="hsl(var(--primary))" />
+                  <Bar dataKey="count" fill="#3b82f6" />
                 </BarChart>
               </ResponsiveContainer>
             </CardContent>
           </Card>
-          <Card>
+
+          <Card className="shadow-md border-purple-200">
             <CardHeader>
-              <CardTitle>Distribución de Usuarios por Rol</CardTitle>
+              <CardTitle className="text-purple-700">Distribución de Usuarios por Rol</CardTitle>
               <CardDescription>Tipos de usuarios en la plataforma</CardDescription>
             </CardHeader>
             <CardContent>
@@ -181,14 +187,17 @@ export default function SuperAdminDashboard() {
                     data={stats?.roleDistribution}
                     cx="50%"
                     cy="50%"
-                    outerRadius={80}
+                    outerRadius={90}
                     label={({ name, percent }) =>
                       `${name}: ${((percent as number) * 100).toFixed(0)}%`
                     }
                     dataKey="value"
                   >
                     {stats?.roleDistribution.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
                     ))}
                   </Pie>
                   <Tooltip />
@@ -196,35 +205,35 @@ export default function SuperAdminDashboard() {
               </ResponsiveContainer>
             </CardContent>
           </Card>
-          <Card className="md:col-span-2">
+
+          <Card className="md:col-span-2 border-green-200 shadow-md">
             <CardHeader>
-              <CardTitle>Nuevos Usuarios</CardTitle>
+              <CardTitle className="text-green-700">Nuevos Usuarios</CardTitle>
               <CardDescription>Tendencia de crecimiento mensual</CardDescription>
             </CardHeader>
             <CardContent>
-              <ResponsiveContainer width="100%" height={300}>
+              <ResponsiveContainer width="100%" height={320}>
                 <LineChart data={stats?.newUsers}>
                   <defs>
                     <linearGradient id="colorGrowth" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="hsl(var(--primary))" stopOpacity={0.8} />
-                      <stop offset="95%" stopColor="hsl(var(--primary))" stopOpacity={0} />
+                      <stop offset="5%" stopColor="#10b981" stopOpacity={0.8} />
+                      <stop offset="95%" stopColor="#10b981" stopOpacity={0} />
                     </linearGradient>
                   </defs>
-                  <CartesianGrid strokeDasharray="3 3" />
+                  <CartesianGrid strokeDasharray="3 3" stroke="#bbf7d0" />
                   <XAxis dataKey="mes" />
                   <YAxis />
                   <Tooltip />
                   <Legend />
-                  {/* Línea principal */}
                   <Line
                     type="monotone"
                     dataKey="count"
-                    stroke="hsl(var(--primary))"
+                    stroke="#10b981"
                     strokeWidth={3}
                     dot={{ r: 5 }}
                     activeDot={{ r: 8 }}
                     fillOpacity={1}
-                    fill="url(#colorGrowth)" // 💡 relleno degradado bajo la línea
+                    fill="url(#colorGrowth)"
                     name="Usuarios Nuevos"
                   />
                 </LineChart>

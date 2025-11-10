@@ -111,18 +111,21 @@ export const MallsTable = () => {
       />
 
       <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
-        <AlertDialogContent>
+        <AlertDialogContent className="border border-green-500 bg-green-50 text-green-900">
           <AlertDialogHeader>
-            <AlertDialogTitle>¿Eliminar este centro comercial?</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogTitle className="text-green-700"> ¿Eliminar este centro comercial?
+            </AlertDialogTitle>
+            <AlertDialogDescription className="text-green-800">
               Esta acción eliminará permanentemente{" "}
               <span className="font-semibold">{mallToDelete?.nombreCentro}</span>.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>Cancelar</AlertDialogCancel>
+            <AlertDialogCancel className="bg-white hover:bg-gray-100 border border-gray-300 text-gray-700">
+              Cancelar
+            </AlertDialogCancel>
             <AlertDialogAction
-              className="bg-destructive hover:bg-destructive/90"
+              className="bg-green-600 hover:bg-green-700 text-white"
               onClick={handleConfirmDelete}
             >
               Eliminar
@@ -130,6 +133,7 @@ export const MallsTable = () => {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+
     </div>
   );
 };
