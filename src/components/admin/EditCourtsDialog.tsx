@@ -7,7 +7,7 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Loader2, MapPin, Calendar, DollarSign, User, Image as ImageIcon } from "lucide-react";
+import { Loader2, MapPin, Calendar, DollarSign, Image as ImageIcon } from "lucide-react";
 import { ScrollArea } from "../ui/scroll-area";
 import { useEditCourts } from "../../hook/courts/use-edit-courts";
 import type { EditCourtDialogProps } from "../../types/courts";

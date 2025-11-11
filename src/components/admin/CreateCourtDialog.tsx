@@ -8,7 +8,7 @@ import {
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Loader2, MapPin, Calendar, DollarSign, User, Image as ImageIcon } from "lucide-react";
+import { Loader2, MapPin, Calendar, DollarSign, Image as ImageIcon } from "lucide-react";
 import { ScrollArea } from "../ui/scroll-area";
 import { useCreateCourt } from "../../hook/courts/use-create-court";
 import { toast } from "../../hook/use-toast";
@@ -108,7 +108,6 @@ export const CreateCourtDialog = ({ open, onOpenChange }: CreateCourtDialogProps
         <ScrollArea className="max-h-[calc(90vh-8rem)] pr-4 bg-transparent">
           <form onSubmit={handleSubmit} className="space-y-6">
 
-            {/* Información general */}
             <div className="space-y-4 p-6 rounded-xl border border-green-100 bg-white/80 shadow-sm backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-4">
                 <MapPin className="h-5 w-5 text-green-600" />
@@ -154,8 +153,6 @@ export const CreateCourtDialog = ({ open, onOpenChange }: CreateCourtDialogProps
                 </div>
               </div>
             </div>
-
-            {/* Horarios */}
             <div className="space-y-4 p-6 rounded-xl border border-blue-100 bg-white/80 shadow-sm backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-4">
                 <Calendar className="h-5 w-5 text-green-700" />
@@ -207,7 +204,6 @@ export const CreateCourtDialog = ({ open, onOpenChange }: CreateCourtDialogProps
               </div>
             </div>
 
-            {/* Detalles adicionales */}
             <div className="space-y-4 p-6 rounded-xl border border-green-100 bg-white/80 shadow-sm backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-4">
                 <DollarSign className="h-5 w-5 text-green-600" />
@@ -266,7 +262,6 @@ export const CreateCourtDialog = ({ open, onOpenChange }: CreateCourtDialogProps
               </div>
             </div>
 
-            {/* Imagen */}
             <div className="space-y-4 p-6 rounded-xl border border-blue-100 bg-white/80 shadow-sm backdrop-blur-sm">
               <div className="flex items-center gap-2 mb-4">
                 <ImageIcon className="h-5 w-5 text-green-700" />
@@ -285,7 +280,6 @@ export const CreateCourtDialog = ({ open, onOpenChange }: CreateCourtDialogProps
               </div>
             </div>
 
-            {/* Botones */}
             <div className="flex justify-end gap-3 pt-4">
               <Button
                 type="button"

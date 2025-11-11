@@ -11,7 +11,7 @@ export const useCourt = () => {
     const [isDeleting, setIsDeleting] = useState(false);
     const [fetching, setFetching] = useState(false);
     const { id } = useParams();
-     const [court, setCourt] = useState<CourtData | null>(null);
+    const [court, setCourt] = useState<CourtData | null>(null);
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
 
@@ -43,7 +43,6 @@ export const useCourt = () => {
     const editCourt = async (id: number, values: any) => {
         setIsLoading(true);
         try {
-            const token = localStorage.getItem("token");
             const formData = new FormData();
             Object.entries(values).forEach(([key, value]) => {
                 if (value !== null && value !== undefined) {
@@ -64,7 +63,7 @@ export const useCourt = () => {
             });
 
             toast({ title: "Éxito", description: "Cancha actualizada correctamente" });
-            await fetchCourts(); // refrescar lista
+            await fetchCourts();
         } catch (error: any) {
             toast({
                 title: "Error",
@@ -100,42 +99,59 @@ export const useCourt = () => {
             setIsDeleting(false);
         }
     };
+    const fetchCourtsByMall = async (mallId: string) => {
+         if (!token) return;
+        try {
+            setIsLoading(true);
+            const { data } = await axios.get(`${API_URL}/courts/mall/${mallId}`);
+            setCourts(data);
+        } catch (error) {
+            console.error("Error al cargar canchas:", error);
+            toast({
+                title: "Error",
+                description: "No se pudieron cargar las canchas.",
+                variant: "destructive",
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
-  const fetchCourtsDetails = async () => {
-    if (!id) return;
-    try {
-      setIsLoading(true);
-      const { data } = await axios.get(`${API_URL}/courts/${id}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+    const fetchCourtsDetails = async () => {
+        if (!id) return;
+        try {
+            setIsLoading(true);
+            const { data } = await axios.get(`${API_URL}/courts/${id}`, {
+                headers: { Authorization: `Bearer ${token}` },
+            });
 
-      const mappedCourt: CourtData = {
-        id: data.id,
-        nombreCancha: data.nombreCancha,
-        horarioInicio: data.horarioInicio,
-        horarioFin: data.horarioFin,
-        diasDisponibles: data.diasDisponibles,
-        valorHora: data.valorHora,
-        telefono: data.telefono,
-        direccion: data.direccion,
-        responsable: data.responsable,
-        detalles: data.detalles,
-        capacidad: data.capacidad,
-        imagen: data.imagen
-      };
+            const mappedCourt: CourtData = {
+                id: data.id,
+                nombreCancha: data.nombreCancha,
+                horarioInicio: data.horarioInicio,
+                horarioFin: data.horarioFin,
+                diasDisponibles: data.diasDisponibles,
+                valorHora: data.valorHora,
+                telefono: data.telefono,
+                direccion: data.direccion,
+                responsable: data.responsable,
+                detalles: data.detalles,
+                capacidad: data.capacidad,
+                imagen: data.imagen
+            };
 
-      setCourt(mappedCourt);
-    } catch (error) {
-      console.error("Error fetching court details:", error);
-      toast({
-        title: "Error",
-        description: "No se pudieron obtener los detalles de la cancha.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsLoading(false);
-    }
-  };
+            setCourt(mappedCourt);
+        } catch (error) {
+            console.error("Error fetching court details:", error);
+            toast({
+                title: "Error",
+                description: "No se pudieron obtener los detalles de la cancha.",
+                variant: "destructive",
+            });
+        } finally {
+            setIsLoading(false);
+        }
+    };
 
     return {
         courts,
@@ -149,6 +165,7 @@ export const useCourt = () => {
         fetchCourtsDetails,
         id,
         court,
-        API_URL
+        API_URL,
+        fetchCourtsByMall
     }
 }
