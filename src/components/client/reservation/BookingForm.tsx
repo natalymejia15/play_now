@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Card,
   CardContent,
@@ -19,6 +20,12 @@ interface BookingFormProps {
 export function BookingForm({ selectedCourt, onClose }: BookingFormProps) {
   const { createReservation } = useCreateReservation();
 
+  // Estado para duración y total
+  const [duration, setDuration] = useState<number>(1);
+  const pricePerHour = Number(selectedCourt?.valorHora || selectedCourt?.price || 0);
+
+  const total = duration * pricePerHour;
+
   const handleBookingSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const form = e.target as HTMLFormElement;
@@ -28,7 +35,7 @@ export function BookingForm({ selectedCourt, onClose }: BookingFormProps) {
       courtId: selectedCourt.id,
       fechaReserva: formData.get("date"),
       horaReserva: formData.get("time"),
-      cantidadHoras: Number(formData.get("duration")),
+      cantidadHoras: duration,
     };
 
     try {
@@ -48,7 +55,7 @@ export function BookingForm({ selectedCourt, onClose }: BookingFormProps) {
       <Card className="max-w-md w-full mx-4 bg-white shadow-2xl rounded-2xl border border-gray-200">
         <CardHeader className="border-b border-gray-100 pb-4">
           <CardTitle className="text-xl font-semibold text-gray-800">
-            Reservar {selectedCourt.nombreCancha || selectedCourt.name}
+            Reservar {selectedCourt?.nombreCancha || selectedCourt?.name}
           </CardTitle>
           <CardDescription className="text-sm text-gray-500">
             Completa el formulario para realizar tu reserva.
@@ -75,7 +82,13 @@ export function BookingForm({ selectedCourt, onClose }: BookingFormProps) {
                 type="number"
                 min="1"
                 max="4"
-                defaultValue="1"
+                value={duration}
+                onChange={(e) => {
+                  const value = Number(e.target.value);
+                  if (!isNaN(value) && value >= 1 && value <= 4) {
+                    setDuration(value);
+                  }
+                }}
                 required
               />
             </div>
@@ -86,10 +99,12 @@ export function BookingForm({ selectedCourt, onClose }: BookingFormProps) {
                   Total estimado:
                 </span>
                 <span className="text-2xl font-bold text-green-600">
-                  $
-                  {(selectedCourt.valorHora || selectedCourt.price).toLocaleString()}
+                  ${total.toLocaleString("es-CO")}
                 </span>
               </div>
+              <p className="text-xs text-gray-500 mt-1">
+                Valor por hora: ${pricePerHour.toLocaleString("es-CO")}
+              </p>
             </div>
 
             <div className="flex gap-3 pt-2">
