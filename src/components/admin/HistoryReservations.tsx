@@ -8,10 +8,12 @@ import {
     TableHeader,
     TableRow,
 } from "../../components/ui/table";
-import { AdminLayout } from "../layouts/AdminLayout";
 
 export default function HistorialGeneralReservas() {
     const { reservations, loading } = useAllReservations();
+
+    const safeValue = (value: any, placeholder = "—") =>
+        value !== null && value !== undefined && value !== "" ? value : placeholder;
 
     return (
         <div className="border rounded-lg bg-white shadow-sm">
@@ -55,18 +57,23 @@ export default function HistorialGeneralReservas() {
                         reservations.map((reserva) => (
                             <TableRow key={reserva.id}>
                                 <TableCell>
-                                    {reserva.cliente.primerNombre} {reserva.cliente.primerApellido}
+                                    {safeValue(reserva?.cliente?.primerNombre)}{" "}
+                                    {safeValue(reserva?.cliente?.primerApellido)}
                                 </TableCell>
-                                <TableCell>{reserva.cliente.numeroDocumento}</TableCell>
-                                <TableCell>{reserva.cliente.correo}</TableCell>
-                                <TableCell>{reserva.cliente.celular}</TableCell>
-                                <TableCell>{reserva.cancha.nombreCancha}</TableCell>
-                                <TableCell>{reserva.cancha.direccion}</TableCell>
-                                <TableCell>{reserva.fechaReserva}</TableCell>
-                                <TableCell>{reserva.horaReserva}</TableCell>
-                                <TableCell>{reserva.cantidadHoras}</TableCell>
-                                <TableCell>${parseInt(reserva.valorTotal).toLocaleString()}</TableCell>
-                                <TableCell>{reserva.estado}</TableCell>
+                                <TableCell>{safeValue(reserva?.cliente?.numeroDocumento)}</TableCell>
+                                <TableCell>{safeValue(reserva?.cliente?.correo)}</TableCell>
+                                <TableCell>{safeValue(reserva?.cliente?.celular)}</TableCell>
+                                <TableCell>{safeValue(reserva?.cancha?.nombreCancha)}</TableCell>
+                                <TableCell>{safeValue(reserva?.cancha?.direccion)}</TableCell>
+                                <TableCell>{safeValue(reserva?.fechaReserva)}</TableCell>
+                                <TableCell>{safeValue(reserva?.horaReserva)}</TableCell>
+                                <TableCell>{safeValue(reserva?.cantidadHoras)}</TableCell>
+                                <TableCell>
+                                    {reserva?.valorTotal
+                                        ? `$${parseInt(reserva.valorTotal).toLocaleString("es-CO")}`
+                                        : "—"}
+                                </TableCell>
+                                <TableCell>{safeValue(reserva?.estado)}</TableCell>
                             </TableRow>
                         ))
                     )}
