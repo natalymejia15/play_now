@@ -2,7 +2,7 @@ import { ClipboardClock, LayoutDashboard, MapPin, User, Users } from "lucide-rea
 
 export const navItems = [
   { name: "Dashboard", path: "/client/home", icon: LayoutDashboard },
-  { name: "Historico Canchas", path: "/client/historico", icon: MapPin },
+  { name: "Historico Reservas", path: "/client/historico", icon: MapPin },
   { name: "Mi Perfil", path: "/profile", icon: User },
 ];
 
