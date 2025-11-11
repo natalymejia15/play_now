@@ -1,16 +1,21 @@
 import { useEffect } from "react";
 import { AdminLayout } from "../../components/layouts/AdminLayout";
+import HistorialGeneralReservas from "../../components/admin/HistoryReservations";
 
 export default function HistoryAdmin() {
-    useEffect(() => {
-      document.title = "Dashboard- Play now";
-    }, []);
-  
+  useEffect(() => {
+    document.title = "Dashboard- Play now";
+  }, []);
+
   return (
     <AdminLayout>
-      <div>
-        <h1 className="text-3xl font-bold mb-6">Historico de reservas</h1>
-        <p className="text-muted-foreground">Bienvenido al panel historico</p>
+      <div className="space-y-6">
+        <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
+          <h1 className="text-3xl font-bold text-green-900">Historico de reservas</h1>
+        </div>
+        <div className="bg-white rounded-2xl shadow-sm border border-green-100 p-4">
+          <HistorialGeneralReservas />
+        </div>
       </div>
     </AdminLayout>
   );

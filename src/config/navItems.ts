@@ -1,7 +1,7 @@
 import { ClipboardClock, LayoutDashboard, MapPin, User, Users } from "lucide-react";
 
 export const navItems = [
-  { name: "Dashboard", path: "/client/home", icon: LayoutDashboard },
+  { name: "Home", path: "/client/home", icon: LayoutDashboard },
   { name: "Historico Reservas", path: "/client/historico", icon: MapPin },
   { name: "Mi Perfil", path: "/profile", icon: User },
 ];
