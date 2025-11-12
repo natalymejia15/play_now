@@ -13,7 +13,13 @@ const ToastViewport = React.forwardRef<
   <ToastPrimitives.Viewport
     ref={ref}
     className={cn(
-      "fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]",
+      `
+      fixed top-4 left-1/2 -translate-x-1/2 
+      flex flex-col items-center
+      w-auto max-w-[420px] space-y-2
+      z-[9999]
+      pointer-events-none
+      `,
       className,
     )}
     {...props}
@@ -22,7 +28,7 @@ const ToastViewport = React.forwardRef<
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
 const toastVariants = cva(
-  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-lg border p-4 pr-8 shadow-sm transition-all data-[state=open]:animate-in data-[state=closed]:animate-out",
+ "  group pointer-events-auto relative flex w-full items-center justify-center text-center overflow-hidden rounded-lg border p-4 shadow-lg transition-all",
   {
     variants: {
       variant: {
@@ -46,7 +52,7 @@ const Toast = React.forwardRef<
     <ToastPrimitives.Root
       ref={ref}
       className={cn(toastVariants({ variant }), className)}
-      duration={3000} // 🔹 Todos los toasts duran 3 segundos
+      duration={5000} 
       {...props}
     />
   );
@@ -60,7 +66,7 @@ const ToastAction = React.forwardRef<
   <ToastPrimitives.Action
     ref={ref}
     className={cn(
-      "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50",
+      " inline-flex h-8 shrink-0 items-center justify-center rounded-md borderbg-transparent px-3 text-sm font-medium ring-offset-background transition-colors hover:bg-gray-100 disabled:pointer-events-none disabled:opacity-50",
       className,
     )}
     {...props}
