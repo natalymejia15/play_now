@@ -69,10 +69,7 @@ export default function SuperAdminDashboard() {
     <SuperAdminLayout>
       <div className="space-y-8">
         <h1 className="text-3xl font-bold text-green-900">Panel General</h1>
-
-        {/* === TARJETAS === */}
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-          {/* Centros comerciales */}
           <Card className="bg-blue-50 border-blue-200 hover:shadow-lg transition">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-blue-700 text-sm font-medium">
@@ -88,8 +85,6 @@ export default function SuperAdminDashboard() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Usuarios */}
           <Card className="bg-green-50 border-green-200 hover:shadow-lg transition">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-green-700 text-sm font-medium">
@@ -105,8 +100,6 @@ export default function SuperAdminDashboard() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Admins */}
           <Card className="bg-purple-50 border-purple-200 hover:shadow-lg transition">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-purple-700 text-sm font-medium">
@@ -122,8 +115,6 @@ export default function SuperAdminDashboard() {
               </div>
             </CardContent>
           </Card>
-
-          {/* Clientes */}
           <Card className="bg-amber-50 border-amber-200 hover:shadow-lg transition">
             <CardHeader className="flex flex-row items-center justify-between pb-2">
               <CardTitle className="text-amber-700 text-sm font-medium">
@@ -140,10 +131,7 @@ export default function SuperAdminDashboard() {
             </CardContent>
           </Card>
         </div>
-
-        {/* === GRÁFICAS === */}
         <div className="grid gap-6 md:grid-cols-2">
-          {/* Malls por ciudad */}
           <Card className="shadow-md border-blue-200">
             <CardHeader>
               <CardTitle className="text-blue-700">
@@ -163,8 +151,6 @@ export default function SuperAdminDashboard() {
               </ResponsiveContainer>
             </CardContent>
           </Card>
-
-          {/* Distribución de roles */}
           <Card className="shadow-md border-purple-200">
             <CardHeader>
               <CardTitle className="text-purple-700">
@@ -194,8 +180,6 @@ export default function SuperAdminDashboard() {
               </ResponsiveContainer>
             </CardContent>
           </Card>
-
-          {/* Nuevos usuarios */}
           <Card className="md:col-span-2 border-green-200 shadow-md">
             <CardHeader>
               <CardTitle className="text-green-700">Nuevos Usuarios</CardTitle>
