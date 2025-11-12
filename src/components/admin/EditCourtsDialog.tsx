@@ -18,7 +18,7 @@ export const EditCourtDialog = ({
   court,
   refreshCourts,
 }: EditCourtDialogProps) => {
-  const { handleSubmit, setImagen, toggleDia, diasSemana, isLoading, setFormData, formData } =
+  const { handleSubmit, setImagen, toggleDia, diasSemana, isLoading, setFormData, formData, API_URL } =
     useEditCourts({ court, onOpenChange, open, refreshCourts });
 
   return (
@@ -33,7 +33,6 @@ export const EditCourtDialog = ({
         {court && (
           <ScrollArea className="max-h-[calc(90vh-8rem)] pr-4">
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Información general */}
               <div className="space-y-4 p-6 rounded-xl border border-green-100 bg-white/80 shadow-sm backdrop-blur-sm">
                 <div className="flex items-center gap-2 mb-4">
                   <MapPin className="h-5 w-5 text-green-600" />
@@ -82,8 +81,6 @@ export const EditCourtDialog = ({
                   </div>
                 </div>
               </div>
-
-              {/* Horarios */}
               <div className="space-y-4 p-6 rounded-xl border border-blue-100 bg-white/80 shadow-sm backdrop-blur-sm">
                 <div className="flex items-center gap-2 mb-4">
                   <Calendar className="h-5 w-5 text-green-700" />
@@ -139,8 +136,6 @@ export const EditCourtDialog = ({
                   </div>
                 </div>
               </div>
-
-              {/* Información adicional */}
               <div className="space-y-4 p-6 rounded-xl border border-green-100 bg-white/80 shadow-sm backdrop-blur-sm">
                 <div className="flex items-center gap-2 mb-4">
                   <DollarSign className="h-5 w-5 text-green-600" />
@@ -204,8 +199,6 @@ export const EditCourtDialog = ({
                   </div>
                 </div>
               </div>
-
-              {/* Imagen */}
               <div className="space-y-4 p-6 rounded-xl border border-blue-100 bg-white/80 shadow-sm backdrop-blur-sm">
                 <div className="flex items-center gap-2 mb-4">
                   <ImageIcon className="h-5 w-5 text-green-700" />
@@ -217,7 +210,7 @@ export const EditCourtDialog = ({
                 <div className="space-y-2">
                   {court.imagen && (
                     <img
-                      src={`http://localhost:4000/api/uploads/${court.imagen}`}
+                      src={`${API_URL}/uploads/${court.imagen}`}
                       alt={court.nombreCancha}
                       className="w-full h-48 object-cover rounded-lg border border-green-100"
                     />
@@ -230,8 +223,6 @@ export const EditCourtDialog = ({
                   />
                 </div>
               </div>
-
-              {/* Botones */}
               <div className="flex justify-end gap-3 pt-4">
                 <Button
                   type="button"

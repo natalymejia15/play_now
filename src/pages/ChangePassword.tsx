@@ -51,7 +51,7 @@ const ChangePassword = () => {
               <div className="space-y-2">
                 <Label htmlFor="newPassword" className="text-sm font-medium text-foreground">Nueva contraseña</Label>
                 <div className="relative">
-                  <LockIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground text-gray-500"/>
+                  <LockIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground text-gray-500" />
                   <Input
                     id="newPassword"
                     type={showNewPassword ? "text" : "password"}
@@ -92,6 +92,13 @@ const ChangePassword = () => {
                     {showConfirmPassword ? <EyeOffIcon className="h-4 w-4" /> : <EyeIcon className="h-4 w-4" />}
                   </button>
                 </div>
+                <ul className="mt-2 text-xs text-gray-500 space-y-1 list-disc list-inside">
+                  <li>Debe tener al menos 8 caracteres</li>
+                  <li>Debe incluir una letra mayúscula</li>
+                  <li>Debe incluir una letra minúscula</li>
+                  <li>Debe incluir un número</li>
+                  <li>Debe incluir un símbolo (por ejemplo: !@#$%)</li>
+                </ul>
               </div>
               <Button
                 type="submit"
