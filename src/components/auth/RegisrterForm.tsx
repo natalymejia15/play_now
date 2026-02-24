@@ -61,28 +61,26 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
     }
   };
 
-  const inputClass =
-    "h-12 border border-gray-300 rounded-lg bg-gray-50 focus:border-green-400 focus:ring-1 focus:ring-green-200 transition-colors";
-
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 w-full max-w-5xl mx-auto">
+    <form onSubmit={handleSubmit} className="space-y-6">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-4">
         <div className="space-y-2">
-          <Label htmlFor="document-type" className="text-gray-700 font-medium">
-            Tipo de documento
-          </Label>
-          <Select value={documentType} onValueChange={(value) => setDocumentType(value as DocumentType)}>
-            <SelectTrigger className={`h-12 border border-gray-300 rounded-lg bg-gray-50 focus:border-green-400 focus:ring-1 focus:ring-green-200 transition-colors`}>
+          <Label htmlFor="document-type">Tipo de documento</Label>
+          <Select
+            value={documentType}
+            onValueChange={(value) => setDocumentType(value as DocumentType)}
+          >
+            <SelectTrigger>
               <SelectValue placeholder="Seleccione tipo de documento" />
             </SelectTrigger>
-            <SelectContent className="bg-white border border-gray-300 shadow-sm">
+            <SelectContent>
               <SelectItem value="CC">Cédula</SelectItem>
               <SelectItem value="NIT">NIT</SelectItem>
             </SelectContent>
           </Select>
         </div>
         <div className="space-y-2">
-          <Label htmlFor="document-number" className="text-gray-700 font-medium">
+          <Label htmlFor="document-number">
             {isNIT ? "Número de NIT" : "Número de documento"}
           </Label>
           <Input
@@ -93,15 +91,13 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
             onChange={(e) => setDocumentNumber(e.target.value)}
             required
             disabled={isLoading}
-            className={inputClass}
           />
         </div>
-        {isNIT ? (
+
+        {isNIT && (
           <>
-            <div className="space-y-2">
-              <Label htmlFor="business-name" className="text-gray-700 font-medium">
-                Razón social
-              </Label>
+            <div className="space-y-2 md:col-span-2">
+              <Label htmlFor="business-name">Razón social</Label>
               <Input
                 id="business-name"
                 type="text"
@@ -110,89 +106,10 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
                 onChange={(e) => setBusinessName(e.target.value)}
                 required
                 disabled={isLoading}
-                className={inputClass}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="register-email" className="text-gray-700 font-medium">
-                Correo electrónico
-              </Label>
-              <Input
-                id="register-email"
-                type="email"
-                placeholder="usuario@ejemplo.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                disabled={isLoading}
-                className={inputClass}
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="space-y-2">
-              <Label htmlFor="first-name" className="text-gray-700 font-medium">
-                Nombre
-              </Label>
-              <Input
-                id="first-name"
-                type="text"
-                placeholder="Nombre"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                required
-                disabled={isLoading}
-                className={inputClass}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="second-name" className="text-gray-700 font-medium">
-                Segundo nombre
-              </Label>
-              <Input
-                id="second-name"
-                type="text"
-                placeholder="Segundo nombre"
-                value={secondFirstName}
-                onChange={(e) => setSecondFirstName(e.target.value)}
-                disabled={isLoading}
-                className={inputClass}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="last-name" className="text-gray-700 font-medium">
-                Primer apellido
-              </Label>
-              <Input
-                id="last-name"
-                type="text"
-                placeholder="Primer apellido"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                required
-                disabled={isLoading}
-                className={inputClass}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="second-last-name" className="text-gray-700 font-medium">
-                Segundo apellido
-              </Label>
-              <Input
-                id="second-last-name"
-                type="text"
-                placeholder="Segundo apellido"
-                value={secondLastName}
-                onChange={(e) => setSecondLastName(e.target.value)}
-                disabled={isLoading}
-                className={inputClass}
               />
             </div>
             <div className="space-y-2 md:col-span-2">
-              <Label htmlFor="register-email" className="text-gray-700 font-medium">
-                Correo electrónico
-              </Label>
+              <Label htmlFor="register-email">Correo electrónico</Label>
               <Input
                 id="register-email"
                 type="email"
@@ -201,42 +118,94 @@ export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
                 onChange={(e) => setEmail(e.target.value)}
                 required
                 disabled={isLoading}
-                className={inputClass}
               />
             </div>
           </>
         )}
+        {!isNIT && (
+          <>
+            <div className="space-y-2">
+              <Label htmlFor="first-name">Nombre</Label>
+              <Input
+                id="first-name"
+                type="text"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+                required
+                disabled={isLoading}
+              />
+            </div>
 
+            <div className="space-y-2">
+              <Label htmlFor="second-name">Segundo nombre</Label>
+              <Input
+                id="second-name"
+                type="text"
+                value={secondFirstName}
+                onChange={(e) => setSecondFirstName(e.target.value)}
+                disabled={isLoading}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="last-name">Primer apellido</Label>
+              <Input
+                id="last-name"
+                type="text"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+                required
+                disabled={isLoading}
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="second-last-name">Segundo apellido</Label>
+              <Input
+                id="second-last-name"
+                type="text"
+                value={secondLastName}
+                onChange={(e) => setSecondLastName(e.target.value)}
+                disabled={isLoading}
+              />
+            </div>
+
+            <div className="space-y-2 md:col-span-2">
+              <Label htmlFor="register-email">Correo electrónico</Label>
+              <Input
+                id="register-email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                disabled={isLoading}
+              />
+            </div>
+          </>
+        )}
         <div className="space-y-2">
-          <Label htmlFor="address" className="text-gray-700 font-medium">
-            Dirección
-          </Label>
+          <Label htmlFor="address">Dirección</Label>
           <Input
             id="address"
             type="text"
-            placeholder="Dirección de la empresa"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
             required
             disabled={isLoading}
-            className={inputClass}
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="phone-number" className="text-gray-700 font-medium">
-            Número de teléfono
-          </Label>
+          <Label htmlFor="phone-number">Número de teléfono</Label>
           <Input
             id="phone-number"
             type="tel"
-            placeholder="Ej: 3001234567"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
             required
             disabled={isLoading}
-            className={inputClass}
           />
         </div>
+
       </div>
 
       <div className="space-y-3">

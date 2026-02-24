@@ -18,18 +18,17 @@ import MallDetails from "./pages/super-admin/MallDetails";
 import HistoricoReservasPage from "./pages/client/HistoricoReservasPage";
 import HistoryAdmin from "./pages/admin/HistoryAdmin";
 import CourtsDetailsPage from "./pages/admin/CourtsDetails";
+import Index from "./pages/Index";
 
 function App() {
   return (
-    <div
-      className="min-h-screen bg-cover bg-center"
-      style={{ backgroundImage: "url('/src/assets/logo.png')" }}
-    >
+    <div className="min-h-screen bg-cover bg-center">
       <TooltipProvider>
         <Toaster />
         <Sonner />
         <Routes>
-          <Route path="/" element={<AuthPage />} />
+          <Route path="/" element={<Index />} />
+          <Route path="/login" element={<AuthPage />} />
           <Route path="/forgot-password" element={<ForgotPasswordForm />} />
           <Route path="/users/reset-password/:token" element={<ChangePassword />} />
           <Route

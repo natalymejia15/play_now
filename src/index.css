@@ -1,19 +1,53 @@
 @import "tailwindcss";
 
-:root {
-  --sidebar-width: 260px;
-  --sidebar-collapsed-width: 72px;
-  --sidebar-bg: hsl(0 0% 98%);
-  --sidebar-fg: hsl(240 5% 15%);
+@theme {
+  --color-background: hsl(150 30% 97%);
+  --color-foreground: hsl(150 25% 18%);
+
+  --color-card: hsl(0 0% 100%);
+  --color-card-foreground: hsl(150 25% 18%);
+
+  --color-primary: hsl(142 65% 40%);
+  --color-primary-foreground: hsl(0 0% 100%);
+
+  --color-border: hsl(150 15% 85%);
+  --color-ring: hsl(142 65% 40%);
 }
 
-[data-state="expanded"] .sidebar {
-  width: var(--sidebar-width);
+.theme-landing {
+  --color-background: hsl(150 20% 4%);
+  --color-foreground: hsl(140 10% 95%);
+  --color-card: hsl(150 15% 8%);
+  --color-card-foreground: hsl(140 10% 95%);
+  --color-primary: hsl(142 71% 45%);
+  --color-primary-foreground: hsl(150 20% 4%);
+  --color-secondary: hsl(150 15% 12%);
+  --color-secondary-foreground: hsl(140 10% 95%);
+  --color-muted: hsl(150 10% 15%);
+  --color-muted-foreground: hsl(150 10% 60%);
+  --color-accent: hsl(85 80% 55%);
+  --color-accent-foreground: hsl(150 20% 4%);
+  --color-border: hsl(150 10% 18%);
+  --color-ring: hsl(142 71% 45%);
 }
 
-.sidebar {
-  width: var(--sidebar-width);
-  background-color: var(--sidebar-bg);
-  color: var(--sidebar-fg);
-  transition: width 0.25s ease;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', sans-serif;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Space Grotesk', sans-serif;
+  }
+
 }
