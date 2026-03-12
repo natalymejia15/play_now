@@ -19,6 +19,7 @@ import HistoricoReservasPage from "./pages/client/HistoricoReservasPage";
 import HistoryAdmin from "./pages/admin/HistoryAdmin";
 import CourtsDetailsPage from "./pages/admin/CourtsDetails";
 import Index from "./pages/Index";
+import { DeportsDetails } from "./pages/super-admin/DeportsDetails";
 
 function App() {
   return (
@@ -52,6 +53,14 @@ function App() {
             element={
               <ProtectedRoute allowedRoles={[1]}>
                 <MallDetails />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/super-admin/deports"
+            element={
+              <ProtectedRoute allowedRoles={[1]}>
+                <DeportsDetails />
               </ProtectedRoute>
             }
           />

@@ -14,5 +14,6 @@ export const menuItems = [
 
 export const menuSuperItems = [
   { title: "Dashboard", url: "/super-admin/dashboard", icon: LayoutDashboard },
+  { title: "GestionarDeportes", url: "/super-admin/deports", icon: ClipboardClock },
   { title: "Gestionar CC", url: "/super-admin/malls", icon: Users },
 ];
