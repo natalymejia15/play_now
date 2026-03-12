@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Input } from "../ui/input";
 import { Label } from "../ui/label";
-import { Eye, EyeOff, Loader2 } from "lucide-react";
+import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
 import type { LoginFormProps } from "../../interfaces/auth.interfaces";
 
@@ -21,18 +21,19 @@ export const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
       setIsLoading(false);
     }
   };
-  
+
   useEffect(() => {
     document.title = "Login- Play now";
   }, []);
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6 w-full">
-      <div className="space-y-4">
-        <div className="space-y-2">
-          <Label htmlFor="email" className="font-medium text-gray-700">
-            Correo electrónico
-          </Label>
+    <form onSubmit={handleSubmit} className="space-y-4">
+      <div className="space-y-2">
+        <Label htmlFor="email">
+          Correo electrónico
+        </Label>
+        <div className="relative">
+          <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             id="email"
             type="email"
@@ -41,14 +42,16 @@ export const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
             onChange={(e) => setEmail(e.target.value)}
             required
             disabled={isLoading}
-            className="h-12 border border-gray-300 rounded-lg bg-gray-50 focus:border-green-400 focus:ring-1 focus:ring-green-200 transition-colors"
+            className="pl-10"
           />
         </div>
-        <div className="space-y-2">
-        <Label htmlFor="password" className="text-gray-700 font-medium">
+      </div>
+      <div className="space-y-2">
+        <Label htmlFor="password">
           Contraseña
         </Label>
         <div className="relative">
+          <Lock className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <Input
             id="password"
             type={showPassword ? "text" : "password"}
@@ -57,58 +60,54 @@ export const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
             onChange={(e) => setPassword(e.target.value)}
             required
             disabled={isLoading}
-            className="h-12 pr-12 border border-gray-300 rounded-lg bg-gray-50 focus:border-green-400 focus:ring-1 focus:ring-green-200 transition-colors"
+            className="pl-10 pr-10"
           />
           <button
             type="button"
             onClick={() => setShowPassword(!showPassword)}
-            className="absolute inset-y-0 right-3 flex items-center text-gray-500 hover:text-gray-700 focus:outline-none"
-            tabIndex={-1}
+            className="absolute right-3 top-1/2 -translate-y-1/2"
           >
             {showPassword ? (
-              <EyeOff className="h-5 w-5" />
+              <EyeOff className="h-5 w-5 text-muted-foreground" />
             ) : (
-              <Eye className="h-5 w-5" />
+              <Eye className="h-5 w-5 text-muted-foreground" />
             )}
           </button>
         </div>
-      </div>
-      </div>
-      <div className="space-y-4">
-        <Button
-          type="submit"
-          className="w-full h-12 text-base border border-green-600 bg-green-600 text-white rounded-lg shadow-sm hover:bg-green-700 transition-colors"
-          disabled={isLoading}
-        >
-          {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-              Ingresando...
-            </>
-          ) : (
-            "Ingresar"
-          )}
-        </Button>
-
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full h-12 text-base border border-green-600 text-green-600 rounded-lg hover:bg-green-50 transition-colors"
-          onClick={onToggleForm}
-          disabled={isLoading}
-        >
-          Registrar nueva cuenta
-        </Button>
-
-        <div className="text-center">
+        <div className="flex justify-end">
           <Link
             to="/forgot-password"
-            className="text-green-600 hover:text-green-700 transition-colors text-sm font-medium"
+            className="text-xs font-medium text-primary hover:underline"
           >
             ¿Olvidaste tu contraseña?
           </Link>
         </div>
       </div>
+      <Button
+        type="submit"
+        className="w-full h-12 text-base border border-green-600 bg-green-600 text-white rounded-lg shadow-sm hover:bg-green-700 transition-colors"
+        disabled={isLoading}
+      >
+        {isLoading ? (
+          <>
+            <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+            Ingresando...
+          </>
+        ) : (
+          "Ingresar"
+        )}
+      </Button>
+      <p className="text-center text-sm text-muted-foreground">
+        ¿No tienes cuenta?{" "}
+        <button
+          type="button"
+          className="font-semibold text-primary hover:underline"
+          onClick={onToggleForm}
+          disabled={isLoading}
+        >
+          Regístrarte
+        </button>
+      </p>
     </form>
   );
 };
