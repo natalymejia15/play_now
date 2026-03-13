@@ -8,7 +8,7 @@ import { Button } from '../components/ui/button';
 import { Label } from '../components/ui/label';
 import { Input } from '../components/ui/input';
 import companyLogo from '../assets/logo.png';
-import { emailValidationSchema } from '../utils/validation';
+import { emailValidationSchema } from '../lib/validations/validation';
 import { useForgotPassword } from '../hook/password/use-forgot-password';
 import { motion, AnimatePresence } from "framer-motion";
 

@@ -9,7 +9,7 @@ import { Separator } from "../ui/separator";
 import { Sheet, SheetContent } from "../ui/sheet";
 import { Skeleton } from "../ui/skeleton";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { cn } from "../../lib/utils";
+import { cn } from "../../lib/util/utils";
 import { cva, type VariantProps } from "class-variance-authority";
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state";
