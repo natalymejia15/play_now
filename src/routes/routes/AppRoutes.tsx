@@ -6,12 +6,9 @@ import ProtectedRoute from "./ProtectedRoute";
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* PUBLIC ROUTES */}
       {publicRoutes.map((route, index) => (
         <Route key={index} path={route.path} element={route.element} />
       ))}
-
-      {/* PRIVATE ROUTES */}
       {privateRoutes.map((route, index) => (
         <Route
           key={index}

@@ -1,4 +1,4 @@
-import Auth from "@/pages/Auth";
+import { Auth } from "@/modules";
 import ChangePassword from "@/pages/ChangePassword";
 import ForgotPasswordForm from "@/pages/ForgotPasswordForm";
 import Index from "@/pages/Index";

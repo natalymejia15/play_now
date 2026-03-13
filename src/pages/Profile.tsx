@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
-import { useAuth } from "../hook/auth/use-auth";
 import { useUserRole } from "../hook/users/use-user-role";
 import { SuperAdminLayout } from "../components/layouts/SuperAdminLayout";
 import { AdminLayout } from "../components/layouts/AdminLayout";
@@ -9,9 +8,10 @@ import { ClientLayout } from "../components/layouts/ClientLayout";
 import { ProfileForm } from "../components/profile/profileForm";
 import { ChangePasswordForm } from "../components/profile/changePasswordForm";
 import { Button } from "../components/ui/button";
+import { useLogin } from "@/modules";
 
 const ProfilePage = () => {
-  const { user, loading: authLoading } = useAuth();
+  const { user, loading: authLoading } = useLogin();
   const { role, isLoading: roleLoading } = useUserRole();
   const [activeTab, setActiveTab] = useState<"profile" | "password">("profile");
   const navigate = useNavigate();

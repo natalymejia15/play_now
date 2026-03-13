@@ -1,5 +1,5 @@
 import { useNavigate, NavLink } from "react-router-dom";
-import { useAuth } from "../../hook/auth/use-auth";
+import { useLogin } from "@/modules/auth/hooks/useLogin";
 import {
   Sidebar,
   SidebarContent,
@@ -19,7 +19,7 @@ import { InnerContent } from "./InnerContent";
 
 export const SuperAdminLayout = ({ children }: SuperAdminLayoutProps) => {
   const navigate = useNavigate();
-  const { signOut, user } = useAuth();
+  const { signOut, user } = useLogin();
 
   const handleSignOut = async () => {
     await signOut();

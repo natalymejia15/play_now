@@ -12,14 +12,14 @@ import {
 } from "../ui/sidebar";
 import { LogOut, User } from "lucide-react";
 import { Button } from "../ui/button";
-import { useAuth } from "../../hook/auth/use-auth";
+import { useLogin } from "@/modules/auth/hooks/useLogin";
 import { menuItems } from "../../config/navItems";
 import type { AdminLayoutProps } from "../../interfaces/layout.interfaces";
 import { InnerContent } from "./InnerContent";
 
 export const AdminLayout = ({ children }: AdminLayoutProps) => {
   const navigate = useNavigate();
-  const { signOut, user } = useAuth();
+  const { signOut, user } = useLogin();
 
   const handleSignOut = async () => {
     await signOut();

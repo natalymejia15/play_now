@@ -1,53 +1,26 @@
-import { useState, useEffect } from "react";
+import {  useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../hook/auth/use-auth";
-import { LoginForm } from "../components/auth/LoginForm";
-import { RegisterForm } from "../components/auth/RegisrterForm";
-import companyLogo from "../assets/logo.png";
-import type { RegisterFormData } from "../interfaces/register.interfaces";
-import { useRegister } from "../hook/users/use-register";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
+import companyLogo from '@/assets/logo.png';
+import { useLogin } from "../hooks/useLogin";
+import { LoginForm, RegisterForm } from "@/components";
 
-const Auth = () => {
-  const [isLogin, setIsLogin] = useState(true);
-  const { signIn, user } = useAuth();
-  const { signUp } = useRegister();
-  const navigate = useNavigate();
-
+export const Auth = () => {
+  const  navigate = useNavigate();
   useEffect(() => {
-    if (user) {
+    const storedUser = localStorage.getItem('user')
+    if (storedUser) {
       navigate("/");
     }
-  }, [user, navigate]);
+  }, [navigate]);
 
-  const handleLogin = async (email: string, password: string) => {
-    const { user, error } = await signIn(email, password);
-
-    if (!error && user) {
-      switch (user.idRol) {
-        case 1:
-          navigate("/super-admin/dashboard");
-          break;
-        case 2:
-          navigate("/admin/dashboard");
-          break;
-        case 3:
-          navigate("/client/home");
-          break;
-        default:
-          navigate("/");
-          break;
-      }
-    }
-  };
-
-  const handleRegister = async (formData: RegisterFormData) => {
-    const { error } = await signUp(formData);
-    if (!error) {
-      setIsLogin(true);
-    }
-  };
+   const {
+    isLogin,
+    setIsLogin,
+    handleLogin,
+    handleRegister, 
+  } = useLogin()
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-background px-4">
@@ -121,5 +94,3 @@ const Auth = () => {
     </div>
   );
 };
-
-export default Auth;

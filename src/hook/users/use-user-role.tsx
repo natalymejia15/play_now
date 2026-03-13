@@ -1,10 +1,10 @@
+import { useLogin } from "@/modules/auth/hooks/useLogin";
 import { useEffect, useState } from "react";
-import { useAuth } from "../auth/use-auth";
 
 export type UserRole = "superAdmin" | "admin" | "usuario" | null;
 
 export const useUserRole = () => {
-  const { user } = useAuth();
+  const { user } = useLogin();
   const [role, setRole] = useState<UserRole>(null);
   const [isLoading, setIsLoading] = useState(true);
 

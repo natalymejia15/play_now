@@ -1,13 +1,13 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { Button } from "../ui/button";
 import { LogOut } from "lucide-react";
-import { useAuth } from "../../hook/auth/use-auth";
+import { useLogin } from "@/modules/auth/hooks/useLogin";
 import { navItems } from "../../config/navItems";
 import type { ClientLayoutProps } from "../../interfaces/layout.interfaces";
 
 export const ClientLayout = ({ children }: ClientLayoutProps) => {
   const navigate = useNavigate();
-  const { signOut } = useAuth();
+  const { signOut } = useLogin();
 
   const handleSignOut = async () => {
     await signOut();

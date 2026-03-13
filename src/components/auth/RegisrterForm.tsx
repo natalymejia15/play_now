@@ -10,8 +10,8 @@ import {
   SelectValue,
 } from "../ui/select";
 import { Loader2 } from "lucide-react";
-import type { RegisterFormData, RegisterFormProps } from "../../interfaces/register.interfaces";
 import type { DocumentType } from "../../types/document";
+import type { RegisterFormData, RegisterFormProps } from "@/interfaces/register.interfaces";
 
 export const RegisterForm = ({ onSubmit, onToggleForm }: RegisterFormProps) => {
   const [documentType, setDocumentType] = useState<DocumentType>("CC");
