@@ -4,7 +4,7 @@ import { Input } from "../ui/input";
 import { Label } from "../ui/label";
 import { Eye, EyeOff, Loader2, Lock, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
-import type { LoginFormProps } from "../../interfaces/auth.interfaces";
+import type { LoginFormProps } from "@/modules";
 
 export const LoginForm = ({ onSubmit, onToggleForm }: LoginFormProps) => {
   const [email, setEmail] = useState("");
