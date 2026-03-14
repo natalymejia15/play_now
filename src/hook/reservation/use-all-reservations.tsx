@@ -37,7 +37,7 @@ export const useAllReservations = () => {
 
   useEffect(() => {
     const fetchAllReservations = async () => {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
 
       try {
         setLoading(true);

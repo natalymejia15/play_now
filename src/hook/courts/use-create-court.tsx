@@ -8,7 +8,7 @@ export const useCreateCourt = () => {
     const [isLoading, setIsLoading] = useState(false);
 
     const createCourt = async (formData: FormData) => {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         if (!token) {
             toast({
                 title: "Error",

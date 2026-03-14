@@ -15,7 +15,7 @@ export const useCreateMall = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const createMall = async (payload: ICreateMallPayload) => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     if (!token) {
       toast({
         title: "Error",

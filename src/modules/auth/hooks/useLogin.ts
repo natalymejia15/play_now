@@ -2,17 +2,16 @@ import { useAppDispatch, useAppSelector } from "@/common";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { LoginData } from "../interfaces";
-import { loginUser, logoutUser } from "@/features";
-import axios from 'axios';
-import type { RegisterFormData } from "@/interfaces/register.interfaces";
+import { clearAuth, loginUser, logoutUser, setApiToken } from "@/features";
 import { useRegister } from "@/hook/users/use-register";
+import type { RegisterFormData, User } from "@/interfaces";
 
 export const useLogin = () => {
     const dispatch = useAppDispatch()
     const { signUp } = useRegister();
     const navigate = useNavigate()
     const { token, loading, error } = useAppSelector(state => state.auth)
-    const [user, setUser] = useState<any>(null)
+    const [user, setUser] = useState<User | null>(null)
     const [formData, setFormData] = useState<LoginData>({
         email: '',
         password: '',
@@ -24,7 +23,7 @@ export const useLogin = () => {
         if (token) {
             navigate('/', { replace: true })
         }
-        const stored = localStorage.getItem('user')
+        const stored = sessionStorage.getItem('user')
         if (stored) {
             try {
                 setUser(JSON.parse(stored))
@@ -44,13 +43,13 @@ export const useLogin = () => {
 
         try {
             const result = await dispatch(loginUser(formData)).unwrap()
-            const access = (result as any).accessToken || (result as any).token
-            const user = (result as any).user || null
+            const access = result.token
+            const user = result.user
 
             if (access) {
-                localStorage.setItem('token', access)
-                if (user) localStorage.setItem('user', JSON.stringify(user))
-                axios.defaults.headers.common['Authorization'] = `Bearer ${access}`
+                sessionStorage.setItem('token', access)
+                if (user) sessionStorage.setItem('user', JSON.stringify(user))
+                setApiToken(access);
                 if (user && user.idRol) {
                     switch (user.idRol) {
                         case 1:
@@ -81,15 +80,14 @@ export const useLogin = () => {
         setLocalError(null)
         try {
             const result = await dispatch(loginUser({ email, password })).unwrap()
-            const access = (result as any).accessToken || (result as any).token
-            const user = (result as any).user || null
+            const access = result.token
+            const user = result.user
 
             if (access) {
-                localStorage.setItem('token', access)
-                if (user) localStorage.setItem('user', JSON.stringify(user))
-                axios.defaults.headers.common['Authorization'] = `Bearer ${access}`
+                sessionStorage.setItem('token', access)
+                if (user) sessionStorage.setItem('user', JSON.stringify(user))
+                setApiToken(access);
 
-                // update local user state
                 if (user) setUser(user)
 
                 return { user, error: null as string | null }
@@ -98,8 +96,8 @@ export const useLogin = () => {
             const msg = 'Respuesta de login inesperada'
             setLocalError(msg)
             return { user: null, error: msg }
-        } catch (err: any) {
-            const message = err ?? 'Error al iniciar sesión'
+        } catch (err: unknown) {
+            const message = (err as Error)?.message ?? 'Error al iniciar sesión'
             setLocalError(message)
             return { user: null, error: message }
         }
@@ -107,13 +105,10 @@ export const useLogin = () => {
 
     const signOut = async () => {
         try {
-            await dispatch((logoutUser as any)()).unwrap()
+            await dispatch(logoutUser()).unwrap();
         } catch (e) {
-            // ignore
         } finally {
-            localStorage.removeItem('token')
-            localStorage.removeItem('user')
-            delete axios.defaults.headers.common['Authorization']
+            clearAuth()
             setUser(null)
         }
     }

@@ -68,7 +68,7 @@ export const useEditCourts = ({
         if (!court) return;
 
         setIsLoading(true);
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
 
         try {
             const data = new FormData();

@@ -1,16 +1,9 @@
-import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import { useAuth } from "@/features/auth/useAuth";
 import { useNavigate } from "react-router-dom";
 
 function Dashboard() {
-    const userCtx = useContext(UserContext);
+    const { user, logout } = useAuth();
     const navigate = useNavigate();
-
-    if (!userCtx) {
-        throw new Error("Dashboard debe estar dentro de UserProvider");
-    }
-
-    const { user, logout } = userCtx;
 
     const handleLogout = () => {
         logout();

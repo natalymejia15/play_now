@@ -15,7 +15,7 @@ export const useCourt = () => {
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
 
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const fetchCourts = async () => {
         if (!token) {
             toast({

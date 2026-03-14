@@ -1,22 +1,13 @@
-import type { AxiosError, InternalAxiosRequestConfig } from 'axios'
+import type { AxiosError } from 'axios'
 import { authService, logout, refreshToken } from '@/features'
 import { refreshManager } from '../auth'
 import { api } from '../instance'
 import { store } from '@/store'
+import type { RequestHeaders, RetryRequestConfig } from '@/interfaces'
+import { PUBLIC_ROUTE_PATTERNS } from '@/constants'
 
-type RetryRequestConfig = InternalAxiosRequestConfig & {
-  _retry?: boolean
-}
 
-const PUBLIC_ROUTE_PATTERNS = [
-  '/auth/login',
-  '/auth/refresh',
-  '/auth/forgot',
-  '/auth/register',
-  '/users/register',
-]
-
-const isPublicRoute = (url?: string | null, headers?: any) => {
+const isPublicRoute = (url?: string | null, headers?: RequestHeaders) => {
   if (!url) return false
 
   const hasAuthHeader = !!(

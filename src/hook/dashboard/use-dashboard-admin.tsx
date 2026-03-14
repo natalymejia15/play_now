@@ -20,7 +20,7 @@ export const useDashboardStats = () => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         const headers = { Authorization: `Bearer ${token}` };
 
         const [mallsRes, courtsRes, usersRes] = await Promise.all([

@@ -15,7 +15,7 @@ export const useMalls = () => {
   const [admin, setAdmin] = useState<AdminData | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  const token = localStorage.getItem("token");
+  const token = sessionStorage.getItem("token");
   const fetchMalls = async () => {
     if (!token) {
       toast({

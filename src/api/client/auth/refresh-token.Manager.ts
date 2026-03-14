@@ -1,11 +1,7 @@
+import type { FailedRequest } from '@/modules'
 import type { AxiosError } from 'axios'
 
 let isRefreshing = false
-
-type FailedRequest = {
-  resolve: (token: string) => void
-  reject: (error: AxiosError) => void
-}
 
 let failedQueue: FailedRequest[] = []
 

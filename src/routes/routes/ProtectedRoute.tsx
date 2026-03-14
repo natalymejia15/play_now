@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { Navigate } from "react-router-dom";
+import type { User } from "@/interfaces";
 
 interface ProtectedRouteProps {
   children: ReactNode;
@@ -10,21 +11,23 @@ export default function ProtectedRoute({
   children,
   allowedRoles,
 }: ProtectedRouteProps) {
-  const token = localStorage.getItem("token");
-  const user = localStorage.getItem("user");
+  const token = sessionStorage.getItem("token");
+  const user = sessionStorage.getItem("user");
 
   if (!token || !user) {
     return <Navigate to="/login" replace />;
   }
 
-  let parsedUser: any = null;
+  let parsedUser: User | null = null;
+
   try {
-    parsedUser = user ? JSON.parse(user) : null;
-  } catch (e) {
+    parsedUser = JSON.parse(user) as User;
+  } catch {
     parsedUser = null;
   }
 
-  const hasPermission = !!parsedUser && allowedRoles.includes(parsedUser.idRol);
+  const hasPermission =
+    parsedUser !== null && allowedRoles.includes(parsedUser.idRol);
 
   if (!hasPermission) {
     return <Navigate to="/" replace />;

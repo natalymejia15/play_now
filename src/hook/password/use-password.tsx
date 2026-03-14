@@ -19,7 +19,7 @@ export const usePassword = () => {
     setError(null);
 
     try {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       if (!token) throw new Error("No se encontró token de autenticación.");
 
       const response = await axios.put(

@@ -33,7 +33,7 @@ export const useReservations = () => {
     const fetchReservations = async () => {
       try {
         setLoading(true);
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         const response = await axios.get(`${API_URL}/reservations`, {
           headers: {
             Authorization: `Bearer ${token}`,

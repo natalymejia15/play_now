@@ -47,7 +47,7 @@ export const UseFormAdmin = ({ open, onOpenChange }: CreateCourtDialogProps) => 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        const user = JSON.parse(sessionStorage.getItem("user") || "{}");
         if (!user?.mallId) {
             toast({
                 title: "Error",

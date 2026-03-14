@@ -1,11 +1,10 @@
-export interface LoginSuccessResponse {
-    accessToken: string
-}
-export interface LoginRequireSelectionResponse {
-    requireSelection: true
-}
+import type { User } from "@/interfaces"
 
-export type LoginResponse = LoginSuccessResponse | LoginRequireSelectionResponse
+export interface LoginResponse {
+  accessToken: string
+  token: string
+  user: User
+}
 
 export interface ApiErrorResponse {
     message?: string | string[]

@@ -61,7 +61,7 @@ export const useEditMall = ({ open, onOpenChange, mall, onSuccess }: EditMallDia
         e.preventDefault();
         if (!mall?.id) return;
 
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         if (!token) {
             toast({
                 title: "Error",
