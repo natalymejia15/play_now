@@ -11,13 +11,13 @@ import { Button } from "../components/ui/button";
 import { useLogin } from "@/modules";
 
 const ProfilePage = () => {
-  const { user, loading: authLoading } = useLogin();
+  const { user, loading: authLoading, initializing } = useLogin();
   const { role, isLoading: roleLoading } = useUserRole();
   const [activeTab, setActiveTab] = useState<"profile" | "password">("profile");
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (!authLoading && !user) {
+    if (!authLoading && !initializing && !user) {
       navigate("/auth");
     }
   }, [user, authLoading, navigate]);

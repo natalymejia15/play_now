@@ -10,8 +10,9 @@ export const useLogin = () => {
     const dispatch = useAppDispatch()
     const { signUp } = useRegister();
     const navigate = useNavigate()
-    const { token, loading, error } = useAppSelector(state => state.auth)
+    const { loading, error } = useAppSelector(state => state.auth)
     const [user, setUser] = useState<User | null>(null)
+    const [initializing, setInitializing] = useState(true)
     const [formData, setFormData] = useState<LoginData>({
         email: '',
         password: '',
@@ -20,9 +21,6 @@ export const useLogin = () => {
     const [localError, setLocalError] = useState<string | null>(null)
 
     useEffect(() => {
-        if (token) {
-            navigate('/', { replace: true })
-        }
         const stored = sessionStorage.getItem('user')
         if (stored) {
             try {
@@ -31,7 +29,8 @@ export const useLogin = () => {
                 setUser(null)
             }
         }
-    }, [token, navigate])
+        setInitializing(false)
+    }, [])
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target
         setFormData(prev => ({ ...prev, [name]: value }))
@@ -143,6 +142,7 @@ export const useLogin = () => {
 
     return {
         user,
+        initializing,
         loading,
         handleChange,
         handleSubmit,
