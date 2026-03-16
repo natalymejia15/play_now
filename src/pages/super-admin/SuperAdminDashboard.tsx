@@ -163,9 +163,9 @@ export default function SuperAdminDashboard() {
                     }
                     dataKey="value"
                   >
-                    {roleDistribution.map((entry, index) => (
-                      <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                    ))}
+                      {roleDistribution.map((_, index) => (
+                        <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                      ))}
                   </Pie>
                   <Tooltip />
                 </PieChart>

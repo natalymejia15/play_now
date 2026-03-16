@@ -3,7 +3,6 @@ import type { ICreateMallPayload } from "../interfaces";
 
 export const mapCreateMallFormToPayload = (formData: UserFormData): ICreateMallPayload => ({
   mall: {
-    id: 0, 
     nombreCentro: formData.nombreCentro,
     direccion: formData.direccionMall,
     telefono: formData.telefono,
@@ -11,7 +10,6 @@ export const mapCreateMallFormToPayload = (formData: UserFormData): ICreateMallP
     created_at: new Date().toISOString(),
   },
   admin: {
-    id: 0,
     primerNombre: formData.primerNombre,
     segundoNombre: formData.segundoNombre,
     primerApellido: formData.primerApellido,

@@ -1,5 +1,5 @@
 export interface MallData {
-  id: number;
+  id?: number;
   nombre_centro: string;
   direccion: string;
   telefono: string;

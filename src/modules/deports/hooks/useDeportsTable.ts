@@ -1,10 +1,12 @@
-import { useDeports } from "./useDeports"
+
 import { useState } from "react";
 import type { IDeport } from "../interfaces";
 import { useNavigate } from "react-router-dom";
 
-export const useDeportsTable = () => {
-    const { deports, fetching, deleteDeport } = useDeports();
+export const useDeportsTable = (
+    deports: IDeport[],
+    deleteDeport: (id: number) => Promise<void>
+) => {
     const [deportToEdit, setDeportToEdit] = useState<IDeport | null>(null);
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
     const [deportToDelete, setDeportToDelete] = useState<IDeport | null>(null);
@@ -22,7 +24,7 @@ export const useDeportsTable = () => {
     };
 
     const handleConfirmDelete = async () => {
-        if (deportToDelete?.id) {
+        if (deportToDelete?.id !== undefined && deportToDelete?.id !== null) { 
             await deleteDeport(deportToDelete.id);
             setIsDeleteDialogOpen(false);
         }
@@ -34,8 +36,6 @@ export const useDeportsTable = () => {
     };
 
     return {
-        deports,
-        fetching,
         deportToEdit,
         isEditDialogOpen,
         setIsEditDialogOpen,
@@ -46,6 +46,6 @@ export const useDeportsTable = () => {
         handleDeleteClick,
         handleConfirmDelete,
         handleViewDeport,
-    }
-
-}
+        deports
+    };
+};

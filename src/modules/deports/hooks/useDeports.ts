@@ -18,9 +18,13 @@ export const useDeports = () => {
         setIsLoading(true);
         try {
             const data = await getDeports();
-            setDeports(data);
+            setDeports(data ?? []);
         } catch (error) {
-            console.error("Error fetching deports:", error);
+            const description = extractApiErrorMessage(
+                error as AxiosError<ApiErrorResponseDeports>,
+                "No se pudieron cargar los deportes"
+            );
+            toast({ title: "Error", description, variant: "destructive" });
         } finally {
             setIsLoading(false);
         }

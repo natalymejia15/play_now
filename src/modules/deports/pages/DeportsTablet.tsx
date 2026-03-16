@@ -1,14 +1,24 @@
 import { useDataTable, useTableActions } from "@/lib";
-import { useDeportsTable } from "../hooks"
+import { useDeports, useDeportsTable } from "../hooks"
 import { COLUMNS_DEPORTS, PRIMARY_DEPORTS } from "@/constants";
-import { AlertDialogFooter, AlertDialogHeader, DataTable } from "@/components";
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogTitle } from "@radix-ui/react-alert-dialog";
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogTitle,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    DataTable
+} from "@/components";
+import { EditDeportsDialog } from "./EditDeportsDialog";
 
 
 export const DeportsTablet = () => {
+    const { deports, deleteDeport } = useDeports();
+
     const {
-        deports,
-        fetching,
         deportToEdit,
         isEditDialogOpen,
         setIsEditDialogOpen,
@@ -19,7 +29,8 @@ export const DeportsTablet = () => {
         handleDeleteClick,
         handleConfirmDelete,
         handleViewDeport,
-    } = useDeportsTable();
+    } = useDeportsTable(deports, deleteDeport);
+    
     const { search, setSearch, visibleColumns, setVisibleColumns, filtered } =
         useDataTable(deports, COLUMNS_DEPORTS, ["nombre", "activo"]);
 
@@ -40,10 +51,17 @@ export const DeportsTablet = () => {
                 search={search}
                 setSearch={setSearch}
                 actions={actions}
-                keyExtractor={(m) => m.id}
+                keyExtractor={(d) => d.id}
                 emptyMessage="No hay deportes registrados"
                 searchPlaceholder="Buscar deportes..."
             />
+
+            <EditDeportsDialog
+                open={isEditDialogOpen}
+                onOpenChange={setIsEditDialogOpen}
+                deport={deportToEdit}
+            />
+
             <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                 <AlertDialogContent className="border border-green-500 bg-green-50 text-green-900">
                     <AlertDialogHeader>

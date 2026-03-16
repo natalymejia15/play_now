@@ -4,7 +4,7 @@ import { Button, Skeleton, SuperAdminLayout } from "@/components";
 import { useDeports } from "../hooks";
 
 export const DeportsDetails = () => {
-    const { deports, fetchDeports, fetching } = useDeports();
+    const { deports, fetching } = useDeports();
     const navigate = useNavigate();
 
     if (fetching) {

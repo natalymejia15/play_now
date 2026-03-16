@@ -1,5 +1,5 @@
 export interface IMall {
-  id: number;
+  id?: number;
   nombreCentro: string;
   direccion: string;
   telefono: string;
@@ -9,7 +9,7 @@ export interface IMall {
 }
 
 export interface IAdmin {
-  id: number;
+  id?: number;
   tipoDocumento: string;
   numeroDocumento: string;
   primerNombre: string;
