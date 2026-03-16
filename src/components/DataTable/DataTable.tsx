@@ -40,7 +40,7 @@ export function DataTable<T extends Record<string, any>>({
   const activeColumns = columns.filter((col) => visibleColumns[col.key]);
 
   const [page, setPage] = useState(1);
-  const pageSize = 4;
+  const pageSize = 5;
 
   const totalPages = Math.ceil(data.length / pageSize);
 

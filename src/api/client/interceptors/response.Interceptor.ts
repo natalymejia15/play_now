@@ -1,8 +1,7 @@
 import type { AxiosError } from 'axios'
-import { authService, logout, refreshToken } from '@/features'
+import axios from 'axios'
 import { refreshManager } from '../auth'
-import { api } from '../instance'
-import { store } from '@/store'
+import { refreshApi } from '../instance/refresh-api.Instance'
 import type { RequestHeaders, RetryRequestConfig } from '@/interfaces'
 import { PUBLIC_ROUTE_PATTERNS } from '@/constants'
 
@@ -37,7 +36,7 @@ export const responseInterceptor = async (error: AxiosError) => {
       refreshManager.enqueue({
         resolve: token => {
           originalRequest.headers.Authorization = `Bearer ${token}`
-          resolve(api(originalRequest))
+          resolve(axios(originalRequest))
         },
         reject,
       })
@@ -48,17 +47,21 @@ export const responseInterceptor = async (error: AxiosError) => {
   refreshManager.start()
 
   try {
-    const { accessToken } = await authService.refresh()
+    const { data } = await refreshApi.post<{ accessToken: string }>('/auth/refresh')
+    const accessToken = data.accessToken
 
     sessionStorage.setItem('token', accessToken)
-    store.dispatch(refreshToken(accessToken))
+    const storeModule = await import('@/store')
+    storeModule.store.dispatch({ type: 'auth/refreshToken', payload: accessToken })
     refreshManager.resolveQueue(accessToken)
 
     originalRequest.headers.Authorization = `Bearer ${accessToken}`
-    return api(originalRequest)
+    return axios(originalRequest)
   } catch (err) {
     refreshManager.rejectQueue(err as AxiosError)
-    store.dispatch(logout())
+
+    const storeModule = await import('@/store')
+    storeModule.store.dispatch({ type: 'auth/logout' })
 
     if (typeof window !== 'undefined') {
       window.location.href = '/'
