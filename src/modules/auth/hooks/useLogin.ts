@@ -2,157 +2,118 @@ import { useAppDispatch, useAppSelector } from "@/common";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { LoginData } from "../interfaces";
-import { clearAuth, loginUser, logoutUser, setApiToken } from "@/features";
+import { clearAuth, loginUser, logoutUser } from "@/features";
 import { useRegister } from "@/hook/users/use-register";
 import type { RegisterFormData, User } from "@/interfaces";
+import { extractErrorMessage, getRoleRoute, persistSession, showErrorToast } from "@/lib";
+
 
 export const useLogin = () => {
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
     const { signUp } = useRegister();
-    const navigate = useNavigate()
-    const { loading, error } = useAppSelector(state => state.auth)
-    const [user, setUser] = useState<User | null>(null)
-    const [initializing, setInitializing] = useState(true)
-    const [formData, setFormData] = useState<LoginData>({
-        email: '',
-        password: '',
-    })
+    const navigate = useNavigate();
+    const { loading, error: reduxError } = useAppSelector((state) => state.auth);
+
+    const [user, setUser] = useState<User | null>(null);
+    const [initializing, setInitializing] = useState(true);
+    const [localError, setLocalError] = useState<string | null>(null);
     const [isLogin, setIsLogin] = useState(true);
-    const [localError, setLocalError] = useState<string | null>(null)
+    const [formData, setFormData] = useState<LoginData>({ email: "", password: "" });
 
     useEffect(() => {
-        const stored = sessionStorage.getItem('user')
-        if (stored) {
-            try {
-                setUser(JSON.parse(stored))
-            } catch (e) {
-                setUser(null)
-            }
-        }
-        setInitializing(false)
-    }, [])
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target
-        setFormData(prev => ({ ...prev, [name]: value }))
-    }
-
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault()
-        setLocalError(null)
-
         try {
-            const result = await dispatch(loginUser(formData)).unwrap()
-            const access = result.token
-            const user = result.user
-
-            if (access) {
-                sessionStorage.setItem('token', access)
-                if (user) sessionStorage.setItem('user', JSON.stringify(user))
-                setApiToken(access);
-                if (user && user.idRol) {
-                    switch (user.idRol) {
-                        case 1:
-                            navigate('/super-admin/dashboard', { replace: true })
-                            break
-                        case 2:
-                            navigate('/admin/dashboard', { replace: true })
-                            break
-                        case 3:
-                            navigate('/client/home', { replace: true })
-                            break
-                        default:
-                            navigate('/dashboard', { replace: true })
-                            break
-                    }
-                } else {
-                    navigate('/dashboard', { replace: true })
-                }
-            } else {
-                setLocalError('Respuesta de login inesperada')
-            }
-        } catch (err) {
-            console.error('Error login:', err)
-            setLocalError((err as string) || 'Error al iniciar sesión')
-        }
-    }
-    const signIn = async (email: string, password: string) => {
-        setLocalError(null)
-        try {
-            const result = await dispatch(loginUser({ email, password })).unwrap()
-            const access = result.token
-            const user = result.user
-
-            if (access) {
-                sessionStorage.setItem('token', access)
-                if (user) sessionStorage.setItem('user', JSON.stringify(user))
-                setApiToken(access);
-
-                if (user) setUser(user)
-
-                return { user, error: null as string | null }
-            }
-
-            const msg = 'Respuesta de login inesperada'
-            setLocalError(msg)
-            return { user: null, error: msg }
-        } catch (err: unknown) {
-            const message = (err as Error)?.message ?? 'Error al iniciar sesión'
-            setLocalError(message)
-            return { user: null, error: message }
-        }
-    }
-
-    const signOut = async () => {
-        try {
-            await dispatch(logoutUser()).unwrap();
-        } catch (e) {
+            const stored = sessionStorage.getItem("user");
+            if (stored) setUser(JSON.parse(stored));
+        } catch {
+            setUser(null);
         } finally {
-            clearAuth()
-            setUser(null)
+            setInitializing(false);
         }
-    }
+    }, []);
+
+    const signIn = async (
+        email: string,
+        password: string
+    ): Promise<{ user: User | null; error: string | null }> => {
+        setLocalError(null);
+        try {
+            const result = await dispatch(loginUser({ email, password })).unwrap();
+            const { token, user: loggedUser } = result;
+
+            if (!token) {
+                const msg = "Respuesta de login inesperada";
+                setLocalError(msg);
+                return { user: null, error: msg };
+            }
+
+            if (loggedUser) {
+                persistSession(token, loggedUser);
+                setUser(loggedUser);
+            }
+
+            return { user: loggedUser ?? null, error: null };
+        } catch (err) {
+            const message = extractErrorMessage(err);
+            setLocalError(message);
+            return { user: null, error: message };
+        }
+    };
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({ ...prev, [name]: value }));
+    };
+
+    const handleSubmit = async (
+        e: React.FormEvent,
+        email?: string,
+        password?: string
+    ) => {
+        e.preventDefault();
+        const resolvedEmail    = email    ?? formData.email;
+        const resolvedPassword = password ?? formData.password;
+        const { user, error } = await signIn(resolvedEmail, resolvedPassword);
+
+        if (error) { showErrorToast(error); return; }
+        if (user) navigate(getRoleRoute(user.idRol), { replace: true });
+    };
 
     const handleLogin = async (email: string, password: string) => {
         const { user, error } = await signIn(email, password);
 
-        if (!error && user) {
-            switch (user.idRol) {
-                case 1:
-                    navigate("/super-admin/dashboard");
-                    break;
-                case 2:
-                    navigate("/admin/dashboard");
-                    break;
-                case 3:
-                    navigate("/client/home");
-                    break;
-                default:
-                    navigate("/");
-                    break;
-            }
+        if (error) { showErrorToast(error); return; }
+        if (user) navigate(getRoleRoute(user.idRol));
+    };
+
+    const signOut = async () => {
+        try {
+            await dispatch(logoutUser()).unwrap();
+        } catch {
+        } finally {
+            clearAuth();
+            setUser(null);
         }
     };
 
     const handleRegister = async (formData: RegisterFormData) => {
         const { error } = await signUp(formData);
-        if (!error) {
-            setIsLogin(true);
-        }
+        if (!error) setIsLogin(true);
     };
 
     return {
         user,
         initializing,
         loading,
+        formData,
         handleChange,
         handleSubmit,
         signIn,
         signOut,
         localError,
-        error: localError || error,
+        error: localError || reduxError,
         isLogin,
         setIsLogin,
         handleRegister,
-        handleLogin
+        handleLogin,
     };
-}
+};

@@ -1,103 +1,10 @@
-import { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
 import { Loader2, Building2, User } from "lucide-react";
-import { ScrollArea } from "../ui/scroll-area";
-import { useCreateMall } from "../../hook/malls/use-create-mall";
-
-interface CreateMallDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-}
+import { useCreateMall, type CreateMallDialogProps } from "@/modules";
+import { Button, Dialog, DialogContent, DialogHeader, DialogTitle, Input, Label, ScrollArea, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
 
 export const CreateMallDialog = ({ open, onOpenChange }: CreateMallDialogProps) => {
-  const { createMall, isLoading } = useCreateMall();
 
-  const [form, setForm] = useState({
-    nombreCentro: "",
-    direccionMall: "",
-    telefono: "",
-    ciudad: "",
-    tipoDocumento: "CC",
-    numeroDocumento: "",
-    primerNombre: "",
-    segundoNombre: "",
-    primerApellido: "",
-    segundoApellido: "",
-    correo: "",
-    celular: "",
-    direccionAdmin: "",
-    password: "",
-  });
-
-  const handleChange = (field: string, value: string) => {
-    setForm(prev => ({ ...prev, [field]: value }));
-  };
-
-  useEffect(() => {
-    document.title = "Gestión de Centros Comerciales- Play now";
-  }, []);
-
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-
-    const payload = {
-      mall: {
-        nombreCentro: form.nombreCentro,
-        direccion: form.direccionMall,
-        telefono: form.telefono,
-        ciudad: form.ciudad,
-      },
-      admin: {
-        tipoDocumento: form.tipoDocumento,
-        numeroDocumento: form.numeroDocumento,
-        primerNombre: form.primerNombre,
-        segundoNombre: form.segundoNombre,
-        primerApellido: form.primerApellido,
-        segundoApellido: form.segundoApellido,
-        correo: form.correo,
-        celular: form.celular,
-        direccion: form.direccionAdmin,
-      },
-    };
-
-    try {
-      await createMall(payload);
-
-      setForm({
-        nombreCentro: "",
-        direccionMall: "",
-        telefono: "",
-        ciudad: "",
-        tipoDocumento: "CC",
-        numeroDocumento: "",
-        primerNombre: "",
-        segundoNombre: "",
-        primerApellido: "",
-        segundoApellido: "",
-        correo: "",
-        celular: "",
-        direccionAdmin: "",
-        password: "",
-      });
-
-      onOpenChange(false);
-      setTimeout(() => {
-        window.location.reload();
-      }, 800);
-    } catch (error) {
-      console.error("Error creando mall:", error);
-    }
-  };
+  const { isLoading, mallData, handleSubmit, handleChange } = useCreateMall({ open, onOpenChange });
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
@@ -120,7 +27,7 @@ export const CreateMallDialog = ({ open, onOpenChange }: CreateMallDialogProps) 
                   <Label htmlFor="nombreCentro">Nombre del Centro *</Label>
                   <Input
                     id="nombreCentro"
-                    value={form.nombreCentro}
+                    value={mallData.nombreCentro}
                     onChange={e => handleChange("nombreCentro", e.target.value)}
                     placeholder="Centro Comercial El Tesoro"
                     required
@@ -131,7 +38,7 @@ export const CreateMallDialog = ({ open, onOpenChange }: CreateMallDialogProps) 
                 <div className="space-y-2">
                   <Label htmlFor="ciudad">Ciudad *</Label>
                   <Select
-                    value={form.ciudad}
+                    value={mallData.ciudad}
                     onValueChange={(val) => handleChange("ciudad", val)}
                     disabled={isLoading}
                   >
@@ -157,7 +64,7 @@ export const CreateMallDialog = ({ open, onOpenChange }: CreateMallDialogProps) 
                   <Label htmlFor="direccionMall">Dirección *</Label>
                   <Input
                     id="direccionMall"
-                    value={form.direccionMall}
+                    value={mallData.direccionMall}
                     onChange={e => handleChange("direccionMall", e.target.value)}
                     placeholder="Carrera 25 #1A Sur - 45"
                     required
@@ -169,7 +76,7 @@ export const CreateMallDialog = ({ open, onOpenChange }: CreateMallDialogProps) 
                   <Label htmlFor="telefono">Teléfono *</Label>
                   <Input
                     id="telefono"
-                    value={form.telefono}
+                    value={mallData.telefono}
                     onChange={e => handleChange("telefono", e.target.value)}
                     placeholder="6045559999"
                     required
@@ -189,7 +96,7 @@ export const CreateMallDialog = ({ open, onOpenChange }: CreateMallDialogProps) 
                 <div className="space-y-2">
                   <Label htmlFor="tipoDocumento">Tipo de Documento *</Label>
                   <Select
-                    value={form.tipoDocumento}
+                    value={mallData.tipoDocumento}
                     onValueChange={val => handleChange("tipoDocumento", val)}
                     disabled={isLoading}
                   >
@@ -216,8 +123,8 @@ export const CreateMallDialog = ({ open, onOpenChange }: CreateMallDialogProps) 
                     <Input
                       id={field.id}
                       type={field.type || "text"}
-                      value={form[field.id as keyof typeof form]}
-                      onChange={e => handleChange(field.id, e.target.value)}
+                      value={mallData[field.id as keyof typeof mallData]}
+                      onChange={e => handleChange(field.id as keyof typeof mallData, e.target.value)}
                       placeholder={field.placeholder}
                       required={field.label.includes("*")}
                       disabled={isLoading}
@@ -230,7 +137,7 @@ export const CreateMallDialog = ({ open, onOpenChange }: CreateMallDialogProps) 
                   <Label htmlFor="direccionAdmin">Dirección *</Label>
                   <Input
                     id="direccionAdmin"
-                    value={form.direccionAdmin}
+                    value={mallData.direccionAdmin}
                     onChange={e => handleChange("direccionAdmin", e.target.value)}
                     placeholder="Calle 12 #34-56"
                     required
@@ -244,7 +151,7 @@ export const CreateMallDialog = ({ open, onOpenChange }: CreateMallDialogProps) 
               <Button
                 type="button"
                 variant="outline"
-                className="rounded-lg bg-green-200 text-green-900 hover:bg-green-300 transition-all"
+                className="rounded-lg"
                 onClick={() => onOpenChange(false)}
                 disabled={isLoading}
               >
@@ -252,7 +159,7 @@ export const CreateMallDialog = ({ open, onOpenChange }: CreateMallDialogProps) 
               </Button>
               <Button
                 type="submit"
-                className="rounded-lg bg-green-600 text-white hover:bg-green-700 transition-all"
+                className="rounded-lg"
                 disabled={isLoading}
               >
                 {isLoading ? (

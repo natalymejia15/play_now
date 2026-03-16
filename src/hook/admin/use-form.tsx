@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useCreateCourt } from "../courts/use-create-court";
-import { toast } from "../use-toast";
 import type { CreateCourtDialogProps } from "../../types/dialog";
+import { toast } from "@/lib";
 
 export const UseFormAdmin = ({ open, onOpenChange }: CreateCourtDialogProps) => {
     const [nombreCancha, setNombreCancha] = useState("");

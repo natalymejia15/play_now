@@ -1,27 +1,19 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { 
-  ArrowLeft, 
-  Building2, 
-  MapPin, 
-  Phone, 
-  User, 
-  Mail, 
-  FileText 
+import {
+  ArrowLeft,
+  Building2,
+  MapPin,
+  Phone,
+  User,
+  Mail,
+  FileText
 } from "lucide-react";
-import { SuperAdminLayout } from "../../components/layouts/SuperAdminLayout";
-import { Skeleton } from "../../components/ui/skeleton";
-import { Button } from "../../components/ui/button";
-import { 
-  Card, 
-  CardContent, 
-  CardDescription, 
-  CardHeader, 
-  CardTitle 
-} from "../../components/ui/card";
-import { useMalls } from "../../hook/malls/use-mall";
+import { SuperAdminLayout } from "../../../components/layouts/SuperAdminLayout";
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Skeleton } from "@/components";
+import { useMalls } from "../hooks";
 
-export default function MallDetails() {
+export const MallDetails = () => {
   const { id, fetchMallDetails, isLoading, mall, admin, getDocumentTypeLabel } = useMalls();
   const navigate = useNavigate();
 
@@ -49,9 +41,9 @@ export default function MallDetails() {
           <h2 className="text-3xl font-semibold mb-6 text-muted-foreground">
             Centro comercial no encontrado
           </h2>
-          <Button 
-            onClick={() => navigate("/super-admin/malls")} 
-            className="gap-2"
+          <Button
+            onClick={() => navigate("/super-admin/malls")}
+            className="rounded-lg"
           >
             <ArrowLeft className="h-4 w-4" />
             Volver a la lista
@@ -66,11 +58,11 @@ export default function MallDetails() {
       <div className="space-y-8">
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex items-center gap-3">
-            <Button 
-              variant="outline" 
-              size="sm" 
+            <Button
+              variant="outline"
+              size="sm"
               onClick={() => navigate("/super-admin/malls")}
-              className="rounded-full shadow-sm hover:bg-muted transition"
+              className="rounded-lg"
             >
               <ArrowLeft className="h-4 w-4 mr-1" />
               Volver
@@ -81,9 +73,9 @@ export default function MallDetails() {
           </div>
         </div>
         <div className="grid gap-8 md:grid-cols-2">
-           <Card className="shadow-sm hover:shadow-md transition-all duration-300 border border-border/60 rounded-2xl">
-              <CardHeader className="bg-gradient-to-r from-blue-100/60 to-green-50 rounded-t-2xl">
-                <CardTitle className="flex items-center gap-2 text-green-700">
+          <Card className="shadow-sm hover:shadow-md transition-all duration-300 border border-border/60 rounded-2xl">
+            <CardHeader className="bg-gradient-to-r from-blue-100/60 to-green-50 rounded-t-2xl">
+              <CardTitle className="flex items-center gap-2 text-green-700">
                 <Building2 className="h-5 w-5" />
                 Información del Centro Comercial
               </CardTitle>
@@ -98,8 +90,8 @@ export default function MallDetails() {
                 { icon: <MapPin />, label: "Ciudad", value: mall.ciudad },
                 { icon: <Phone />, label: "Teléfono", value: mall.telefono },
               ].map((item, index) => (
-                <div 
-                  key={index} 
+                <div
+                  key={index}
                   className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted/40 transition"
                 >
                   <div className="text-green-700 mt-1">{item.icon}</div>
@@ -114,7 +106,7 @@ export default function MallDetails() {
             </CardContent>
           </Card>
           {admin && (
-             <Card className="shadow-sm hover:shadow-md transition-all duration-300 border border-border/60 rounded-2xl">
+            <Card className="shadow-sm hover:shadow-md transition-all duration-300 border border-border/60 rounded-2xl">
               <CardHeader className="bg-gradient-to-r from-blue-100/60 to-green-50 rounded-t-2xl">
                 <CardTitle className="flex items-center gap-2 text-green-700">
                   <User className="h-5 w-5" />
@@ -132,8 +124,8 @@ export default function MallDetails() {
                   { icon: <Phone />, label: "Teléfono", value: admin.phone_number },
                   { icon: <MapPin />, label: "Dirección", value: admin.address },
                 ].map((item, index) => (
-                  <div 
-                    key={index} 
+                  <div
+                    key={index}
                     className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted/40 transition"
                   >
                     <div className="text-green-700 mt-1">{item.icon}</div>

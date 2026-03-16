@@ -10,7 +10,7 @@ import { Button } from "../../ui/button";
 import { Input } from "../../ui/input";
 import { Label } from "../../ui/label";
 import { useCreateReservation } from "../../../hook/reservation/use-reservation";
-import { toast } from "../../../hook/use-toast";
+import { toast } from "@/lib";
 
 interface BookingFormProps {
   selectedCourt: any;

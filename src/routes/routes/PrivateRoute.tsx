@@ -1,6 +1,4 @@
 import SuperAdminDashboard from "@/pages/super-admin/SuperAdminDashboard";
-import MallsManagement from "@/pages/super-admin/MallsManagement";
-import MallDetails from "@/pages/super-admin/MallDetails";
 import { DeportsDetails } from "@/pages/super-admin/DeportsDetails";
 
 import AdminDashboard from "@/pages/admin/AdminDashboard";
@@ -12,6 +10,7 @@ import ClientHome from "@/pages/client/ClientHome";
 import HistoricoReservasPage from "@/pages/client/HistoricoReservasPage";
 
 import Profile from "@/pages/Profile";
+import { MallDetails, MallsManagement } from "@/modules";
 
 export const privateRoutes = [
   // SUPER ADMIN

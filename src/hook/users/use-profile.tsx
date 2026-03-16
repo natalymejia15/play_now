@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useToast } from "../use-toast";
+import { useToast } from "@/lib";
 
 const API_URL = "http://localhost:4000/api/users";
 

@@ -1,31 +1,7 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "../ui/dialog";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "../ui/select";
-import { Loader2, Building2, User } from "lucide-react";
-import { ScrollArea } from "../ui/scroll-area";
-import type { IMall } from "../../types/mall";
-import { useEditMall } from "../../hook/malls/use-edit-mall";
-
-interface EditMallDialogProps {
-  open: boolean;
-  onOpenChange: (open: boolean) => void;
-  mall: IMall | null;
-  onSuccess?: () => void;
-}
-
+import { Button, Dialog, DialogContent, DialogHeader, DialogTitle, Input, Label, ScrollArea, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
+import { Building2, Loader2, User } from "lucide-react";
+import type { EditMallDialogProps } from "../interfaces";
+import { useEditMall } from "../hooks";
 
 export const EditMallDialog = ({ open, onOpenChange, mall, onSuccess }: EditMallDialogProps) => {
   const { handleChange, handleSubmit, isLoading, form } = useEditMall({ open, onOpenChange, mall, onSuccess })
@@ -146,7 +122,7 @@ export const EditMallDialog = ({ open, onOpenChange, mall, onSuccess }: EditMall
                     <Input
                       id={field.id}
                       value={form[field.id as keyof typeof form]}
-                      onChange={(e) => handleChange(field.id, e.target.value)}
+                      onChange={e => handleChange(field.id as keyof typeof form, e.target.value)}
                       placeholder={field.placeholder}
                       required={field.label.includes("*")}
                       disabled={isLoading}
@@ -172,13 +148,13 @@ export const EditMallDialog = ({ open, onOpenChange, mall, onSuccess }: EditMall
               <Button
                 type="button"
                 variant="outline"
-                className="rounded-lg bg-green-200 text-green-900 hover:bg-green-300 transition-all"
+                className="rounded-lg"
                 onClick={() => onOpenChange(false)}
                 disabled={isLoading}
               >
                 Cancelar
               </Button>
-              <Button type="submit" className="rounded-lg bg-green-600 text-white hover:bg-green-700 transition-all" disabled={isLoading}>
+              <Button type="submit"  className="rounded-lg" disabled={isLoading}>
                 {isLoading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />

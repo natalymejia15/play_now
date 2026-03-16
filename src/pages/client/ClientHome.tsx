@@ -6,10 +6,10 @@ import { useCourt } from "../../hook/courts/use-courts";
 import { MallList } from "../../components/client/mall/MallList";
 import { CourtList } from "../../components/client/courts/CourtList";
 import { BookingForm } from "../../components/client/reservation/BookingForm";
-import { useMalls } from "../../hook/malls/use-mall-reservation";
+import { useMallReservation } from "@/modules";
 
 export default function ClientHome() {
-  const { malls, isLoading: loadingMalls } = useMalls();
+  const { malls, isLoading: loadingMalls } = useMallReservation();
   const { courts, isLoading: loadingCourts, fetchCourtsByMall } = useCourt();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedMall, setSelectedMall] = useState<any>(null);

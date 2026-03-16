@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useToast } from "../use-toast";
+import { useToast } from "@/lib";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
