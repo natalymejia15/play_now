@@ -2,7 +2,7 @@ import type { ICreateMallPayload, IMall, UpdateMallPayload } from "@/modules";
 import { api } from "../instance";
 
 export const getMalls = async (): Promise<IMall[]> => {
-  const response = await api.get<IMall[]>('/malls'); // 👈 IMall[] 
+  const response = await api.get<IMall[]>('/malls');
   return response.data;
 };
 

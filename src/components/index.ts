@@ -1,3 +1,4 @@
 export * from './auth'
 export * from './ui'
-export * from './DataTable'
+export * from './dataTable'
+export * from './malls'

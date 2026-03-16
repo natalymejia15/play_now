@@ -8,6 +8,7 @@ export interface EditMallDialogProps {
 }
 
 export interface EditMallFormData {
+    [key: string]: string;
     nombreCentro: string;
     direccionMall: string;
     telefono: string;

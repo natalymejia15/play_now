@@ -7,6 +7,7 @@ export interface User {
 }
 
 export interface UserFormData {
+  [key: string]: string;
   nombreCentro: string,
   direccionMall: string,
   telefono: string,
@@ -38,8 +39,4 @@ export const INITIAL_DATA_USER: UserFormData = {
   celular: "",
   direccionAdmin: "",
   password: "",
-}
-
-export interface UserEditFormData extends UserFormData {
-  id: number;
 }
