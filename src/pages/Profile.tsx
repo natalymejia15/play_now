@@ -2,13 +2,12 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import { useUserRole } from "../hook/users/use-user-role";
-import { SuperAdminLayout } from "../components/layouts/SuperAdminLayout";
-import { AdminLayout } from "../components/layouts/AdminLayout";
-import { ClientLayout } from "../components/layouts/ClientLayout";
+import { ClientLayout } from "../components/layouts/client/ClientLayout";
 import { ProfileForm } from "../components/profile/profileForm";
 import { ChangePasswordForm } from "../components/profile/changePasswordForm";
 import { Button } from "../components/ui/button";
 import { useLogin } from "@/modules";
+import { AdminLayout, SuperAdminLayout } from "@/components";
 
 const ProfilePage = () => {
   const { user, loading: authLoading, initializing } = useLogin();

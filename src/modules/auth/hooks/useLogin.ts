@@ -4,8 +4,8 @@ import { useNavigate } from "react-router-dom";
 import type { LoginData } from "../interfaces";
 import { clearAuth, loginUser, logoutUser } from "@/features";
 import { useRegister } from "@/hook/users/use-register";
-import type { RegisterFormData, User } from "@/interfaces";
-import { extractErrorMessage, getRoleRoute, persistSession, showErrorToast } from "@/lib";
+import { extractErrorMessage, getRoleRoute, persistSession, showErrorToast, type RegisterFormData } from "@/lib";
+import type { User } from "@/interfaces";
 
 
 export const useLogin = () => {

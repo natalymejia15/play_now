@@ -12,7 +12,6 @@ import {
   Pie,
   Cell
 } from "recharts";
-import { AdminLayout } from "../../components/layouts/AdminLayout";
 import {
   Card,
   CardContent,
@@ -22,6 +21,7 @@ import {
 } from "../../components/ui/card";
 import { Skeleton } from "../../components/ui/skeleton";
 import { DashboardAdmin } from "../../hook/dashboard/use-dashboard-admins";
+import { AdminLayout } from "@/components";
 
 
 const COLORS = ["#3b82f6", "#10b981", "#a855f7", "#f59e0b"];
@@ -155,7 +155,7 @@ export default function AdminDashboard() {
                     label={({ name, value }) => `${name}: ${value}`}
                     dataKey="value"
                   >
-                    {ocupacionGlobal.map((entry, index) => (
+                    {ocupacionGlobal.map((index) => (
                       <Cell key={index} fill={COLORS[index % COLORS.length]} />
                     ))}
                   </Pie>

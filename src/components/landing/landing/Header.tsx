@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 
-const Header = () => {
+export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   return (
@@ -66,4 +66,3 @@ const Header = () => {
   );
 };
 
-export default Header;

@@ -3,7 +3,7 @@ import { useCreateCourt } from "../courts/use-create-court";
 import type { CreateCourtDialogProps } from "../../types/dialog";
 import { toast } from "@/lib";
 
-export const UseFormAdmin = ({ open, onOpenChange }: CreateCourtDialogProps) => {
+export const UseFormAdmin = ({  onOpenChange }: CreateCourtDialogProps) => {
     const [nombreCancha, setNombreCancha] = useState("");
     const [horarioInicio, setHorarioInicio] = useState("");
     const [horarioFin, setHorarioFin] = useState("");

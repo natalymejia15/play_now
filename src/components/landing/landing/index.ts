@@ -1,0 +1,6 @@
+export * from './CentrosSections'
+export * from './ContactSection'
+export * from './Footer'
+export * from './Header'
+export * from './HeroSection'
+export * from './JugadoresSection'

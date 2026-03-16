@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { AdminLayout } from "../../components/layouts/AdminLayout";
 import { Button } from "../../components/ui/button";
 import { Plus } from "lucide-react";
 import { CourtsTable } from "../../components/admin/CourtsTable";
 import { CreateCourtDialog } from "../../components/admin/CreateCourtDialog";
+import { AdminLayout } from "@/components";
 
 export default function CourtsManagement() {
   const [isDialogOpen, setIsDialogOpen] = useState(false);

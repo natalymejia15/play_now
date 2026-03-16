@@ -1,5 +1,5 @@
+import { SidebarInset, SidebarTrigger, useSidebar } from "@/components/ui";
 import { useMemo, type ReactNode } from "react";
-import { SidebarInset, SidebarTrigger, useSidebar } from "../ui/sidebar";
 
 export function InnerContent({ children }: { children: ReactNode }) {
   const { state, isMobile } = useSidebar();
@@ -19,7 +19,7 @@ export function InnerContent({ children }: { children: ReactNode }) {
     >
       <header className="h-16 border-b border-green-200 flex items-center px-6 bg-white sticky top-0 z-10">
         <SidebarTrigger className="text-green-700 hover:text-green-900 transition-colors" />
-         <h1 className="ml-4 text-lg font-semibold text-green-900">
+        <h1 className="ml-4 text-lg font-semibold text-green-900">
           Panel de Administración
         </h1>
       </header>

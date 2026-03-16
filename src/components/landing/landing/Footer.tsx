@@ -1,4 +1,4 @@
-const Footer = () => {
+export const Footer = () => {
   return (
     <footer className="border-t border-border bg-card py-12">
       <div className="container mx-auto px-6">
@@ -27,4 +27,3 @@ const Footer = () => {
   );
 };
 
-export default Footer;

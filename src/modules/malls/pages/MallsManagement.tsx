@@ -1,9 +1,8 @@
 import { useState } from "react";
-import { SuperAdminLayout } from "../../../components/layouts/SuperAdminLayout";
 import { Plus } from "lucide-react";
 import { MallsTable } from "./MallTablet";
 import { CreateMallDialog } from "./CreateMallDialog";
-import { Button } from "@/components";
+import { Button, SuperAdminLayout } from "@/components";
 
 export const MallsManagement = () => {
   const [isDialogOpen, setIsDialogOpen] = useState(false);

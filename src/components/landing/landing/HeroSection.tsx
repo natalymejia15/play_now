@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowRight, Zap } from "lucide-react";
 import heroImage from "@/assets/hero-sports.jpg";
 
-const HeroSection = () => {
+export const HeroSection = () => {
   return (
     <section className="relative min-h-screen overflow-hidden pt-20">
       <div className="absolute inset-0">
@@ -88,4 +88,3 @@ const HeroSection = () => {
   );
 };
 
-export default HeroSection;

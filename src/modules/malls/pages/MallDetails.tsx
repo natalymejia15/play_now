@@ -9,8 +9,7 @@ import {
   Mail,
   FileText
 } from "lucide-react";
-import { SuperAdminLayout } from "../../../components/layouts/SuperAdminLayout";
-import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Skeleton } from "@/components";
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Skeleton, SuperAdminLayout } from "@/components";
 import { useMalls } from "../hooks";
 
 export const MallDetails = () => {

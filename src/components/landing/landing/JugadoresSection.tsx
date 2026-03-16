@@ -22,7 +22,7 @@ const features = [
   },
 ];
 
-const JugadoresSection = () => {
+export const JugadoresSection = () => {
   return (
     <section id="jugadores" className="py-24 sm:py-32">
       <div className="container mx-auto px-6">
@@ -87,5 +87,3 @@ const JugadoresSection = () => {
     </section>
   );
 };
-
-export default JugadoresSection;

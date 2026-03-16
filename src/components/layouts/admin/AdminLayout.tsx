@@ -1,23 +1,12 @@
 import { useNavigate, NavLink } from "react-router-dom";
-import { useLogin } from "@/modules/auth/hooks/useLogin";
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarGroup,
-  SidebarGroupContent,
-  SidebarGroupLabel,
-  SidebarMenu,
-  SidebarMenuItem,
-  SidebarMenuButton,
-  SidebarProvider,
-} from "../ui/sidebar";
-import { Button } from "../ui/button";
 import { LogOut, User } from "lucide-react";
-import { menuSuperItems } from "../../config/navItems";
-import type { SuperAdminLayoutProps } from "../../interfaces/layout.interfaces";
+import type { AdminLayoutProps } from "@/interfaces/layout.interfaces";
+import { useLogin } from "@/modules";
+import { Button, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/components/ui";
 import { InnerContent } from "./InnerContent";
+import { menuItems } from "@/config/navItems";
 
-export const SuperAdminLayout = ({ children }: SuperAdminLayoutProps) => {
+export const AdminLayout = ({ children }: AdminLayoutProps) => {
   const navigate = useNavigate();
   const { signOut, user } = useLogin();
 
@@ -36,8 +25,8 @@ export const SuperAdminLayout = ({ children }: SuperAdminLayoutProps) => {
         >
           <div className="flex flex-col h-full">
             <div className="p-4 border-b border-green-200">
-              <h2 className="text-lg font-semibold text-green-900">Super Admin</h2>
-              <p className="text-sm text-green-700 truncate">{user?.email}</p>
+              <h2 className="text-lg font-semibold text-green-900">Administrador</h2>
+              <p className="text-sm text-green-700 truncate">{user?.numeroDocumento}</p>
             </div>
             <SidebarContent className="flex-1">
               <SidebarGroup>
@@ -46,16 +35,15 @@ export const SuperAdminLayout = ({ children }: SuperAdminLayoutProps) => {
                 </SidebarGroupLabel>
                 <SidebarGroupContent>
                   <SidebarMenu>
-                    {menuSuperItems.map((item) => (
+                    {menuItems.map((item) => (
                       <SidebarMenuItem key={item.title}>
                         <SidebarMenuButton asChild>
                           <NavLink
                             to={item.url}
                             className={({ isActive }) =>
-                              `flex items-center px-3 py-2 rounded-lg transition-all duration-200 ${
-                                isActive
-                                  ? "bg-green-200 text-green-900 font-semibold shadow-inner"
-                                  : "hover:bg-green-100 hover:text-green-800"
+                              `flex items-center px-3 py-2 rounded-lg transition-all duration-200 ${isActive
+                                ? "bg-green-200 text-green-900 font-semibold shadow-inner"
+                                : "hover:bg-green-100 hover:text-green-800"
                               }`
                             }
                           >
@@ -76,10 +64,9 @@ export const SuperAdminLayout = ({ children }: SuperAdminLayoutProps) => {
                     <NavLink
                       to="/profile"
                       className={({ isActive }) =>
-                        `flex items-center px-3 py-2 rounded-lg mb-2 transition-all duration-200 ${
-                          isActive
-                            ? "bg-green-200 text-green-900 font-semibold shadow-inner"
-                            : "hover:bg-green-100 hover:text-green-800"
+                        `flex items-center px-3 py-2 rounded-lg mb-2 transition-all duration-200 ${isActive
+                          ? "bg-green-200 text-green-900 font-semibold shadow-inner"
+                          : "hover:bg-green-100 hover:text-green-800"
                         }`
                       }
                     >
@@ -89,7 +76,6 @@ export const SuperAdminLayout = ({ children }: SuperAdminLayoutProps) => {
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               </SidebarMenu>
-
               <Button
                 onClick={handleSignOut}
                 variant="outline"

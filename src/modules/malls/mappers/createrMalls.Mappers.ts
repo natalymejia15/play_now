@@ -11,6 +11,7 @@ export const mapCreateMallFormToPayload = (formData: UserFormData): ICreateMallP
     created_at: new Date().toISOString(),
   },
   admin: {
+    id: 0,
     primerNombre: formData.primerNombre,
     segundoNombre: formData.segundoNombre,
     primerApellido: formData.primerApellido,

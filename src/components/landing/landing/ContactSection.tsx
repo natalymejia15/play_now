@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { useState } from "react";
 import { Send, CheckCircle } from "lucide-react";
 
-const ContactSection = () => {
+export const ContactSection = () => {
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -108,4 +108,3 @@ const ContactSection = () => {
   );
 };
 
-export default ContactSection;

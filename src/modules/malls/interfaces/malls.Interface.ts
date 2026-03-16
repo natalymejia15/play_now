@@ -9,6 +9,7 @@ export interface IMall {
 }
 
 export interface IAdmin {
+  id: number;
   tipoDocumento: string;
   numeroDocumento: string;
   primerNombre: string;

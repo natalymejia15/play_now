@@ -15,16 +15,8 @@ import {
   LineChart,
   Line,
 } from "recharts";
-import { SuperAdminLayout } from "../../components/layouts/SuperAdminLayout";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/card";
-import { Skeleton } from "../../components/ui/skeleton";
 import { useDashboardStats } from "../../hook/dashboard/use-dashboard-admin";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, Skeleton, SuperAdminLayout } from "@/components";
 
 const COLORS = ["#3b82f6", "#10b981", "#a855f7", "#f59e0b"];
 

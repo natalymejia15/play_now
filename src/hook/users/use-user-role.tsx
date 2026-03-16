@@ -19,7 +19,7 @@ export const useUserRole = () => {
       2: "admin",
       3: "usuario",
     };
-    const userRoleId = user.id_rol || user.roleId || user.idRol;
+    const userRoleId = user.idRol|| user.idRol || user.idRol;
 
     if (userRoleId && roleMap[userRoleId]) {
       setRole(roleMap[userRoleId]);

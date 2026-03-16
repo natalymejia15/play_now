@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Search } from "lucide-react";
-import { ClientLayout } from "../../components/layouts/ClientLayout";
+import { ClientLayout } from "../../components/layouts/client/ClientLayout";
 import { Input } from "../../components/ui/input";
 import { useCourt } from "../../hook/courts/use-courts";
 import { MallList } from "../../components/client/mall/MallList";

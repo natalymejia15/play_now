@@ -1,9 +1,7 @@
 import { useNavigate } from "react-router-dom";
-import { SuperAdminLayout } from "../../components/layouts/SuperAdminLayout";
-import { Skeleton } from "../../components/ui/skeleton";
-import { Button } from "../../components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { useDeports } from "../../hook/deports/use-desports";
+import { Button, Skeleton, SuperAdminLayout } from "@/components";
+import { useDeports } from "../hooks";
 
 export const DeportsDetails = () => {
     const { deports, fetchDeports, fetching } = useDeports();

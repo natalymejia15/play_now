@@ -1,4 +1,3 @@
-
 import type { AdminData, IMall, MallData } from "../interfaces";
 
 export const mapMallResponseToMallData = (data: IMall): MallData => ({
