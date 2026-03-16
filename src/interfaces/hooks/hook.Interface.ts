@@ -12,3 +12,10 @@ export type FieldConfig = {
   placeholder: string
   type?: string
 }
+
+export type ColumnDef<T> = {
+  key: string;
+  label: string;
+  defaultVisible?: boolean;
+  render?: (row: T) => React.ReactNode;
+};
