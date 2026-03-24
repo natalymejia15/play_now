@@ -1,130 +1,15 @@
-import { Route, Routes } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
 import { TooltipProvider } from "./components/ui/tooltip";
 import { Toaster } from "./components/ui/toaster";
 import { Toaster as Sonner } from "./components/ui/sonner";
-import AuthPage from "./pages/Auth";
-import SuperAdminDashboard from "./pages/super-admin/SuperAdminDashboard";
-import UsersManagement from "./pages/super-admin/MallsManagement";
-import AdminDashboard from "./pages/admin/AdminDashboard";
-import CourtsManagement from "./pages/admin/CourtsManagement";
-import ClientHome from "./pages/client/ClientHome";
-import NotFound from "./pages/NotFound";
-import ForgotPasswordForm from "./pages/ForgotPasswordForm";
-import ChangePassword from "./pages/ChangePassword";
-import ProtectedRoute from "./routes/ProtectedRoute";
-import Profile from "./pages/Profile";
-import MallDetails from "./pages/super-admin/MallDetails";
-import HistoricoReservasPage from "./pages/client/HistoricoReservasPage";
-import HistoryAdmin from "./pages/admin/HistoryAdmin";
-import CourtsDetailsPage from "./pages/admin/CourtsDetails";
-import Index from "./pages/Index";
-import { DeportsDetails } from "./pages/super-admin/DeportsDetails";
+import AppRoutes from "./routes/routes/AppRoutes";
 
-function App() {
+const App = () => {
   return (
     <div className="min-h-screen bg-cover bg-center">
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <Routes>
-          <Route path="/" element={<Index />} />
-          <Route path="/login" element={<AuthPage />} />
-          <Route path="/forgot-password" element={<ForgotPasswordForm />} />
-          <Route path="/users/reset-password/:token" element={<ChangePassword />} />
-          <Route
-            path="/super-admin/dashboard"
-            element={
-              <ProtectedRoute allowedRoles={[1]}>
-                <SuperAdminDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/super-admin/malls"
-            element={
-              <ProtectedRoute allowedRoles={[1]}>
-                <UsersManagement />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/super-admin/mall/:id"
-            element={
-              <ProtectedRoute allowedRoles={[1]}>
-                <MallDetails />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/super-admin/deports"
-            element={
-              <ProtectedRoute allowedRoles={[1]}>
-                <DeportsDetails />
-              </ProtectedRoute>
-            }
-          />
-
-          <Route
-            path="/admin/dashboard"
-            element={
-              <ProtectedRoute allowedRoles={[2]}>
-                <AdminDashboard />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/courts"
-            element={
-              <ProtectedRoute allowedRoles={[2]}>
-                <CourtsManagement />
-              </ProtectedRoute>
-            }
-          />
-           <Route
-            path="/admin/courts/:id"
-            element={
-              <ProtectedRoute allowedRoles={[2]}>
-                <CourtsDetailsPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/admin/history"
-            element={
-              <ProtectedRoute allowedRoles={[2]}>
-                <HistoryAdmin />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/client/home"
-            element={
-              <ProtectedRoute allowedRoles={[3]}>
-                <ClientHome />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/client/courts"
-            element={
-              <ProtectedRoute allowedRoles={[3]}>
-                <ClientHome />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/client/historico"
-            element={
-              <ProtectedRoute allowedRoles={[3]}>
-                <HistoricoReservasPage />
-              </ProtectedRoute>
-            }
-          />
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
+        <AppRoutes />
       </TooltipProvider>
     </div>
   );

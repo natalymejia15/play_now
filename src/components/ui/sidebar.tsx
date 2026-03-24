@@ -1,16 +1,14 @@
 import * as React from "react";
 import { Slot } from "@radix-ui/react-slot";
 import { PanelLeft } from "lucide-react";
-
-import { useIsMobile } from "../../hook/use-mobile";
-import { Button } from "../ui/button";
-import { Input } from "../ui/input";
-import { Separator } from "../ui/separator";
-import { Sheet, SheetContent } from "../ui/sheet";
-import { Skeleton } from "../ui/skeleton";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
-import { cn } from "../../lib/utils";
 import { cva, type VariantProps } from "class-variance-authority";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "./tooltip";
+import { cn, useIsMobile } from "@/lib";
+import { Sheet, SheetContent } from "./sheet";
+import { Button } from "./button";
+import { Input } from "./input";
+import { Separator } from "./separator";
+import { Skeleton } from "./skeleton";
 
 const SIDEBAR_COOKIE_NAME = "sidebar:state";
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7;
@@ -51,8 +49,6 @@ const SidebarProvider = React.forwardRef<
   const isMobile = useIsMobile();
   const [openMobile, setOpenMobile] = React.useState(false);
 
-  // This is the internal state of the sidebar.
-  // We use openProp and setOpenProp for control from outside the component.
   const [_open, _setOpen] = React.useState(defaultOpen);
   const open = openProp ?? _open;
   const setOpen = React.useCallback(

@@ -7,7 +7,8 @@ import { defineConfig, globalIgnores } from 'eslint/config'
 export default defineConfig([
   globalIgnores(['dist', '**/*.css']),
   {
-    files: ['**/*.{ts,tsx}'],
+    files: ['**/*.{ts,tsx,js,jsx}'],
+    ignores: ['dist', 'node_modules'],
     extends: [
       js.configs.recommended,
       tseslint.configs.recommended,

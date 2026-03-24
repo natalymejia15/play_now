@@ -21,8 +21,8 @@ export const DashboardAdmin = () => {
     useEffect(() => {
         const fetchDashboardData = async () => {
             try {
-                const storedUser = localStorage.getItem("user");
-                const token = localStorage.getItem("token");
+                const storedUser = sessionStorage.getItem("user");
+                const token = sessionStorage.getItem("token");
 
                 let mallId: number | null = null;
                 if (storedUser) {
@@ -31,7 +31,7 @@ export const DashboardAdmin = () => {
                 }
 
                 if (!token || !mallId) {
-                    console.warn("⚠️ No se encontró token o mallId en localStorage");
+                    console.warn("⚠️ No se encontró token o mallId en sessionStorage");
                     setLoading(false);
                     return;
                 }

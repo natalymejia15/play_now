@@ -1,13 +1,13 @@
 import { useState } from "react";
-import { toast } from "../use-toast";
 import axios from "axios";
+import { toast } from "@/lib";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
 export const useCreateDeports = () => {
     const [isLoading, setIsLoading] = useState(false);
     const createDeports= async (payload: any) => {
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         if (!token) {
             toast({
                 title: "Error",

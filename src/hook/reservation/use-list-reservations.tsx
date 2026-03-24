@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { toast } from "../../hook/use-toast";
+import { toast } from "@/lib";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
@@ -33,7 +33,7 @@ export const useReservations = () => {
     const fetchReservations = async () => {
       try {
         setLoading(true);
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
         const response = await axios.get(`${API_URL}/reservations`, {
           headers: {
             Authorization: `Bearer ${token}`,

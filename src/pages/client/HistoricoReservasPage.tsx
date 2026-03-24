@@ -1,4 +1,4 @@
-import { ClientLayout } from "../../components/layouts/ClientLayout";
+import { ClientLayout } from "../../components/layouts/client/ClientLayout";
 import HistorialReserva from "../../components/client/HistorialReserva";
 
 export default function HistoricoReservasPage() {

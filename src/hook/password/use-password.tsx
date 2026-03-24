@@ -1,6 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import { useToast } from "../use-toast";
+import { useToast } from "@/lib";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
@@ -19,7 +19,7 @@ export const usePassword = () => {
     setError(null);
 
     try {
-      const token = localStorage.getItem("token");
+      const token = sessionStorage.getItem("token");
       if (!token) throw new Error("No se encontró token de autenticación.");
 
       const response = await axios.put(

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import type { Court, CourtData } from "../../types/courts";
-import { useToast } from "../use-toast";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import { useToast } from "@/lib";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 export const useCourt = () => {
@@ -15,7 +15,7 @@ export const useCourt = () => {
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
 
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const fetchCourts = async () => {
         if (!token) {
             toast({

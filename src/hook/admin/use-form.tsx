@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useCreateCourt } from "../courts/use-create-court";
-import { toast } from "../use-toast";
 import type { CreateCourtDialogProps } from "../../types/dialog";
+import { toast } from "@/lib";
 
-export const UseFormAdmin = ({ open, onOpenChange }: CreateCourtDialogProps) => {
+export const UseFormAdmin = ({  onOpenChange }: CreateCourtDialogProps) => {
     const [nombreCancha, setNombreCancha] = useState("");
     const [horarioInicio, setHorarioInicio] = useState("");
     const [horarioFin, setHorarioFin] = useState("");
@@ -47,7 +47,7 @@ export const UseFormAdmin = ({ open, onOpenChange }: CreateCourtDialogProps) => 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        const user = JSON.parse(localStorage.getItem("user") || "{}");
+        const user = JSON.parse(sessionStorage.getItem("user") || "{}");
         if (!user?.mallId) {
             toast({
                 title: "Error",

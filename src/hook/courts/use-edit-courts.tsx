@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { toast } from "../use-toast";
 import axios from "axios";
 import type { EditCourtDialogProps } from "../../types/courts";
+import { toast } from "@/lib";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
@@ -68,7 +68,7 @@ export const useEditCourts = ({
         if (!court) return;
 
         setIsLoading(true);
-        const token = localStorage.getItem("token");
+        const token = sessionStorage.getItem("token");
 
         try {
             const data = new FormData();

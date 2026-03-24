@@ -23,7 +23,7 @@ import {
   CardTitle,
 } from "../../components/ui/card";
 import { useCourt } from "../../hook/courts/use-courts";
-import { AdminLayout } from "../../components/layouts/AdminLayout";
+import { AdminLayout } from "@/components";
 
 export default function CourtDetailsPage() {
   const { id, fetchCourtsDetails, isLoading, court, API_URL } = useCourt();
@@ -35,7 +35,6 @@ export default function CourtDetailsPage() {
     }
   }, [id]);
 
-  // Estado de carga
   if (isLoading) {
     return (
       <AdminLayout>

@@ -1,10 +1,10 @@
+import { useLogin } from "@/modules/auth/hooks/useLogin";
 import { useEffect, useState } from "react";
-import { useAuth } from "../auth/use-auth";
 
 export type UserRole = "superAdmin" | "admin" | "usuario" | null;
 
 export const useUserRole = () => {
-  const { user } = useAuth();
+  const { user } = useLogin();
   const [role, setRole] = useState<UserRole>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,7 +19,7 @@ export const useUserRole = () => {
       2: "admin",
       3: "usuario",
     };
-    const userRoleId = user.id_rol || user.roleId || user.idRol;
+    const userRoleId = user.idRol|| user.idRol || user.idRol;
 
     if (userRoleId && roleMap[userRoleId]) {
       setRole(roleMap[userRoleId]);

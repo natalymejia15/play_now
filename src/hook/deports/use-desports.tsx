@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { toast } from "../use-toast";
 import axios from "axios";
+import { toast } from "@/lib";
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 export const useDeports = () => {
-    const token = localStorage.getItem("token");
+    const token = sessionStorage.getItem("token");
     const [fetching, setFetching] = useState(false);
     const [deports, setDeports] = useState<any[]>([]);
 
