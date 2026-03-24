@@ -8,7 +8,7 @@ import ClientHome from "@/pages/client/ClientHome";
 import HistoricoReservasPage from "@/pages/client/HistoricoReservasPage";
 
 import Profile from "@/pages/Profile";
-import {  DeportsManagement, MallDetails, MallsManagement } from "@/modules";
+import {  DeportsDetails, DeportsManagement, MallDetails, MallsManagement } from "@/modules";
 
 export const privateRoutes = [
   // SUPER ADMIN
@@ -30,6 +30,11 @@ export const privateRoutes = [
   {
     path: "/super-admin/deports",
     element: <DeportsManagement />,
+    allowedRoles: [1],
+  },
+    {
+    path: "/super-admin/deports/:id",
+    element: <DeportsDetails />,
     allowedRoles: [1],
   },
 

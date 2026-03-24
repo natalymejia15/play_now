@@ -1,10 +1,10 @@
 import { useNavigate } from "react-router-dom";
-import { ArrowLeft } from "lucide-react";
-import { Button, Skeleton, SuperAdminLayout } from "@/components";
+import { ArrowLeft, Building2, MapPin } from "lucide-react";
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Skeleton, SuperAdminLayout } from "@/components";
 import { useDeports } from "../hooks";
 
 export const DeportsDetails = () => {
-    const { deports, fetching } = useDeports();
+    const { deports, fetching, deport } = useDeports();
     const navigate = useNavigate();
 
     if (fetching) {
@@ -38,6 +38,37 @@ export const DeportsDetails = () => {
     return (
         <SuperAdminLayout>
             <div className="space-y-8">
+                <Card className="shadow-sm hover:shadow-md transition-all duration-300 border border-border/60 rounded-2xl">
+                    <CardHeader className="bg-gradient-to-r from-blue-100/60 to-green-50 rounded-t-2xl">
+                        <CardTitle className="flex items-center gap-2 text-green-700">
+                            <Building2 className="h-5 w-5" />
+                            Información del Deporte
+                        </CardTitle>
+                        <CardDescription className="text-sm text-muted-foreground">
+                            Datos generales del deporte
+                        </CardDescription>
+                    </CardHeader>
+                    <CardContent className="space-y-4 py-6">
+                        {[
+                            { icon: <Building2 />, label: "Nombre", value: deport?.nombre },
+                            { icon: <MapPin />, label: "Descripción", value: deport?.description },
+                            { icon: <MapPin />, label: "Cantidad", value: deport?.cantidad },
+                        ].map((item, index) => (
+                            <div
+                                key={index}
+                                className="flex items-start gap-3 p-3 rounded-lg hover:bg-muted/40 transition"
+                            >
+                                <div className="text-green-700 mt-1">{item.icon}</div>
+                                <div>
+                                    <p className="text-sm font-medium text-muted-foreground">
+                                        {item.label}
+                                    </p>
+                                    <p className="text-base font-semibold">{item.value}</p>
+                                </div>
+                            </div>
+                        ))}
+                    </CardContent>
+                </Card>
             </div>
         </SuperAdminLayout>
 
