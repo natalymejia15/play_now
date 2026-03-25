@@ -7,8 +7,7 @@ import HistoryAdmin from "@/pages/admin/HistoryAdmin";
 import ClientHome from "@/pages/client/ClientHome";
 import HistoricoReservasPage from "@/pages/client/HistoricoReservasPage";
 
-import Profile from "@/pages/Profile";
-import {  DeportsDetails, DeportsManagement, MallDetails, MallsManagement } from "@/modules";
+import {  DeportsDetails, DeportsManagement, MallDetails, MallsManagement, ProfilePage } from "@/modules";
 
 export const privateRoutes = [
   // SUPER ADMIN
@@ -80,7 +79,7 @@ export const privateRoutes = [
   // GENERAL
   {
     path: "/profile",
-    element: <Profile />,
+    element: <ProfilePage />,
     allowedRoles: [1, 2, 3],
   },
 ];

@@ -87,7 +87,7 @@ const ForgotPasswordForm = () => {
             />
           </div>
           <span className="font-display text-xl font-bold text-foreground">
-            Sport<span className="text-primary">Hub</span>
+            Play<span className="text-primary">Now</span>
           </span>
         </div>
         <div className="rounded-2xl border border-border bg-card p-8 shadow-lg">

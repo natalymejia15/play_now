@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
-import { useUserRole } from "../hook/users/use-user-role";
-import { ClientLayout } from "../components/layouts/client/ClientLayout";
-import { ProfileForm } from "../components/profile/profileForm";
-import { ChangePasswordForm } from "../components/profile/changePasswordForm";
-import { Button } from "../components/ui/button";
 import { useLogin } from "@/modules";
-import { AdminLayout, SuperAdminLayout } from "@/components";
+import { AdminLayout, Button, ChangePasswordForm, ClientLayout, ProfileForm, SuperAdminLayout } from "@/components";
+import { useUserRole } from "@/hook/users/use-user-role";
 
-const ProfilePage = () => {
+export const ProfilePage = () => {
   const { user, loading: authLoading, initializing } = useLogin();
   const { role, isLoading: roleLoading } = useUserRole();
   const [activeTab, setActiveTab] = useState<"profile" | "password">("profile");
@@ -69,4 +65,3 @@ const ProfilePage = () => {
   return <ClientLayout>{content}</ClientLayout>;
 };
 
-export default ProfilePage;

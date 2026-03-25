@@ -8,7 +8,7 @@ export interface MallData {
 }
 
 export interface AdminData {
-  id: number;
+  id?: number;
   email: string;
   first_name: string;
   segundo_nombre?: string;

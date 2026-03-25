@@ -1,10 +1,6 @@
+import { useProfile } from "@/modules";
 import { Loader2, User } from "lucide-react";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "../ui/card";
-import { Input } from "../ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui/select";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
-import { useProfile } from "../../hook/users/use-profile";
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui";
 
 interface ProfileFormProps {
   userId?: number;
@@ -29,6 +25,7 @@ export const ProfileForm = ({ userId }: ProfileFormProps) => {
       </div>
     );
   }
+
 
   return (
     <Card className="bg-white border border-gray-200 shadow-md rounded-2xl">
@@ -75,30 +72,44 @@ export const ProfileForm = ({ userId }: ProfileFormProps) => {
               </Select>
             </div>
 
-            {[
-              { id: "document_number", label: "Número de Documento", value: profile.document_number },
-              { id: "first_name", label: "Primer Nombre", value: profile.first_name },
-              { id: "segundo_nombre", label: "Segundo Nombre", value: profile.segundo_nombre },
-              { id: "last_name", label: "Primer Apellido", value: profile.last_name },
-              { id: "segundo_apellido", label: "Segundo Apellido", value: profile.segundo_apellido },
-              { id: "phone_number", label: "Teléfono", value: profile.phone_number },
-              { id: "business_name", label: "Razón Social", value: profile.business_name },
-              { id: "address", label: "Dirección", value: profile.address, full: true },
-            ].map((field) => (
-              <div key={field.id} className={`space-y-1 ${field.full ? "md:col-span-2" : ""}`}>
-                <Label htmlFor={field.id} className="text-gray-800 font-medium">
-                  {field.label}
-                </Label>
-                <Input
-                  id={field.id}
-                  name={field.id}
-                  value={field.value}
-                  onChange={handleChange}
-                  disabled={!editing}
-                  className="bg-gray-100 text-gray-900 border-gray-200 focus:ring-2 focus:ring-green-300"
-                />
-              </div>
-            ))}
+            {(() => {
+              // Campos para documento tipo CC (Cédula)
+              const ccFields = [
+                { id: "document_number", label: "Número de Documento", value: profile.document_number },
+                { id: "first_name", label: "Primer Nombre", value: profile.first_name },
+                { id: "segundo_nombre", label: "Segundo Nombre", value: profile.segundo_nombre },
+                { id: "last_name", label: "Primer Apellido", value: profile.last_name },
+                { id: "segundo_apellido", label: "Segundo Apellido", value: profile.segundo_apellido },
+                { id: "phone_number", label: "Teléfono", value: profile.phone_number },
+                { id: "address", label: "Dirección", value: profile.address, full: true },
+              ];
+
+              // Campos para documento tipo NIT
+              const nitFields = [
+                { id: "business_name", label: "Razón Social", value: profile.business_name },
+                { id: "document_number", label: "NIT", value: profile.document_number },
+                { id: "phone_number", label: "Teléfono", value: profile.phone_number },
+                { id: "address", label: "Dirección", value: profile.address, full: true },
+              ];
+
+              const fields = profile.document_type === "NIT" ? nitFields : ccFields;
+
+              return fields.map((field) => (
+                <div key={field.id} className={`space-y-1 ${field.full ? "md:col-span-2" : ""}`}>
+                  <Label htmlFor={field.id} className="text-gray-800 font-medium">
+                    {field.label}
+                  </Label>
+                  <Input
+                    id={field.id}
+                    name={field.id}
+                    value={field.value}
+                    onChange={handleChange}
+                    disabled={!editing}
+                    className="bg-gray-100 text-gray-900 border-gray-200 focus:ring-2 focus:ring-green-300"
+                  />
+                </div>
+              ));
+            })()}
           </div>
 
           <div className="flex justify-end gap-4 mt-6">

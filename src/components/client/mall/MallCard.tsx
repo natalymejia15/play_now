@@ -1,8 +1,9 @@
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui";
+import type { IMall } from "@/modules";
 import { MapPin, Building2 } from "lucide-react";
-import { Card, CardDescription, CardHeader, CardTitle } from "../../ui/card";
 
 interface MallCardProps {
-  mall: any;
+  mall: IMall;
   onSelect: (mallId: string) => void;
 }
 
@@ -10,7 +11,7 @@ export function MallCard({ mall, onSelect }: MallCardProps) {
   return (
     <Card
       className="cursor-pointer bg-white hover:shadow-lg transition-all border border-gray-200 rounded-xl"
-      onClick={() => onSelect(mall.id)}
+      onClick={() => onSelect(mall.ciudad)}
     >
       <div className="bg-gradient-to-r from-blue-50/70 to-green-50/70 px-6 py-4 border-b border-border/40">
         <CardTitle className="flex items-center gap-2 text-green-700 text-lg font-semibold">

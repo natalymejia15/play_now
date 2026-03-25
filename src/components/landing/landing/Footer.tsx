@@ -8,7 +8,7 @@ export const Footer = () => {
               <span className="text-sm font-bold text-primary-foreground">⚽</span>
             </div>
             <span className="font-display text-lg font-bold text-foreground">
-              Sport<span className="text-primary">Hub</span>
+              Play<span className="text-primary">Now</span>
             </span>
           </div>
 
@@ -19,7 +19,7 @@ export const Footer = () => {
           </nav>
 
           <p className="text-xs text-muted-foreground">
-            © 2026 SportHub. Todos los derechos reservados.
+            © 2026 PlayNow. Todos los derechos reservados.
           </p>
         </div>
       </div>
