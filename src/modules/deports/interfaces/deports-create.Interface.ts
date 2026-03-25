@@ -1,7 +1,7 @@
 export interface ICreateDeportsPayload {
     id: number;
     nombre: string;
-    description: string;
+    descripcion: string;
     activo: boolean;
     cantidad: number;
     createdAt: string;
@@ -10,7 +10,7 @@ export interface ICreateDeportsPayload {
 
 export interface ICreateDeportsRequest {
     nombre: string;
-    description: string;
+    descripcion: string;
     activo: boolean;
     cantidad: number;
 }

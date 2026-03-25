@@ -1,7 +1,7 @@
 export interface IDeport {
     id: number; 
     nombre: string;
-    description: string;
+    descripcion: string;
     cantidad: number;
     activo: boolean;
     createdAt: string;
@@ -17,14 +17,14 @@ export interface ApiErrorResponseDeports {
 export interface DeportsFormData {
    [key: string]: string | boolean | number;
     nombre: string;
-    description: string;
+    descripcion: string;
     cantidad: number;
     activo: boolean;
 }
 
 export const INITIAL_DATA_DEPORTS: DeportsFormData = {
     nombre: "",
-    description: "",
+    descripcion: "",
     cantidad: 0,
     activo: true,
 }

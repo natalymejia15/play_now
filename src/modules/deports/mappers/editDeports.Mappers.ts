@@ -2,21 +2,21 @@ import type { EditDeportsFormData, IDeport, UpdateDeportsPayload } from "../inte
 
 export const INITIAL_EDIT_DEPORTS_FORM: EditDeportsFormData = {
     nombre: "",
-    description: "",
+    descripcion: "",
     cantidad: 0,
     activo: false,
 };
 
 export const mapDeportsToEditForm = (deports: IDeport): EditDeportsFormData => ({
     nombre: deports.nombre ?? "",
-    description: deports.description ?? "",
+    descripcion: deports.descripcion ?? "",
     cantidad: deports.cantidad ?? "",
     activo: deports.activo ?? "",
 });
 
 export const mapEditDeportsFormToPayload = (form: EditDeportsFormData): UpdateDeportsPayload => ({
     nombre: form.nombre,
-    description: form.description,
+    descripcion: form.descripcion,
     cantidad: form.cantidad,
     activo: form.activo,
 });

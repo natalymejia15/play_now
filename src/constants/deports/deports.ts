@@ -2,7 +2,7 @@ import type { ColumnDef } from "@/interfaces";
 import type { IDeport } from "@/modules";
 
 export const COLUMNS_DEPORTS: ColumnDef<IDeport>[] = [
-  { key: "description", label: "Descripción", defaultVisible: false },
+  { key: "descripcion", label: "Descripción", defaultVisible: false },
   { key: "cantidad", label: "Cantidad", render: (d) => d.cantidad.toString() },
   { key: "activo", label: "Activo", render: (d) => d.activo ? "Sí" : "No" },
 ];
