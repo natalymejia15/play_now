@@ -9,25 +9,23 @@ export interface ProfileFormData{
     segundoApellido: string;
     tipoDocumento: string;
     numeroDocumento: string;
-    fechaNacimiento: Date | string;
     celular: string;
     direccion: string;
-    nombreNegocio: string;
+    razonSocial: string;
 }
 
 export const INITIAL_PROFILE: IProfile = {
      id: 0,
-     email: "",
-     first_name: "",
-     segundo_nombre: "",
-     last_name: "",
-     segundo_apellido: "",
-     document_type: "",
-     document_number: "",
-     birth_date: "",
-     phone_number: "",
-     address: "",
-     business_name: "",
+     correo: "",
+     primerNombre: "",
+     segundoNombre: "",
+     primerApellido: "",
+     segundoApellido: "",
+     tipoDocumento: "",
+     numeroDocumento: "",
+     celular: "",
+     direccion: "",
+     razonSocial: "",
 };
 
 export const INITIAL_FORM: ProfileFormData = {
@@ -41,6 +39,5 @@ export const INITIAL_FORM: ProfileFormData = {
      correo: "",
      celular: "",
      direccion: "",
-     nombreNegocio: "",
-     fechaNacimiento: "",
+     razonSocial: "",
 };

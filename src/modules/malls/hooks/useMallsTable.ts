@@ -30,7 +30,7 @@ export const useMallsTable = () => {
 
   const handleViewMall = (mallId?: number) => {
     if (!mallId) return;
-    navigate(`/super-admin/mall/${mallId}`);
+    navigate(`/super-admin/mall/details`, { state: { id: mallId } });
   };
 
   return {

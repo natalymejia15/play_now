@@ -32,7 +32,7 @@ export const useDeportsTable = (
 
     const handleViewDeport = (deportId?: number) => {
         if (!deportId) return;
-        navigate(`/super-admin/deports/${deportId}`);
+        navigate(`/super-admin/deports/details`, { state: { id: deportId } });
     };
 
     return {

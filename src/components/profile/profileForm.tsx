@@ -47,7 +47,7 @@ export const ProfileForm = ({ userId }: ProfileFormProps) => {
                 id="email"
                 name="email"
                 type="email"
-                value={profile.email}
+                value={profile.correo}
                 disabled
                 className="bg-gray-100 text-gray-900 border-gray-200"
               />
@@ -58,8 +58,8 @@ export const ProfileForm = ({ userId }: ProfileFormProps) => {
                 Tipo de Documento
               </Label>
               <Select
-                value={profile.document_type}
-                onValueChange={(value) => setProfile({ ...profile, document_type: value })}
+                value={profile.tipoDocumento}
+                onValueChange={(value) => setProfile({ ...profile, tipoDocumento: value })}
                 disabled={!editing}
               >
                 <SelectTrigger className="bg-gray-100 border-gray-200 text-gray-900">
@@ -73,26 +73,23 @@ export const ProfileForm = ({ userId }: ProfileFormProps) => {
             </div>
 
             {(() => {
-              // Campos para documento tipo CC (Cédula)
               const ccFields = [
-                { id: "document_number", label: "Número de Documento", value: profile.document_number },
-                { id: "first_name", label: "Primer Nombre", value: profile.first_name },
-                { id: "segundo_nombre", label: "Segundo Nombre", value: profile.segundo_nombre },
-                { id: "last_name", label: "Primer Apellido", value: profile.last_name },
-                { id: "segundo_apellido", label: "Segundo Apellido", value: profile.segundo_apellido },
-                { id: "phone_number", label: "Teléfono", value: profile.phone_number },
-                { id: "address", label: "Dirección", value: profile.address, full: true },
+                { id: "numeroDocumento", label: "Número de Documento", value: profile.numeroDocumento },
+                { id: "primerNombre", label: "Primer Nombre", value: profile.primerNombre },
+                { id: "segundoNombre", label: "Segundo Nombre", value: profile.segundoNombre },
+                { id: "primerApellido", label: "Primer Apellido", value: profile.primerApellido },
+                { id: "segundoApellido", label: "Segundo Apellido", value: profile.segundoApellido },
+                { id: "celular", label: "Teléfono", value: profile.celular },
+                { id: "direccion", label: "Dirección", value: profile.direccion, full: true },
               ];
-
-              // Campos para documento tipo NIT
               const nitFields = [
-                { id: "business_name", label: "Razón Social", value: profile.business_name },
-                { id: "document_number", label: "NIT", value: profile.document_number },
-                { id: "phone_number", label: "Teléfono", value: profile.phone_number },
-                { id: "address", label: "Dirección", value: profile.address, full: true },
+                { id: "razonSocial", label: "Razón Social", value: profile.razonSocial },
+                { id: "numeroDocumento", label: "NIT", value: profile.numeroDocumento },
+                { id: "celular", label: "Teléfono", value: profile.celular },
+                { id: "direccion", label: "Dirección", value: profile.direccion, full: true },
               ];
 
-              const fields = profile.document_type === "NIT" ? nitFields : ccFields;
+              const fields = profile.tipoDocumento === "NIT" ? nitFields : ccFields;
 
               return fields.map((field) => (
                 <div key={field.id} className={`space-y-1 ${field.full ? "md:col-span-2" : ""}`}>
