@@ -1,11 +1,7 @@
 import { useState } from "react";
 import { Loader2, Key } from "lucide-react";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "../ui/card";
-import { Input } from "../ui/input";
-import { Label } from "../ui/label";
-import { Button } from "../ui/button";
-import { ScrollArea } from "../ui/scroll-area";
 import { usePassword } from "../../hook/password/use-password";
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label, ScrollArea } from "../ui";
 
 export const ChangePasswordForm = () => {
   const { changePassword, isLoading } = usePassword();

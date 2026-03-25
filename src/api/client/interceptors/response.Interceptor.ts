@@ -2,7 +2,7 @@ import type { AxiosError } from 'axios'
 import axios from 'axios'
 import { refreshManager } from '../auth'
 import { refreshApi } from '../instance/refresh-api.Instance'
-import type { RequestHeaders, RetryRequestConfig } from '@/interfaces'
+import type { ErrorResponse, RequestHeaders, RetryRequestConfig } from '@/interfaces'
 import { PUBLIC_ROUTE_PATTERNS } from '@/constants'
 
 
@@ -19,8 +19,12 @@ const isPublicRoute = (url?: string | null, headers?: RequestHeaders) => {
 
 export const responseInterceptor = async (error: AxiosError) => {
   const originalRequest = error.config as RetryRequestConfig | undefined
+  const status = error.response?.status
+  const message = (error.response?.data as ErrorResponse | undefined)?.message
 
-  if (!originalRequest || error.response?.status !== 401) {
+  const isAuthError = status === 401 || (status === 403 && !!message && /expir|inválid|invalid/i.test(message))
+
+  if (!originalRequest || !isAuthError) {
     return Promise.reject(error)
   }
   if (isPublicRoute(originalRequest.url, originalRequest.headers)) {

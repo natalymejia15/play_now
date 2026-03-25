@@ -5,3 +5,7 @@ export type RetryRequestConfig = InternalAxiosRequestConfig & {
 };
 
 export type RequestHeaders = AxiosRequestHeaders | RawAxiosRequestHeaders | undefined;
+
+export interface ErrorResponse {
+  message?: string
+}

@@ -1,8 +1,9 @@
+import { Skeleton } from "@/components/ui";
+import type { IMall } from "@/modules";
 import { MallCard } from "./MallCard";
-import { Skeleton } from "../../ui/skeleton";
 
 interface MallListProps {
-  malls: any[];
+  malls: IMall[];
   isLoading: boolean;
   onSelectMall: (mallId: string) => void;
 }

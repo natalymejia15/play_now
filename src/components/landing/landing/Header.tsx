@@ -13,7 +13,7 @@ export const Header = () => {
             <span className="text-lg font-bold text-primary-foreground">⚽</span>
           </div>
           <span className="font-display text-xl font-bold text-foreground">
-            Sport<span className="text-primary">Hub</span>
+            Play<span className="text-primary">Now</span>
           </span>
         </a>
 
