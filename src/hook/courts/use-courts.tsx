@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Court, CourtData } from "../../types/courts";
 import axios from "axios";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useToast } from "@/lib";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
@@ -10,7 +10,10 @@ export const useCourt = () => {
     const [loading, setLoading] = useState(true);
     const [isDeleting, setIsDeleting] = useState(false);
     const [fetching, setFetching] = useState(false);
-    const { id } = useParams();
+    const { id: paramId } = useParams();
+    const location = useLocation();
+    const state = (location.state || {}) as { id?: number | string };
+    const id = paramId ?? (state?.id !== undefined ? String(state.id) : undefined);
     const [court, setCourt] = useState<CourtData | null>(null);
     const { toast } = useToast();
     const [isLoading, setIsLoading] = useState(false);
@@ -152,6 +155,13 @@ export const useCourt = () => {
             setIsLoading(false);
         }
     };
+
+    // If no id provided via params or location.state, ensure loading is false
+    useEffect(() => {
+        if (!id) {
+            setIsLoading(false);
+        }
+    }, [id]);
 
     return {
         courts,

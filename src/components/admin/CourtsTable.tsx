@@ -55,7 +55,7 @@ export const CourtsTable = () => {
 
   const handleViewCourts = (courtsId?: number) => {
     if (!courtsId) return;
-    navigate(`/admin/courts/${courtsId}`);
+    navigate(`/admin/courts/details`, { state: { id: courtsId } });
   };
 
   return (

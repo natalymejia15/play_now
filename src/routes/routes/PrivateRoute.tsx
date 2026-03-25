@@ -22,7 +22,7 @@ export const privateRoutes = [
     allowedRoles: [1],
   },
   {
-    path: "/super-admin/mall/:id",
+    path: "/super-admin/mall/details",
     element: <MallDetails />,
     allowedRoles: [1],
   },
@@ -31,8 +31,8 @@ export const privateRoutes = [
     element: <DeportsManagement />,
     allowedRoles: [1],
   },
-    {
-    path: "/super-admin/deports/:id",
+  {
+    path: "/super-admin/deports/details",
     element: <DeportsDetails />,
     allowedRoles: [1],
   },
@@ -49,7 +49,7 @@ export const privateRoutes = [
     allowedRoles: [2],
   },
   {
-    path: "/admin/courts/:id",
+    path: "/admin/courts/details",
     element: <CourtsDetailsPage />,
     allowedRoles: [2],
   },

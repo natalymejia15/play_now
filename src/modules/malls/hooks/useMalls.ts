@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import type { AxiosError } from "axios";
 import { getMalls, getMallById, deleteMall as deleteMallApi } from "@/api";
 import { extractApiErrorMessage, toast } from "@/lib";
@@ -11,7 +11,10 @@ import { DOCUMENT_TYPE_LABELS } from "@/constants";
 import type { AdminData, ApiErrorResponseMalls, IMall, MallData } from "../interfaces";
 
 export const useMalls = () => {
-    const { id } = useParams();
+    const { id: paramId } = useParams();
+    const location = useLocation();
+    const state = (location.state || {}) as { id?: number | string };
+    const id = paramId ?? (state?.id !== undefined ? String(state.id) : undefined);
     const [malls, setMalls] = useState<IMall[]>([]);
     const [fetching, setFetching] = useState(false);
     const [isDeleting, setIsDeleting] = useState(false);
@@ -80,6 +83,11 @@ export const useMalls = () => {
     useEffect(() => {
         fetchMalls();
     }, []);
+    useEffect(() => {
+        if (!id) {
+            setIsLoading(false);
+        }
+    }, [id]);
 
     return {
         malls,
