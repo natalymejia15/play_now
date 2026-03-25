@@ -2,7 +2,7 @@ import { Trophy } from "lucide-react";
 import { Input, Label } from "@/components";
 
 type Props = {
-    values: { nombre: string; description: string; cantidad: number };
+    values: { nombre: string; descripcion: string; cantidad: number };
     onChange: (field: string, value: string) => void;
     disabled?: boolean;
 };
@@ -26,17 +26,17 @@ export const DeportsInfoSection = ({ values, onChange, disabled }: Props) => (
                 />
             </div>
             <div className="space-y-2">
-                <Label htmlFor="description">Descripción </Label>
+                <Label htmlFor="descripcion">Descripción </Label>
                 <Input
-                    id="description"
-                    value={values.description}
-                    onChange={(e) => onChange("description", e.target.value)}
+                    id="descripcion"
+                    value={values.descripcion}
+                    onChange={(e) => onChange("descripcion", e.target.value)}
                     placeholder="Futbol ..."
                     disabled={disabled}
                 />
             </div>
             <div className="space-y-2">
-                <Label htmlFor="description">Cantidad </Label>
+                <Label htmlFor="cantidad">Cantidad </Label>
                 <Input
                     id="cantidad"
                     value={values.cantidad}

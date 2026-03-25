@@ -51,7 +51,7 @@ export const DeportsDetails = () => {
                     <CardContent className="space-y-4 py-6">
                         {[
                             { icon: <Building2 />, label: "Nombre", value: deport?.nombre },
-                            { icon: <MapPin />, label: "Descripción", value: deport?.description },
+                            { icon: <MapPin />, label: "Descripción", value: deport?.descripcion },
                             { icon: <MapPin />, label: "Cantidad", value: deport?.cantidad },
                         ].map((item, index) => (
                             <div

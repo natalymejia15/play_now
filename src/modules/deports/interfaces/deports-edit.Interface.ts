@@ -3,7 +3,7 @@ import type { IDeport } from "./deports.Interface";
 export interface EditDeportsFormData {  
     [key: string]: string | number | boolean;
     nombre: string;
-    description: string;
+    descripcion: string;
     cantidad: number;
     activo: boolean;
     
@@ -19,7 +19,7 @@ export interface EditDeportsDialogProps {
 
 export interface UpdateDeportsPayload {
     nombre: string;
-    description: string;
+    descripcion: string;
     cantidad: number;
     activo: boolean;
 }
