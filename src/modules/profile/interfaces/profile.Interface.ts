@@ -1,16 +1,15 @@
 export interface IProfile {
     id?: number;
-    email: string;
-    first_name: string;
-    segundo_nombre: string;
-    last_name: string;
-    segundo_apellido: string;
-    document_type: string;
-    document_number: string;
-    birth_date: Date | string;
-    phone_number: string;
-    address: string;
-    business_name: string;
+    correo: string;
+    primerNombre: string;
+    segundoNombre: string;
+    primerApellido: string;
+    segundoApellido: string;
+    tipoDocumento: string;
+    numeroDocumento: string;
+    celular: string;
+    direccion: string;
+    razonSocial: string;
 }
 
 export interface ApiProfile {
@@ -18,25 +17,13 @@ export interface ApiProfile {
   correo?: string;
   email?: string;
   primerNombre?: string;
-  first_name?: string;
   segundoNombre?: string;
-  segundo_nombre?: string;
   primerApellido?: string;
-  last_name?: string;
   segundoApellido?: string;
-  segundo_apellido?: string;
   tipoDocumento?: string;
-  document_type?: string;
   numeroDocumento?: string;
-  document_number?: string;
-  fechaNacimiento?: string;
-  birth_date?: string;
   createdAt?: string;
   celular?: string;
-  phone_number?: string;
   direccion?: string;
-  address?: string;
   razonSocial?: string;
-  nombreNegocio?: string;
-  business_name?: string;
 }
