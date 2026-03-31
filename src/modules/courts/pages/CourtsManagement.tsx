@@ -1,4 +1,4 @@
-import { AdminLayout, Button, SuperAdminLayout } from "@/components";
+import { AdminLayout, Button } from "@/components";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { CourtsTablet } from "./CourtsTable";
