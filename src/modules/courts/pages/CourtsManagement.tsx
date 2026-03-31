@@ -1,4 +1,4 @@
-import { Button, SuperAdminLayout } from "@/components";
+import { AdminLayout, Button, SuperAdminLayout } from "@/components";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 import { CourtsTablet } from "./CourtsTable";
@@ -7,7 +7,7 @@ import { CreateCourtsDialog } from "./CreateCourtsDialog";
 export const CourtsManagement = () => {
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     return (
-        <SuperAdminLayout>
+        <AdminLayout>
             <div className="space-y-6">
                 <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
                     < h1 className="text-3xl font-bold text-green-900">Gestionar de Canchas</h1>
@@ -24,6 +24,6 @@ export const CourtsManagement = () => {
                 </div>
                 <CreateCourtsDialog open={isDialogOpen} onOpenChange={setIsDialogOpen} />
             </div>
-        </SuperAdminLayout>
+        </AdminLayout>
     );
 }
