@@ -40,7 +40,7 @@ export const useDeports = () => {
             setDeports((prev) => prev.filter((d) => d.id !== deportId));
             toast({
                 title: "Eliminado",
-                description: "Centro comercial eliminado correctamente",
+                description: "Deporte eliminado correctamente",
                 variant: "success",
             });
         } catch (error) {
