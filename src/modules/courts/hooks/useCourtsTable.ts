@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { ICourts } from "../interfaces";
-import { deleteCourts } from "@/api";
+
+const RELOAD_DELAY_MS = 800;
 
 export const useCourtsTable = (
     court: ICourts[],
+    deleteCourts: (id: number) => Promise<void>
 ) => {
     const [courtsToEdit, setCourtsToEdit] = useState<ICourts | null>(null);
     const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
@@ -23,9 +25,12 @@ export const useCourtsTable = (
     };
 
     const handleConfirmDelete = async () => {
-        if (courtsToDelete?.id !== undefined && courtsToDelete?.id !== null) { 
+        if (courtsToDelete?.id !== undefined && courtsToDelete?.id !== null) {
             await deleteCourts(courtsToDelete.id);
             setIsDeleteDialogOpen(false);
+            setTimeout(() => {
+                window.location.reload();
+            }, RELOAD_DELAY_MS);
         }
     };
 

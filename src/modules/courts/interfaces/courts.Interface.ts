@@ -7,7 +7,7 @@ export interface ICourts {
     responsable: string;
     horarioInicio: string;
     horarioFin: string;
-    diasDisponibles: string[];
+    diasDisponibles: string;
     detalles?: string;
     capacidad: number;
     imagen: string | null;
@@ -33,8 +33,8 @@ export interface CourtsFormData {
   diasDisponibles: string[];
   detalles: string;
   capacidad: number;
-  imagen: string | File | null;  
-  mallId: string;
+    imagen: string | File | null;  
+    mallId: number | string | null;
 }
 
 export const INITIAL_DATA_COURTS: CourtsFormData = {
@@ -48,7 +48,7 @@ export const INITIAL_DATA_COURTS: CourtsFormData = {
     diasDisponibles: [],
     detalles: "",
     capacidad: 0,
-    imagen: "",
-    mallId: "",
+        imagen: "",
+        mallId: "",
 
 } 

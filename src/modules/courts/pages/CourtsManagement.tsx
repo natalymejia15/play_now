@@ -1,4 +1,3 @@
-
 import { Button, SuperAdminLayout } from "@/components";
 import { Plus } from "lucide-react";
 import { useState } from "react";

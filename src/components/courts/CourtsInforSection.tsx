@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Calendar, DollarSign, ImageIcon, MapPin } from "lucide-react";
-import { Input, Label, Button } from "@/components";
+import { Input, Label } from "@/components";
 import type { CourtsFormData, CourtsFormValue } from "@/modules";
 
 type Props = {
@@ -215,27 +215,6 @@ export const CourtsInfoSection = ({ values, onChange, disabled }: Props) => {
                                 onChange={(e) => onChange("imagen", e.target.files?.[0] || null)}
                                 disabled={disabled}
                             />
-
-                            <div className="flex gap-2">
-                                <Button
-                                    type="button"
-                                    variant="outline"
-                                    onClick={() => {
-                                        onChange("imagen", null);
-                                        if (fileInputRef.current) fileInputRef.current.value = "";
-                                    }}
-                                    disabled={disabled}
-                                >
-                                    Eliminar imagen
-                                </Button>
-                                <Button
-                                    type="button"
-                                    onClick={() => fileInputRef.current?.click()}
-                                    disabled={disabled}
-                                >
-                                    Cambiar imagen
-                                </Button>
-                            </div>
                         </div>
                     </div>
                 </div>

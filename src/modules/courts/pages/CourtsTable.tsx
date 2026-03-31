@@ -12,6 +12,7 @@ import {
     DataTable
 } from "@/components";
 import { useCourts, useCourtsTable } from "../hooks";
+import { EditCourtsDialog } from "./EditCourtsDialog";
 
 
 export const CourtsTablet = () => {
@@ -28,8 +29,7 @@ export const CourtsTablet = () => {
         handleDeleteClick,
         handleConfirmDelete,
         handleViewCourts,
-        court
-    } = useCourtsTable(courts);
+    } = useCourtsTable(courts, deleteCourts);
 
     const { search, setSearch, visibleColumns, setVisibleColumns, filtered } =
         useDataTable(courts, COLUMNS_COURTS, []);
@@ -56,7 +56,12 @@ export const CourtsTablet = () => {
                 searchPlaceholder="Buscar canchas..."
             />
 
-
+            <EditCourtsDialog
+                open={isEditDialogOpen}
+                onOpenChange={setIsEditDialogOpen}
+                court={courtsToEdit}
+            />
+            
             <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                 <AlertDialogContent className="border border-green-500 bg-green-50 text-green-900">
                     <AlertDialogHeader>

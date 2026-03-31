@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import type { ApiErrorResponseCourts, CourtsData, ICourts } from "../interfaces";
-import { deleteCourts, getCourts, getCourtsById } from "@/api";
+import { deleteCourts, getCourts, getCourtsById, getCourtsByIdMalls } from "@/api";
 import { extractApiErrorMessage, toast } from "@/lib";
 import type { AxiosError } from "axios";
 import { mapCourtsResponseToCourtsData } from "../mappers";
@@ -70,6 +70,23 @@ export const useCourts = () => {
         }
     };
 
+    const fetchCourtsByMall = async (mallId: string) =>{
+        if (!mallId) return;
+        setIsLoading(true);
+        try {
+            const data = await getCourtsByIdMalls(Number(mallId));
+            setCourt(mapCourtsResponseToCourtsData(data));
+        } catch (error) {
+            const description = extractApiErrorMessage(
+                error as AxiosError<ApiErrorResponseCourts>,
+                "No se pudieron cargar los detalles de la cancha"
+            );
+            toast({ title: "Error", description, variant: "destructive" });
+        } finally {
+            setIsLoading(false);
+        }
+    }
+
     useEffect(() => {
         fetchCourts();
     }, []);
@@ -89,6 +106,7 @@ export const useCourts = () => {
         handleDeleteCourts,
         fetchCourtsDetails,
         id,
-        deleteCourts
+        deleteCourts,
+        fetchCourtsByMall
     }
 }

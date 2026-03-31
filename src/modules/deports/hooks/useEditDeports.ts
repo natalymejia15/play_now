@@ -24,7 +24,7 @@ export const useEditDeports = ({ open, onOpenChange, deport, onSuccess }: EditDe
     const handleSuccess = () => {
         toast({
             title: "Éxito",
-            description: "Centro comercial actualizado correctamente",
+            description: "Deporte actualizado correctamente",
             variant: "success",
         });
 
@@ -39,7 +39,7 @@ export const useEditDeports = ({ open, onOpenChange, deport, onSuccess }: EditDe
     const handleError = (error: AxiosError<ApiErrorResponseDeports>) => {
         const description = extractApiErrorMessage(
             error,
-            "No se pudo actualizar el centro comercial"
+            "No se pudo actualizar el deporte"
         );
 
         toast({

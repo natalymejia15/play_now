@@ -28,3 +28,8 @@ export const updateCourts = async (id: number, payload: UpdateCourtsPayload): Pr
 export const deleteCourts = async (id: number): Promise<void> => {
     await api.delete(`/courts/${id}`);
 };
+
+export const getCourtsByIdMalls = async (mallId: number): Promise<ICourts> => {
+    const response = await api.get<ICourts>(`/courts//mall/${mallId}`);
+    return response.data
+}
