@@ -1,11 +1,11 @@
-import type { Court } from "../../../types/courts";
+import type { ICourts } from "@/modules";
 import { Card, CardHeader, CardTitle, CardDescription } from "../../ui/card";
 import { Users, DollarSign, ImageIcon, Clock } from "lucide-react";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
 
 interface CourtCardProps {
-  court: Court;
+  court: ICourts;
   onSelect: (court: any) => void;
 }
 
