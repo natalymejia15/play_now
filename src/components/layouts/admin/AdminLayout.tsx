@@ -26,7 +26,7 @@ export const AdminLayout = ({ children }: AdminLayoutProps) => {
           <div className="flex flex-col h-full">
             <div className="p-4 border-b border-green-200">
               <h2 className="text-lg font-semibold text-green-900">Administrador</h2>
-              <p className="text-sm text-green-700 truncate">{user?.numeroDocumento}</p>
+              <p className="text-sm text-green-700 truncate">{user?.correo}</p>
             </div>
             <SidebarContent className="flex-1">
               <SidebarGroup>
