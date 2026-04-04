@@ -13,7 +13,7 @@ export function CourtCard({ court, onSelect }: CourtCardProps) {
   const imageUrl = court.imagen
     ? court.imagen.startsWith("http")
       ? court.imagen
-      : `${API_URL}/uploads/${court.imagen}`
+      : `${API_URL}/uploads/${encodeURIComponent(court.imagen)}`
     : null;
 
   return (
@@ -45,7 +45,7 @@ export function CourtCard({ court, onSelect }: CourtCardProps) {
             <span className="text-sm">
               Capacidad:{" "}
               <span className="font-medium text-foreground">
-                {court.capacidad} personas
+                {court.sportId} personas
               </span>
             </span>
           </div>

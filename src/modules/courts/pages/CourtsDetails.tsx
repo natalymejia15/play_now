@@ -10,15 +10,16 @@ import {
   Info,
   ImageIcon,
   DollarSign,
-  Users,
   LandPlot,
+  Trophy,
 } from "lucide-react";
 import { AdminLayout, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Skeleton } from "@/components";
-import { useCourts } from "../hooks";
+import { useCourtImage, useCourts } from "../hooks";
 
 export const CourtsDetails = () => {
   const { id, fetchCourtsDetails, isLoading, court } = useCourts();
   const navigate = useNavigate();
+  const { imageUrl } = useCourtImage({ imagen: court?.imagen ?? null });
 
   useEffect(() => {
     if (id) {
@@ -75,7 +76,7 @@ export const CourtsDetails = () => {
             </h1>
           </div>
         </div>
-       <div className="grid gap-8 md:grid-cols-2">
+        <div className="grid gap-8 md:grid-cols-2">
           <Card className="shadow-sm hover:shadow-md transition-all duration-300 border border-border/60 rounded-2xl">
             <CardHeader className="bg-gradient-to-r from-blue-100/60 to-green-50 rounded-t-2xl">
               <CardTitle className="flex items-center gap-2 text-green-700">
@@ -113,9 +114,9 @@ export const CourtsDetails = () => {
                   value: `$${court.valorHora.toLocaleString()}`,
                 },
                 {
-                  icon: <Users />,
-                  label: "Capacidad",
-                  value: `${court.capacidad} personas`,
+                  icon: <Trophy />,
+                  label: "Deporte",
+                  value: court.deporteNombre ?? `${court.sportId ?? "-"}`,
                 },
               ].map((item, index) => (
                 <div
@@ -145,11 +146,11 @@ export const CourtsDetails = () => {
             </CardHeader>
 
             <CardContent className="flex justify-center items-center py-6">
-              {court.imagen ? (
+              {imageUrl ? (
                 <img
-                  src={court.imagen || ""}
+                  src={imageUrl}
                   alt={court.nombreCancha}
-                  className="rounded-2xl shadow-md object-cover w-full max-w-md h-64"
+                 className="rounded-2xl shadow-md object-cover w-full max-w-md h-[500px]"
                 />
               ) : (
                 <div className="flex flex-col items-center justify-center border border-dashed border-gray-300 rounded-xl w-full max-w-md h-64 bg-muted/10">
@@ -157,6 +158,7 @@ export const CourtsDetails = () => {
                   <p className="text-gray-500 text-sm">Sin imagen disponible</p>
                 </div>
               )}
+
             </CardContent>
           </Card>
         </div>

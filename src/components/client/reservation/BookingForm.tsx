@@ -20,7 +20,6 @@ interface BookingFormProps {
 export function BookingForm({ selectedCourt, onClose }: BookingFormProps) {
   const { createReservation } = useCreateReservation();
 
-  // Estado para duración y total
   const [duration, setDuration] = useState<number>(1);
   const pricePerHour = Number(selectedCourt?.valorHora || selectedCourt?.price || 0);
 

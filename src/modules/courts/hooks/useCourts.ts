@@ -20,7 +20,12 @@ export const useCourts = () => {
         setIsLoading(true);
         try {
             const data = await getCourts();
-            setCourts(data ?? []);
+            const prepared = (data ?? []).map((d) => ({
+                ...d,
+                deporteNombre: d.deporte?.nombre ?? null,
+                cantidadCancha: d.deporte?.cantidad ?? null,
+            }));
+            setCourts(prepared);
         } catch (error) {
             const description = extractApiErrorMessage(
                 error as AxiosError<ApiErrorResponseCourts>,
@@ -58,7 +63,8 @@ export const useCourts = () => {
         setIsLoading(true);
         try {
             const data = await getCourtsById(Number(id));
-            setCourt(mapCourtsResponseToCourtsData(data));
+            const mapped = mapCourtsResponseToCourtsData(data);
+            setCourt(mapped);
         } catch (error) {
             const description = extractApiErrorMessage(
                 error as AxiosError<ApiErrorResponseCourts>,

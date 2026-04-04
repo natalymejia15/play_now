@@ -9,9 +9,17 @@ export interface ICourts {
     horarioFin: string;
     diasDisponibles: string;
     detalles?: string;
-    capacidad: number;
+    sportId: number | null;
     imagen: string | null;
     mallId: number | null;
+    deporte?: {
+        id: number;
+        nombre: string;
+        descripcion?: string;
+        cantidad?: number;
+    } | null;
+    deporteNombre?: string | null;
+    cantidadCancha?: number | null;
 }
 
 export interface ApiErrorResponseCourts {
@@ -23,17 +31,17 @@ export interface ApiErrorResponseCourts {
 export type CourtsFormValue = string | number | string[] | File | null;
 
 export interface CourtsFormData {
-  nombreCancha: string;
-  direccion: string;
-  valorHora: number;
-  telefono: string;
-  responsable: string;
-  horarioInicio: string;
-  horarioFin: string;
-  diasDisponibles: string[];
-  detalles: string;
-  capacidad: number;
-    imagen: string | File | null;  
+    nombreCancha: string;
+    direccion: string;
+    valorHora: number;
+    telefono: string;
+    responsable: string;
+    horarioInicio: string;
+    horarioFin: string;
+    diasDisponibles: string[];
+    detalles: string;
+    sportId: number | string | null;
+    imagen: string | File | null;
     mallId: number | string | null;
 }
 
@@ -47,8 +55,8 @@ export const INITIAL_DATA_COURTS: CourtsFormData = {
     horarioFin: "",
     diasDisponibles: [],
     detalles: "",
-    capacidad: 0,
-        imagen: "",
-        mallId: "",
+    sportId: "",
+    imagen: "",
+    mallId: "",
 
 } 

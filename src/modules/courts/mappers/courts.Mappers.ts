@@ -11,7 +11,9 @@ export const mapCourtsResponseToCourtsData = (data: ICourts): CourtsData => ({
     horarioFin: data.horarioFin,
     diasDisponibles: data.diasDisponibles,
     detalles: data.detalles,
-    capacidad: data.capacidad,
+    sportId: data.sportId ?? null,
+    cantidadCancha: data.deporte?.cantidad ?? null,
+    deporteNombre: data.deporte?.nombre ?? (data.sportId !== undefined && data.sportId !== null ? String(data.sportId) : null),
     imagen: data.imagen,
     mallId: data.mallId,
 })

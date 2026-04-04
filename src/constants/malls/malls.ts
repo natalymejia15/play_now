@@ -14,6 +14,7 @@ export const COLUMNS_MALLS: ColumnDef<IMall>[] = [
   },
   { key: "correo", label: "Correo", render: (m) => m.administrador?.correo ?? "-" },
   { key: "celular", label: "Celular", render: (m) => m.administrador?.celular ?? "-" },
+  { key: "activo", label: "Activo" },
 ];
 
 export const PRIMARY_MALLS: ColumnDef<IMall> = { key: "nombreCentro", label: "Centro Comercial" };

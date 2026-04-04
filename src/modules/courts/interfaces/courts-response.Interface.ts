@@ -9,7 +9,9 @@ export interface CourtsData {
     horarioFin: string;
     diasDisponibles: string;
     detalles?: string;
-    capacidad: number;
+    sportId: number | null;
     imagen: string | null;
     mallId: number | null;
+    deporteNombre?: string | null;
+    cantidadCancha?: number | null;
 }

@@ -1,7 +1,7 @@
 import { useParams, useLocation } from "react-router-dom";
 import type { ApiErrorResponseDeports, DeportsData, IDeport } from "../interfaces";
 import { useEffect, useState } from "react";
-import { deleteDeport, getDeports, getDeportsById } from "@/api";
+import { deleteDeport, getDeports, getDeportsById, updateStatusDeports } from "@/api";
 import { extractApiErrorMessage, toast } from "@/lib";
 import type { AxiosError } from "axios";
 import { mapDeportResponseToDeportData } from "../mappers";
@@ -29,6 +29,21 @@ export const useDeports = () => {
             toast({ title: "Error", description, variant: "destructive" });
         } finally {
             setIsLoading(false);
+        }
+    };
+
+    const updateStatusDeport = async (deportId: number, activo: boolean) => {
+        try {
+            await updateStatusDeports(deportId, { activo });
+            setDeports((prev) => prev.map((d) => (d.id === deportId ? { ...d, activo } : d)));
+            toast({ title: "Actualizado", description: "Estado actualizado", variant: "success" });
+        } catch (error) {
+            const description = extractApiErrorMessage(
+                error as AxiosError<ApiErrorResponseDeports>,
+                "No se pudo actualizar el estado"
+            );
+            toast({ title: "Error", description, variant: "destructive" });
+            throw error;
         }
     };
 
@@ -87,6 +102,7 @@ export const useDeports = () => {
         isLoading,
         fetchDeports,
         deleteDeport: handleDeleteDeport,
+        updateStatusDeport,
         fetchDeportsDetails,
         id,
     };

@@ -1,6 +1,6 @@
-import { useMallsTable } from "../hooks";
+import { useMalls, useMallsTable } from "../hooks";
 import { useDataTable, useTableActions } from "@/lib";
-import { DataTable } from "@/components";
+import { DataTable, StatusSwitch } from "@/components";
 import { COLUMNS_MALLS, PRIMARY_MALLS } from "@/constants";
 import { EditMallDialog } from "./EditMallDialog";
 import {
@@ -22,11 +22,28 @@ export const MallsTable = () => {
     setIsEditDialogOpen,
     isDeleteDialogOpen,
     setIsDeleteDialogOpen,
+    updateStatusMalls
   } = useMallsTable();
 
   const { search, setSearch, visibleColumns, setVisibleColumns, filtered } =
     useDataTable(malls, COLUMNS_MALLS, ["nombreCentro", "ciudad", "direccion"]);
 
+  const columns = COLUMNS_MALLS.map((col) => {
+    if (col.key === "activo") {
+      return {
+        ...col,
+        render: (d: any) => (
+          <StatusSwitch
+            checked={d.activo}
+            entityName={d.nombre}
+            onActivate={() => updateStatusMalls(d.id, true)}
+            onDeactivate={() => updateStatusMalls(d.id, false)}
+          />
+        ),
+      };
+    }
+    return col;
+  });
   const actions = useTableActions({
     onView: (m) => handleViewMall(m.id),
     onEdit: handleEdit,
@@ -37,7 +54,7 @@ export const MallsTable = () => {
     <>
       <DataTable
         data={filtered}
-        columns={COLUMNS_MALLS}
+        columns={columns}
         primaryColumn={PRIMARY_MALLS}
         visibleColumns={visibleColumns}
         setVisibleColumns={setVisibleColumns}

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useMalls } from "./useMalls";
 
 export const useMallsTable = () => {
-  const { malls, fetching, deleteMall } = useMalls();
+  const { malls, fetching, deleteMall, updateStatusMalls } = useMalls();
   const [mallToEdit, setMallToEdit] = useState<IMall | null>(null);
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [mallToDelete, setMallToDelete] = useState<IMall | null>(null);
@@ -46,5 +46,6 @@ export const useMallsTable = () => {
     handleDeleteClick,
     handleConfirmDelete,
     handleViewMall,
+    updateStatusMalls
   };
 };

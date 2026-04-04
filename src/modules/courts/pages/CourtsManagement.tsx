@@ -10,7 +10,7 @@ export const CourtsManagement = () => {
         <AdminLayout>
             <div className="space-y-6">
                 <div className="flex flex-col md:flex-row justify-between items-center mb-6 gap-4">
-                    < h1 className="text-3xl font-bold text-green-900">Gestionar de Canchas</h1>
+                    < h1 className="text-3xl font-bold text-green-900">Gestión de Canchas</h1>
                     <Button
                         onClick={() => setIsDialogOpen(true)}
                         className="rounded-lg"

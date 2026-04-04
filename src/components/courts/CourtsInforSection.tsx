@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { Calendar, DollarSign, ImageIcon, MapPin } from "lucide-react";
-import { Input, Label } from "@/components";
-import type { CourtsFormData, CourtsFormValue } from "@/modules";
+import { Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
+import { useImageCourts, type CourtsFormData, type CourtsFormValue } from "@/modules";
 
 type Props = {
     values: CourtsFormData,
@@ -13,21 +13,8 @@ const diasSemana = [
 ];
 export const CourtsInfoSection = ({ values, onChange, disabled }: Props) => {
 
-    const [previewUrl, setPreviewUrl] = useState<string | null>(null);
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-
-    useEffect(() => {
-        if (typeof values.imagen === "string") {
-            setPreviewUrl(values.imagen as string);
-            return;
-        }
-        if (values.imagen instanceof File) {
-            const url = URL.createObjectURL(values.imagen);
-            setPreviewUrl(url);
-            return () => URL.revokeObjectURL(url);
-        }
-        setPreviewUrl(null);
-    }, [values.imagen]);
+    const { deports, deportsLoading, previewUrl } = useImageCourts({ values, });
 
     const toggleDia = (dia: string) => {
         const current = values.diasDisponibles ?? [];
@@ -122,6 +109,7 @@ export const CourtsInfoSection = ({ values, onChange, disabled }: Props) => {
                                     type="checkbox"
                                     checked={values.diasDisponibles.includes(dia)}
                                     onChange={() => toggleDia(dia)}
+                                    required={values.diasDisponibles.length === 0}
                                     disabled={disabled}
                                 />
                                 <span>{dia}</span>
@@ -153,16 +141,27 @@ export const CourtsInfoSection = ({ values, onChange, disabled }: Props) => {
                         />
                     </div>
                     <div className="space-y-2">
-                        <Label>Capacidad *</Label>
-                        <Input
-                            id="capacidad"
-                            type="number"
-                            value={values.capacidad}
-                            onChange={(e) => onChange("capacidad", e.target.value)}
-                            placeholder="10"
+                        <Label>Deporte *</Label>
+                        <Select
+                            value={values.sportId?.toString() ?? ""}
+                            onValueChange={(value) =>
+                                onChange("sportId", value ? Number(value) : null)
+                            }
+                            disabled={disabled || deportsLoading}
                             required
-                            disabled={disabled}
-                        />
+                        >
+                            <SelectTrigger>
+                                <SelectValue placeholder="Seleccione un deporte" />
+                            </SelectTrigger>
+
+                            <SelectContent>
+                                {deports.map((d) => (
+                                    <SelectItem key={d.id} value={d.id.toString()}>
+                                        {d.nombre}
+                                    </SelectItem>
+                                ))}
+                            </SelectContent>
+                        </Select>
                     </div>
                 </div>
 
@@ -214,6 +213,7 @@ export const CourtsInfoSection = ({ values, onChange, disabled }: Props) => {
                                 accept="image/*"
                                 onChange={(e) => onChange("imagen", e.target.files?.[0] || null)}
                                 disabled={disabled}
+                                required={!previewUrl}
                             />
                         </div>
                     </div>

@@ -1,4 +1,4 @@
-import type { ICreateMallPayload, IMall, UpdateMallPayload } from "@/modules";
+import type { ICreateMallPayload, IMall, UpdateMallPayload, UpdateMallsStatusPayload } from "@/modules";
 import { api } from "../instance";
 
 export const getMalls = async (): Promise<IMall[]> => {
@@ -21,4 +21,8 @@ export const updateMall = async (id: number, payload: UpdateMallPayload): Promis
 
 export const deleteMall = async (id: number): Promise<void> => {
   await api.delete(`/malls/${id}`);
+};
+
+export const updateStatusMall = async (id: number, payload: UpdateMallsStatusPayload): Promise<void> => {
+  await api.patch(`/malls/${id}/status`, payload);
 };

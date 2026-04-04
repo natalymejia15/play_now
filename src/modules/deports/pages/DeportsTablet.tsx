@@ -1,5 +1,4 @@
 import { useDataTable, useTableActions } from "@/lib";
-import { useDeports, useDeportsTable } from "../hooks"
 import { COLUMNS_DEPORTS, PRIMARY_DEPORTS } from "@/constants";
 import {
     AlertDialog,
@@ -10,14 +9,14 @@ import {
     AlertDialogTitle,
     AlertDialogFooter,
     AlertDialogHeader,
-    DataTable
+    DataTable,
+    StatusSwitch,
 } from "@/components";
 import { EditDeportsDialog } from "./EditDeportsDialog";
-
+import { useDeports, useDeportsTable } from "../hooks";
 
 export const DeportsTablet = () => {
-    const { deports, deleteDeport } = useDeports();
-
+    const { deports, deleteDeport, updateStatusDeport } = useDeports();
     const {
         deportToEdit,
         isEditDialogOpen,
@@ -30,9 +29,26 @@ export const DeportsTablet = () => {
         handleConfirmDelete,
         handleViewDeport,
     } = useDeportsTable(deports, deleteDeport);
-    
+
     const { search, setSearch, visibleColumns, setVisibleColumns, filtered } =
         useDataTable(deports, COLUMNS_DEPORTS, ["nombre", "activo"]);
+
+    const columns = COLUMNS_DEPORTS.map((col) => {
+        if (col.key === "activo") {
+            return {
+                ...col,
+                render: (d: any) => (
+                    <StatusSwitch
+                        checked={d.activo}
+                        entityName={d.nombre}
+                        onActivate={() => updateStatusDeport(d.id, true)}
+                        onDeactivate={() => updateStatusDeport(d.id, false)}
+                    />
+                ),
+            };
+        }
+        return col;
+    });
 
     const actions = useTableActions({
         onView: (d) => handleViewDeport(d.id),
@@ -44,7 +60,7 @@ export const DeportsTablet = () => {
         <>
             <DataTable
                 data={filtered}
-                columns={COLUMNS_DEPORTS}
+                columns={columns}
                 primaryColumn={PRIMARY_DEPORTS}
                 visibleColumns={visibleColumns}
                 setVisibleColumns={setVisibleColumns}
@@ -81,4 +97,4 @@ export const DeportsTablet = () => {
             </AlertDialog>
         </>
     );
-}
+};
