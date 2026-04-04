@@ -1,4 +1,4 @@
-import type { ICourts, ICreateCourtsRequest, UpdateCourtsPayload } from "@/modules";
+import type { ICourts, ICreateCourtsRequest, UpdateCourtsPayload, UpdateCourtsStatusPayload } from "@/modules";
 import { api } from "../instance";
 
 export const getCourts = async (): Promise<ICourts[]> => {
@@ -43,3 +43,7 @@ export const getCourtsByIdMalls = async (mallId: number): Promise<ICourts> => {
     const response = await api.get<ICourts>(`/courts/mall/${mallId}`);
     return response.data
 }
+
+export const updateStatusCourt = async (id: number, payload: UpdateCourtsStatusPayload): Promise<void> => {
+  await api.patch(`/courts/${id}/status`, payload);
+};

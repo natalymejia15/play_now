@@ -22,3 +22,7 @@ export interface EditCourtsDialogProps {
     onSuccess?: () => void;
 }
 export type EditCourtsFormData = CourtsFormData;
+
+export interface UpdateCourtsStatusPayload {
+    activo: boolean;
+}

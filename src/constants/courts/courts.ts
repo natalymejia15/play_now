@@ -10,6 +10,7 @@ export const COLUMNS_COURTS: ColumnDef<ICourts>[] = [
     { key: "horarioFin", label: "Horario Fin" },
     { key: "cantidadCancha", label: "Cantidad" },
     { key: "diasDisponibles", label: " Días disponibles", defaultVisible: false },
+    { key: "activo", label: "Estado" },
 ]
 
 export const PRIMARY_COURTS: ColumnDef<ICourts> = { key: "nombreCancha", label: "Cancha" };

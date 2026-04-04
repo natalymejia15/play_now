@@ -9,14 +9,15 @@ import {
     AlertDialogTitle,
     AlertDialogFooter,
     AlertDialogHeader,
-    DataTable
+    DataTable,
+    StatusSwitch
 } from "@/components";
 import { useCourts, useCourtsTable } from "../hooks";
 import { EditCourtsDialog } from "./EditCourtsDialog";
 
 
 export const CourtsTablet = () => {
-    const { courts, deleteCourts } = useCourts();
+    const { courts, deleteCourts, updateStatusCourts } = useCourts();
 
     const {
         courtsToEdit,
@@ -34,6 +35,23 @@ export const CourtsTablet = () => {
     const { search, setSearch, visibleColumns, setVisibleColumns, filtered } =
         useDataTable(courts, COLUMNS_COURTS, []);
 
+    const columns = COLUMNS_COURTS.map((col) => {
+        if (col.key === "activo") {
+            return {
+                ...col,
+                render: (d: any) => (
+                    <StatusSwitch
+                        checked={d.activo}
+                        entityName={d.nombre}
+                        onActivate={() => updateStatusCourts(d.id, true)}
+                        onDeactivate={() => updateStatusCourts(d.id, false)}
+                    />
+                ),
+            };
+        }
+        return col;
+    });
+
     const actions = useTableActions({
         onView: (d) => handleViewCourts(d.id),
         onEdit: handleEdit,
@@ -44,7 +62,7 @@ export const CourtsTablet = () => {
         <>
             <DataTable
                 data={filtered}
-                columns={COLUMNS_COURTS}
+                columns={columns}
                 primaryColumn={PRIMARY_COURTS}
                 visibleColumns={visibleColumns}
                 setVisibleColumns={setVisibleColumns}
@@ -61,7 +79,7 @@ export const CourtsTablet = () => {
                 onOpenChange={setIsEditDialogOpen}
                 court={courtsToEdit}
             />
-            
+
             <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
                 <AlertDialogContent className="border border-green-500 bg-green-50 text-green-900">
                     <AlertDialogHeader>

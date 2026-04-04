@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import type { ApiErrorResponseCourts, CourtsData, ICourts } from "../interfaces";
-import { deleteCourts, getCourts, getCourtsById, getCourtsByIdMalls } from "@/api";
+import { deleteCourts, getCourts, getCourtsById, getCourtsByIdMalls, updateStatusCourt } from "@/api";
 import { extractApiErrorMessage, toast } from "@/lib";
 import type { AxiosError } from "axios";
 import { mapCourtsResponseToCourtsData } from "../mappers";
@@ -76,7 +76,7 @@ export const useCourts = () => {
         }
     };
 
-    const fetchCourtsByMall = async (mallId: string) =>{
+    const fetchCourtsByMall = async (mallId: string) => {
         if (!mallId) return;
         setIsLoading(true);
         try {
@@ -92,6 +92,22 @@ export const useCourts = () => {
             setIsLoading(false);
         }
     }
+
+
+    const updateStatusCourts = async (courtId: number, activo: boolean) => {
+        try {
+            await updateStatusCourt(courtId, { activo });
+            setCourts((prev) => prev.map((c) => (c.id === courtId ? { ...c, activo } : c)));
+            toast({ title: "Actualizado", description: "Estado actualizado", variant: "success" });
+        } catch (error) {
+            const description = extractApiErrorMessage(
+                error as AxiosError<ApiErrorResponseCourts>,
+                "No se pudo actualizar el estado"
+            );
+            toast({ title: "Error", description, variant: "destructive" });
+            throw error;
+        }
+    };
 
     useEffect(() => {
         fetchCourts();
@@ -113,6 +129,7 @@ export const useCourts = () => {
         fetchCourtsDetails,
         id,
         deleteCourts,
-        fetchCourtsByMall
+        fetchCourtsByMall,
+        updateStatusCourts
     }
 }
