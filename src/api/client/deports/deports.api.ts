@@ -5,6 +5,10 @@ export const getDeports = async (): Promise<IDeport[]> => {
   const response = await api.get<IDeport[]>('/sports');
   return response.data;
 };
+export const getDeportsActive = async (): Promise<IDeport[]> => {
+  const response = await api.get<IDeport[]>('/sports/active/all');
+  return response.data;
+};
 
 export const deleteDeport = async (id: number): Promise<void> => {
     console.log("API deleteDeport llamado con id:", id); 

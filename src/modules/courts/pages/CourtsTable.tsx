@@ -17,7 +17,7 @@ import { EditCourtsDialog } from "./EditCourtsDialog";
 
 
 export const CourtsTablet = () => {
-    const { courts, deleteCourts, updateStatusCourts } = useCourts();
+    const { courts, updateStatusCourts } = useCourts();
 
     const {
         courtsToEdit,
@@ -30,7 +30,7 @@ export const CourtsTablet = () => {
         handleDeleteClick,
         handleConfirmDelete,
         handleViewCourts,
-    } = useCourtsTable(courts, deleteCourts);
+    } = useCourtsTable(courts);
 
     const { search, setSearch, visibleColumns, setVisibleColumns, filtered } =
         useDataTable(courts, COLUMNS_COURTS, []);

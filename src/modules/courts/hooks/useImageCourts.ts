@@ -1,4 +1,4 @@
-import { getDeports } from "@/api";
+import {  getDeportsActive } from "@/api";
 import type { IDeport } from "@/modules/deports";
 import { useEffect, useMemo, useState } from "react";
 import type { CourtsFormData, } from "../interfaces";
@@ -35,7 +35,7 @@ export const useImageCourts = ({ values }: Props) => {
         const load = async () => {
             setDeportsLoading(true);
             try {
-                const data = await getDeports();
+                const data = await getDeportsActive();
                 if (mounted) setDeports(data);
             } catch {
                 if (mounted) setDeports([]);
