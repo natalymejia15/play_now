@@ -23,3 +23,7 @@ export interface UpdateDeportsPayload {
     cantidad: number;
     activo: boolean;
 }
+
+export interface UpdateStatusDeportsPayload {
+    activo: boolean;
+}

@@ -1,13 +1,10 @@
 import SuperAdminDashboard from "@/pages/super-admin/SuperAdminDashboard";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
-import CourtsManagement from "@/pages/admin/CourtsManagement";
-import CourtsDetailsPage from "@/pages/admin/CourtsDetails";
 import HistoryAdmin from "@/pages/admin/HistoryAdmin";
-
 import ClientHome from "@/pages/client/ClientHome";
 import HistoricoReservasPage from "@/pages/client/HistoricoReservasPage";
 
-import {  DeportsDetails, DeportsManagement, MallDetails, MallsManagement, ProfilePage } from "@/modules";
+import {  CourtsDetails, CourtsManagement, DeportsDetails, DeportsManagement, MallDetails, MallsManagement, ProfilePage } from "@/modules";
 
 export const privateRoutes = [
   // SUPER ADMIN
@@ -50,7 +47,7 @@ export const privateRoutes = [
   },
   {
     path: "/admin/courts/details",
-    element: <CourtsDetailsPage />,
+    element: <CourtsDetails />,
     allowedRoles: [2],
   },
   {

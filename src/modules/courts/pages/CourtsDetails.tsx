@@ -10,24 +10,16 @@ import {
   Info,
   ImageIcon,
   DollarSign,
-  Users,
   LandPlot,
+  Trophy,
 } from "lucide-react";
-import { Skeleton } from "../../components/ui/skeleton";
-import { Button } from "../../components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../../components/ui/card";
-import { useCourt } from "../../hook/courts/use-courts";
-import { AdminLayout } from "@/components";
+import { AdminLayout, Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Skeleton } from "@/components";
+import { useCourtImage, useCourts } from "../hooks";
 
-export default function CourtDetailsPage() {
-  const { id, fetchCourtsDetails, isLoading, court, API_URL } = useCourt();
+export const CourtsDetails = () => {
+  const { id, fetchCourtsDetails, isLoading, court } = useCourts();
   const navigate = useNavigate();
+  const { imageUrl } = useCourtImage({ imagen: court?.imagen ?? null });
 
   useEffect(() => {
     if (id) {
@@ -46,7 +38,6 @@ export default function CourtDetailsPage() {
     );
   }
 
-  // Si no hay cancha
   if (!court) {
     return (
       <AdminLayout>
@@ -66,18 +57,16 @@ export default function CourtDetailsPage() {
     );
   }
 
-  // Vista principal
   return (
     <AdminLayout>
       <div className="space-y-8">
-        {/* Encabezado */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <div className="flex items-center gap-3">
             <Button
               variant="outline"
               size="sm"
               onClick={() => navigate("/admin/courts")}
-              className="rounded-full shadow-sm hover:bg-muted transition"
+              className="rounded-lg"
             >
               <ArrowLeft className="h-4 w-4 mr-1" />
               Volver
@@ -87,10 +76,7 @@ export default function CourtDetailsPage() {
             </h1>
           </div>
         </div>
-
-        {/* Contenido principal */}
         <div className="grid gap-8 md:grid-cols-2">
-          {/* Información de la cancha */}
           <Card className="shadow-sm hover:shadow-md transition-all duration-300 border border-border/60 rounded-2xl">
             <CardHeader className="bg-gradient-to-r from-blue-100/60 to-green-50 rounded-t-2xl">
               <CardTitle className="flex items-center gap-2 text-green-700">
@@ -128,9 +114,9 @@ export default function CourtDetailsPage() {
                   value: `$${court.valorHora.toLocaleString()}`,
                 },
                 {
-                  icon: <Users />,
-                  label: "Capacidad",
-                  value: `${court.capacidad} personas`,
+                  icon: <Trophy />,
+                  label: "Deporte",
+                  value: court.deporteNombre ?? `${court.sportId ?? "-"}`,
                 },
               ].map((item, index) => (
                 <div
@@ -148,8 +134,6 @@ export default function CourtDetailsPage() {
               ))}
             </CardContent>
           </Card>
-
-          {/* Imagen de la cancha */}
           <Card className="shadow-sm hover:shadow-md transition-all duration-300 border border-border/60 rounded-2xl">
             <CardHeader className="bg-gradient-to-r from-blue-100/60 to-green-50 rounded-t-2xl">
               <CardTitle className="flex items-center gap-2 text-green-700">
@@ -162,11 +146,11 @@ export default function CourtDetailsPage() {
             </CardHeader>
 
             <CardContent className="flex justify-center items-center py-6">
-              {court.imagen ? (
+              {imageUrl ? (
                 <img
-                  src={`${API_URL}/uploads/${court.imagen}`}
+                  src={imageUrl}
                   alt={court.nombreCancha}
-                  className="rounded-2xl shadow-md object-cover w-full max-w-md h-64"
+                 className="rounded-2xl shadow-md object-cover w-full max-w-md h-[500px]"
                 />
               ) : (
                 <div className="flex flex-col items-center justify-center border border-dashed border-gray-300 rounded-xl w-full max-w-md h-64 bg-muted/10">
@@ -174,6 +158,7 @@ export default function CourtDetailsPage() {
                   <p className="text-gray-500 text-sm">Sin imagen disponible</p>
                 </div>
               )}
+
             </CardContent>
           </Card>
         </div>

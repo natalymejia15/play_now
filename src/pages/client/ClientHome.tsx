@@ -2,15 +2,14 @@ import { useState } from "react";
 import { Search } from "lucide-react";
 import { ClientLayout } from "../../components/layouts/client/ClientLayout";
 import { Input } from "../../components/ui/input";
-import { useCourt } from "../../hook/courts/use-courts";
 import { MallList } from "../../components/client/mall/MallList";
 import { CourtList } from "../../components/client/courts/CourtList";
 import { BookingForm } from "../../components/client/reservation/BookingForm";
-import { useMallReservation } from "@/modules";
+import { useCourts, useMallReservation } from "@/modules";
 
 export default function ClientHome() {
   const { malls, isLoading: loadingMalls } = useMallReservation();
-  const { courts, isLoading: loadingCourts, fetchCourtsByMall } = useCourt();
+  const { courts, isLoading: loadingCourts, fetchCourtsByMall } = useCourts();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedMall, setSelectedMall] = useState<any>(null);
   const [selectedCourt, setSelectedCourt] = useState<any>(null);

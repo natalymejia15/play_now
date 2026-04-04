@@ -11,7 +11,7 @@ export function MallCard({ mall, onSelect }: MallCardProps) {
   return (
     <Card
       className="cursor-pointer bg-white hover:shadow-lg transition-all border border-gray-200 rounded-xl"
-      onClick={() => onSelect(mall.ciudad)}
+      onClick={() => onSelect(String(mall.id))}
     >
       <div className="bg-gradient-to-r from-blue-50/70 to-green-50/70 px-6 py-4 border-b border-border/40">
         <CardTitle className="flex items-center gap-2 text-green-700 text-lg font-semibold">

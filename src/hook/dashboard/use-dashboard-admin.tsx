@@ -37,11 +37,9 @@ export const useDashboardStats = () => {
         const totalCourts = courts.length;
         const totalUsers = users.length;
 
-        // Roles
         const totalAdmins = users.filter((u: any) => u.idRol === 2).length;
         const totalClients = users.filter((u: any) => u.idRol === 3).length;
 
-        // Agrupar malls por ciudad
         const mallsByCityMap: Record<string, number> = {};
         malls.forEach((mall: any) => {
           if (!mall.ciudad) return;
@@ -53,7 +51,6 @@ export const useDashboardStats = () => {
           count,
         }));
 
-        // === NUEVOS USUARIOS POR MES ===
         const meses = [
           "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
           "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre",

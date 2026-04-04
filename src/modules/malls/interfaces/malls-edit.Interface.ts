@@ -43,3 +43,7 @@ export interface UpdateMallPayload {
         direccion: string;
     };
 }
+
+export interface UpdateMallsStatusPayload {
+    activo: boolean;
+}

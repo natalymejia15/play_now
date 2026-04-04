@@ -5,11 +5,12 @@ type SwitchProps = {
   checked?: boolean;
   defaultChecked?: boolean;
   onCheckedChange?: (checked: boolean) => void;
+  disabled?: boolean;
   className?: string;
 };
 
 const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
-  ({ checked, defaultChecked, onCheckedChange, className }, ref) => {
+  ({ checked, defaultChecked, onCheckedChange, disabled, className }, ref) => {
     const [internal, setInternal] = React.useState<boolean>(
       checked ?? defaultChecked ?? false,
     );
@@ -19,17 +20,24 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
     }, [checked]);
 
     const toggle = () => {
+      if (disabled) return;
       const next = !internal;
+      if (typeof checked === "boolean") {
+        onCheckedChange?.(next);
+        return;
+      }
+
       setInternal(next);
       onCheckedChange?.(next);
     };
 
-    return (
+      return (
       <button
         ref={ref}
         role="switch"
         aria-checked={internal}
         onClick={toggle}
+        disabled={disabled}
         type="button"
         className={cn(
           "relative inline-flex h-6 w-11 items-center rounded-full transition-all duration-200",
@@ -37,6 +45,7 @@ const Switch = React.forwardRef<HTMLButtonElement, SwitchProps>(
           internal
             ? "bg-primary"
             : "bg-border",
+          disabled ? "opacity-50 cursor-not-allowed" : "",
           className,
         )}
       >

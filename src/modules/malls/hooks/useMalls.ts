@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import type { AxiosError } from "axios";
-import { getMalls, getMallById, deleteMall as deleteMallApi } from "@/api";
+import { getMalls, getMallById, deleteMall as deleteMallApi, updateStatusMall } from "@/api";
 import { extractApiErrorMessage, toast } from "@/lib";
 import {
     mapMallResponseToAdminData,
@@ -77,6 +77,21 @@ export const useMalls = () => {
         }
     };
 
+    const updateStatusMalls = async (mallId: number, activo: boolean) => {
+        try {
+            await updateStatusMall(mallId, { activo });
+            setMalls((prev) => prev.map((m) => (m.id === mallId ? { ...m, activo } : m)));
+            toast({ title: "Actualizado", description: "Estado actualizado", variant: "success" });
+        } catch (error) {
+            const description = extractApiErrorMessage(
+                error as AxiosError<ApiErrorResponseMalls>,
+                "No se pudo actualizar el estado"
+            );
+            toast({ title: "Error", description, variant: "destructive" });
+            throw error;
+        }
+    };
+
     const getDocumentTypeLabel = (type: string): string =>
         DOCUMENT_TYPE_LABELS[type] ?? type;
 
@@ -101,5 +116,6 @@ export const useMalls = () => {
         admin,
         isLoading,
         id,
+        updateStatusMalls
     };
 };
