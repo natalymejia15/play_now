@@ -10,9 +10,6 @@ import {
 import { DOCUMENT_TYPE_LABELS } from "@/constants";
 import type { AdminData, ApiErrorResponseMalls, IMall, MallData } from "../interfaces";
 
-
-const RELOAD_DELAY_MS = 700;
-
 export const useMalls = () => {
     const { id: paramId } = useParams();
     const location = useLocation();

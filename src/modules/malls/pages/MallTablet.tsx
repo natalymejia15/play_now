@@ -1,4 +1,4 @@
-import { useMalls, useMallsTable } from "../hooks";
+import { useMallsTable } from "../hooks";
 import { useDataTable, useTableActions } from "@/lib";
 import { DataTable, StatusSwitch } from "@/components";
 import { COLUMNS_MALLS, PRIMARY_MALLS } from "@/constants";
