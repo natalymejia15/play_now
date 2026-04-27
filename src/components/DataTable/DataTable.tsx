@@ -60,6 +60,15 @@ export function DataTable<T extends Record<string, any>>({
     page * pageSize
   );
 
+  const getValue = (row: Record<string, any>, key: string) => {
+    if (!key) return undefined;
+    if (Object.prototype.hasOwnProperty.call(row, key)) return row[key];
+    return key.split('.').reduce((acc: any, part: string) => {
+      if (acc === undefined || acc === null) return undefined;
+      return acc[part];
+    }, row as any);
+  };
+
   return (
     <div className="border rounded-lg">
 
@@ -121,19 +130,19 @@ export function DataTable<T extends Record<string, any>>({
             </TableRow>
           ) : (
             paginatedData.map((row) => (
-              <TableRow key={keyExtractor(row)}>
+              <TableRow key={keyExtractor?.(row)}>
 
                 {/* Columna primaria */}
                 <TableCell>
                   {primaryColumn.render
                     ? primaryColumn.render(row)
-                    : row[primaryColumn.key]}
+                    : getValue(row, primaryColumn.key)}
                 </TableCell>
 
                 {/* Columnas visibles */}
                 {activeColumns.map((col) => (
                   <TableCell key={col.key}>
-                    {col.render ? col.render(row) : row[col.key] ?? "-"}
+                    {col.render ? col.render(row) : getValue(row, col.key) ?? "-"}
                   </TableCell>
                 ))}
 

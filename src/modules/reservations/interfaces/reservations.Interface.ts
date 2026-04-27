@@ -7,6 +7,8 @@ export interface IReservations {
     estado: string;
     courtId: number;
     userId: number;
+    createdAt: string;
+    updatedAt: string;
     cancha: {
         id: number;
         nombreCancha: string;
@@ -15,7 +17,7 @@ export interface IReservations {
         horarioInicio: string;
         horarioFin: string;
         mallId: number;
-    }; 
+    };
     cliente: {
         id: number;
         primerNombre: string;
@@ -27,9 +29,9 @@ export interface IReservations {
 }
 
 export interface ApiErrorResponseReservations {
-  message?: string;
-  errors?: string[];
-  [key: string]: unknown;
+    message?: string;
+    errors?: string[];
+    [key: string]: unknown;
 }
 
 export interface ReservationsFormData {
@@ -49,7 +51,7 @@ export interface ReservationsFormData {
         horarioInicio: string;
         horarioFin: string;
         mallId: number;
-    }; 
+    };
     cliente: {
         id: number;
         primerNombre: string;
@@ -77,7 +79,7 @@ export const INITIAL_DATA_RESERVATIONS: ReservationsFormData = {
         horarioInicio: "",
         horarioFin: "",
         mallId: 0,
-    }, 
+    },
     cliente: {
         id: 0,
         primerNombre: "",

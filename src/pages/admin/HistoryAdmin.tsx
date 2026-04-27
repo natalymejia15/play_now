@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import HistorialGeneralReservas from "../../components/admin/HistoryReservations";
+import HistorialGeneralReservas from "../../modules/reservations/pages/AdminHistoryReservations";
 import { AdminLayout } from "@/components";
 
 export default function HistoryAdmin() {
