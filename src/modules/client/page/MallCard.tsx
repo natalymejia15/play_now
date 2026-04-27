@@ -1,11 +1,6 @@
-import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui";
-import type { IMall } from "@/modules";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components";
 import { MapPin, Building2 } from "lucide-react";
-
-interface MallCardProps {
-  mall: IMall;
-  onSelect: (mallId: string) => void;
-}
+import type { MallCardProps } from "../interfaces";
 
 export function MallCard({ mall, onSelect }: MallCardProps) {
   return (

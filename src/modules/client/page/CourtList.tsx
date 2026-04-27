@@ -1,15 +1,8 @@
+import { Button, Skeleton } from "@/components";
 import { CourtCard } from "./CourtCard";
-import { Button } from "../../ui/button";
-import { Skeleton } from "../../ui/skeleton";
 import { ArrowLeft } from "lucide-react";
+import type { CourtListProps } from "../interfaces";
 
-interface CourtListProps {
-  courts: any[];
-  mallName: string;
-  isLoading: boolean;
-  onBack: () => void;
-  onSelectCourt: (court: any) => void;
-}
 
 export function CourtList({
   courts,

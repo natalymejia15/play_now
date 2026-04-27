@@ -1,13 +1,8 @@
-import type { ICourts } from "@/modules";
-import { Card, CardHeader, CardTitle, CardDescription } from "../../ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components";
 import { Users, DollarSign, ImageIcon, Clock } from "lucide-react";
+import type { CourtCardProps } from "../interfaces";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
-
-interface CourtCardProps {
-  court: ICourts;
-  onSelect: (court: any) => void;
-}
 
 export function CourtCard({ court, onSelect }: CourtCardProps) {
   const imageUrl = court.imagen

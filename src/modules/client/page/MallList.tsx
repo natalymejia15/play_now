@@ -1,12 +1,6 @@
-import { Skeleton } from "@/components/ui";
-import type { IMall } from "@/modules";
+import type { MallListProps } from "../interfaces";
 import { MallCard } from "./MallCard";
-
-interface MallListProps {
-  malls: IMall[];
-  isLoading: boolean;
-  onSelectMall: (mallId: string) => void;
-}
+import { Skeleton } from "@/components";
 
 export function MallList({ malls, isLoading, onSelectMall }: MallListProps) {
   if (isLoading) {

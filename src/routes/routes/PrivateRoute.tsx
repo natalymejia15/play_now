@@ -1,10 +1,10 @@
 import SuperAdminDashboard from "@/pages/super-admin/SuperAdminDashboard";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
 import HistoryAdmin from "@/pages/admin/HistoryAdmin";
-import ClientHome from "@/pages/client/ClientHome";
 import HistoricoReservasPage from "@/pages/client/HistoricoReservasPage";
 
-import {  CourtsDetails, CourtsManagement, DeportsDetails, DeportsManagement, MallDetails, MallsManagement, ProfilePage } from "@/modules";
+import {  ClientHome, CourtsDetails, CourtsManagement, DeportsDetails, DeportsManagement, MallDetails, MallsManagement, ProfilePage } from "@/modules";
+
 
 export const privateRoutes = [
   // SUPER ADMIN
