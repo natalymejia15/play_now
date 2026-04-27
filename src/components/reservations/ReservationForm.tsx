@@ -1,16 +1,7 @@
 import { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "../../ui/card";
-import { Button } from "../../ui/button";
-import { Input } from "../../ui/input";
-import { Label } from "../../ui/label";
-import { useCreateReservation } from "../../../hook/reservation/use-reservation";
 import { toast } from "@/lib";
+import { useCreateReservation } from "@/hook/reservation/use-reservation";
+import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label } from "../ui";
 
 interface BookingFormProps {
   selectedCourt: any;

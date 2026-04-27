@@ -39,7 +39,15 @@ export const useReservations = () => {
             Authorization: `Bearer ${token}`,
           },
         });
-        setReservations(response.data);
+        const data = response.data;
+        const reservationsData = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.data)
+          ? data.data
+          : Array.isArray(data?.reservas)
+          ? data.reservas
+          : [];
+        setReservations(reservationsData);
       } catch (error: any) {
         console.error(error);
         toast({

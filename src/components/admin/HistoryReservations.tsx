@@ -11,6 +11,7 @@ import {
 
 export default function HistorialGeneralReservas() {
     const { reservations, loading } = useAllReservations();
+    const reservationList = Array.isArray(reservations) ? reservations : [];
 
     const safeValue = (value: any, placeholder = "—") =>
         value !== null && value !== undefined && value !== "" ? value : placeholder;
@@ -44,7 +45,7 @@ export default function HistorialGeneralReservas() {
                                 </div>
                             </TableCell>
                         </TableRow>
-                    ) : reservations.length === 0 ? (
+                    ) : reservationList.length === 0 ? (
                         <TableRow>
                             <TableCell
                                 colSpan={11}
@@ -54,7 +55,7 @@ export default function HistorialGeneralReservas() {
                             </TableCell>
                         </TableRow>
                     ) : (
-                        reservations.map((reserva) => (
+                        reservationList.map((reserva) => (
                             <TableRow key={reserva.id}>
                                 <TableCell>
                                     {safeValue(reserva?.cliente?.primerNombre)}{" "}

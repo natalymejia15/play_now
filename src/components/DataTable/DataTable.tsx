@@ -42,11 +42,12 @@ export function DataTable<T extends Record<string, any>>({
   const [page, setPage] = useState(1);
   const pageSize = 5;
 
-  const totalPages = Math.ceil(data.length / pageSize);
+  const safeData = Array.isArray(data) ? data : [];
+  const totalPages = Math.ceil(safeData.length / pageSize);
 
   useEffect(() => {
     setPage(1);
-  }, [data]);
+  }, [safeData]);
 
   useEffect(() => {
     if (page > totalPages) {
@@ -54,7 +55,7 @@ export function DataTable<T extends Record<string, any>>({
     }
   }, [totalPages, page]);
 
-  const paginatedData = data.slice(
+  const paginatedData = safeData.slice(
     (page - 1) * pageSize,
     page * pageSize
   );

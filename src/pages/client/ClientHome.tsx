@@ -4,8 +4,7 @@ import { ClientLayout } from "../../components/layouts/client/ClientLayout";
 import { Input } from "../../components/ui/input";
 import { MallList } from "../../components/client/mall/MallList";
 import { CourtList } from "../../components/client/courts/CourtList";
-import { BookingForm } from "../../components/client/reservation/BookingForm";
-import { useCourts, useMallReservation } from "@/modules";
+import { ReservationsForm, useCourts, useMallReservation } from "@/modules";
 
 export default function ClientHome() {
   const { malls, isLoading: loadingMalls } = useMallReservation();
@@ -72,7 +71,7 @@ export default function ClientHome() {
           </div>
         )}
         {selectedCourt && (
-          <BookingForm
+          <ReservationsForm
             selectedCourt={selectedCourt}
             onClose={() => setSelectedCourt(null)}
           />

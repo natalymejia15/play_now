@@ -44,7 +44,15 @@ export const useAllReservations = () => {
         const response = await axios.get(`${API_URL}/reservations`, {
           headers: { Authorization: `Bearer ${token}` },
         });
-        setReservations(response.data);
+        const data = response.data;
+        const reservationsData = Array.isArray(data)
+          ? data
+          : Array.isArray(data?.data)
+          ? data.data
+          : Array.isArray(data?.reservas)
+          ? data.reservas
+          : [];
+        setReservations(reservationsData);
       } catch (error: any) {
         console.error("Error al obtener reservas:", error);
         toast({
