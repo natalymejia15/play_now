@@ -39,9 +39,17 @@ export const deleteCourts = async (id: number): Promise<void> => {
     await api.delete(`/courts/${id}`);
 };
 
-export const getCourtsByIdMalls = async (mallId: number): Promise<ICourts> => {
-    const response = await api.get<ICourts>(`/courts/mall/${mallId}`);
-    return response.data
+type CourtsByMallResponse = ICourts[] | { courts: ICourts[] };
+
+export const getCourtsByIdMalls = async (mallId: number): Promise<ICourts[]> => {
+    const response = await api.get<CourtsByMallResponse>(`/courts/mall/${mallId}`);
+    const data = response.data;
+
+    if (Array.isArray(data)) {
+        return data;
+    }
+
+    return Array.isArray(data.courts) ? data.courts : [];
 }
 
 export const updateStatusCourt = async (id: number, payload: UpdateCourtsStatusPayload): Promise<void> => {

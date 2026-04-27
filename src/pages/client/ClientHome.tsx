@@ -6,20 +6,22 @@ import { MallList } from "../../components/client/mall/MallList";
 import { CourtList } from "../../components/client/courts/CourtList";
 import { BookingForm } from "../../components/client/reservation/BookingForm";
 import { useCourts, useMallReservation } from "@/modules";
+import type { IMall } from "@/modules";
 
 export default function ClientHome() {
   const { malls, isLoading: loadingMalls } = useMallReservation();
   const { courts, isLoading: loadingCourts, fetchCourtsByMall } = useCourts();
   const [searchTerm, setSearchTerm] = useState("");
-  const [selectedMall, setSelectedMall] = useState<any>(null);
+  const [selectedMall, setSelectedMall] = useState<IMall | null>(null);
   const [selectedCourt, setSelectedCourt] = useState<any>(null);
 
-  const filteredMalls = malls.filter((mall) =>
+  const mallList = Array.isArray(malls) ? malls : [];
+  const filteredMalls = mallList.filter((mall) =>
     mall.nombreCentro.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleMallSelect = (mallId: string) => {
-    const mall = malls.find((m) => m.id === Number(mallId));
+    const mall = mallList.find((m) => m.id === Number(mallId)) ?? null;
     setSelectedMall(mall);
     fetchCourtsByMall(mallId);
   };

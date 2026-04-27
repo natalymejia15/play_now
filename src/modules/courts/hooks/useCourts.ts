@@ -81,11 +81,17 @@ export const useCourts = () => {
         setIsLoading(true);
         try {
             const data = await getCourtsByIdMalls(Number(mallId));
-            setCourt(mapCourtsResponseToCourtsData(data));
+            const prepared = (data ?? []).map((d) => ({
+                ...d,
+                deporteNombre: d.deporte?.nombre ?? null,
+                cantidadCancha: d.deporte?.cantidad ?? null,
+            }));
+            setCourts(prepared);
+            setCourt(null);
         } catch (error) {
             const description = extractApiErrorMessage(
                 error as AxiosError<ApiErrorResponseCourts>,
-                "No se pudieron cargar los detalles de la cancha"
+                "No se pudieron cargar las canchas del centro comercial"
             );
             toast({ title: "Error", description, variant: "destructive" });
         } finally {
