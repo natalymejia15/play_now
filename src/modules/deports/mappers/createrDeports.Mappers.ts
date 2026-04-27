@@ -4,7 +4,7 @@ export const mapCreateDeportsFormToPayload = (formData: DeportsFormData): ICreat
     return {
         nombre: formData.nombre,
         descripcion: formData.descripcion,
-        cantidad: formData.cantidad,
+        cantidad: Number(formData.cantidad),
         activo: formData.activo,
     };
 };

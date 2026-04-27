@@ -36,10 +36,13 @@ export const DeportsInfoSection = ({ values, onChange, disabled }: Props) => (
                 />
             </div>
             <div className="space-y-2">
-                <Label htmlFor="cantidad">Cantidad </Label>
+                <Label htmlFor="cantidad">Cantidad *</Label>
                 <Input
                     id="cantidad"
-                    value={values.cantidad}
+                    type="number"
+                    value={
+                        values.cantidad ? String(values.cantidad) : ""
+                    }
                     onChange={(e) => onChange("cantidad", e.target.value)}
                     placeholder="11"
                     disabled={disabled}
