@@ -25,7 +25,7 @@ export const RecoverPassword = () => {
 
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+     <div className="flex min-h-screen items-center justify-center bg-background px-4">
       <div className="w-full max-w-md animate-fade-in">
         <Card className="bg-white backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200 p-8">
           <CardHeader className="space-y-2 text-center">

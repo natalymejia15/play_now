@@ -3,9 +3,9 @@ import { CalendarCheck, MapPin, Search } from "lucide-react";
 export const features = [
   {
     icon: Search,
-    title: "Busca por deporte",
+    title: "Busca por centro comercial",
     description:
-      "Filtra canchas por deporte: fútbol, básquetbol, vóleibol, pádel, tenis. Encuentra exactamente lo que buscas cerca de ti.",
+      "Filtra canchas por centro comercial: Encuentra exactamente lo que buscas cerca de ti.",
   },
   {
     icon: CalendarCheck,

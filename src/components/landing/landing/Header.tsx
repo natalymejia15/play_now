@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-
+import companyLogo from "@/assets/logo.png";
 export const Header = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
 
@@ -9,8 +9,8 @@ export const Header = () => {
     <header className="fixed top-0 left-0 right-0 z-50 border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
         <a href="#" className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary">
-            <span className="text-lg font-bold text-primary-foreground">⚽</span>
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg">
+            <img src={companyLogo} alt="Logo" className="h-10 w-20 " />
           </div>
           <span className="font-display text-xl font-bold text-foreground">
             Play<span className="text-primary">Now</span>
