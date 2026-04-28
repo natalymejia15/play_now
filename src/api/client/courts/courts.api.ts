@@ -42,7 +42,7 @@ export const deleteCourts = async (id: number): Promise<void> => {
 type CourtsByMallResponse = ICourts[] | { courts: ICourts[] };
 
 export const getCourtsByIdMalls = async (mallId: number): Promise<ICourts[]> => {
-    const response = await api.get<CourtsByMallResponse>(`/courts/active/mall/${mallId}`);
+    const response = await api.get<CourtsByMallResponse>(`/courts/mall/${mallId}`);
     const data = response.data;
 
     if (Array.isArray(data)) {

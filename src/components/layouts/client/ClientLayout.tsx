@@ -1,9 +1,9 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import { LogOut } from "lucide-react";
+import { useLogin } from "@/modules/auth/hooks/useLogin";
+import { navItems } from "../../../config/navItems";
+import type { ClientLayoutProps } from "../../../interfaces/layout.interfaces";
 import { Button } from "@/components/ui";
-import type { ClientLayoutProps } from "@/interfaces";
-import { useLogin } from "@/modules";
-import { navItems } from "@/config";
 
 export const ClientLayout = ({ children }: ClientLayoutProps) => {
   const navigate = useNavigate();

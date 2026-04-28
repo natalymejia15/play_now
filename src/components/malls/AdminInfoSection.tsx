@@ -1,6 +1,15 @@
 import { User } from "lucide-react";
 import { Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
-import { ADMIN_FIELDS } from "@/constants";
+
+const ADMIN_FIELDS = [
+  { id: "numeroDocumento", label: "Número de Documento *", placeholder: "1002003004" },
+  { id: "primerNombre",    label: "Primer Nombre *",       placeholder: "Laura" },
+  { id: "segundoNombre",   label: "Segundo Nombre",        placeholder: "Marcela" },
+  { id: "primerApellido",  label: "Primer Apellido *",     placeholder: "López" },
+  { id: "segundoApellido", label: "Segundo Apellido",      placeholder: "Gómez" },
+  { id: "correo",          label: "Correo Electrónico *",  placeholder: "admin@ejemplo.com", type: "email" },
+  { id: "celular",         label: "Celular *",             placeholder: "3001112233" },
+];
 
 type Props = {
   values: Record<string, string>;

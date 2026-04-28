@@ -1,5 +1,0 @@
-export * from './courts.Interface'
-export * from './deports.Interface'
-export * from './malls.Interface'
-export * from './profile.Interface'
-export * from './statusSwitch.Interface'

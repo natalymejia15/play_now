@@ -6,19 +6,6 @@ export interface User {
   mallId: number
 }
 
-export type Users ={
-    password: string;
-    email: string;
-    idRol:number
-}
-
-export interface UserContextType {
-    user: Users | null;
-    loading: boolean;
-    login: (userData: Users, token: string) => void; 
-    logout: () => void;
-}
-
 export interface UserFormData {
   [key: string]: string;
   nombreCentro: string,
@@ -53,4 +40,3 @@ export const INITIAL_DATA_USER: UserFormData = {
   direccionAdmin: "",
   password: "",
 }
-

@@ -33,7 +33,7 @@ export const CourtsTablet = () => {
     } = useCourtsTable(courts);
 
     const { search, setSearch, visibleColumns, setVisibleColumns, filtered } =
-        useDataTable(courts, COLUMNS_COURTS, [], PRIMARY_COURTS.key);
+        useDataTable(courts, COLUMNS_COURTS, []);
 
     const columns = COLUMNS_COURTS.map((col) => {
         if (col.key === "activo") {
