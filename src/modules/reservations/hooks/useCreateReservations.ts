@@ -9,25 +9,13 @@ import {
   INITIAL_DATA_RESERVATIONS,
   type ApiErrorResponseReservations,
   type ReservationsFormData,
+  type UseCreateReservationProps,
 } from "../interfaces";
 import { mapCreateReservationsFormToPayload } from "../mappers";
 import { createReservations } from "@/api";
 
-export interface Court {
-  id: number;
-  nombreCancha: string;
-  valorHora: number;
-  name?: string;
-  price?: number;
-}
-
 const PAGE_TITLE = "Gestión de Deportes - Play now";
 const RELOAD_DELAY_MS = 800;
-
-interface UseCreateReservationProps {
-  onOpenChange: (open: boolean) => void;
-  selectedCourt: Court;
-}
 
 export const useCreateReservation = ({
   onOpenChange,
@@ -43,6 +31,10 @@ export const useCreateReservation = ({
     selectedCourt.valorHora ?? selectedCourt.price ?? 0;
 
   const total = duration * pricePerHour;
+
+  useEffect(() => {
+    updateFormData({ cantidadHoras: duration });
+  }, [duration, updateFormData]);
 
   useEffect(() => {
     document.title = PAGE_TITLE;

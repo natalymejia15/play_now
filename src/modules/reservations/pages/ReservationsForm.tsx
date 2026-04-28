@@ -1,22 +1,12 @@
 import { useCreateReservation } from "../hooks";
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label } from "@/components";
+import type { BookingFormProps } from "../interfaces";
 
-export interface Court {
-  id: number;
-  nombreCancha: string;
-  valorHora: number;
-  name?: string;
-  price?: number;
-} 
-export interface BookingFormProps {
-  selectedCourt: Court;
-  onClose: () => void;
-}
 
-export function ReservationsForm({
+export const  ReservationsForm = ({
   selectedCourt,
   onClose,
-}: BookingFormProps) {
+}: BookingFormProps) => {
   const {
     handleSubmit,
     handleChange,
@@ -72,6 +62,7 @@ export function ReservationsForm({
               <Label>Duración (horas)</Label>
               <Input
                 type="number"
+                required
                 min="1"
                 max="4"
                 name="cantidadHoras"

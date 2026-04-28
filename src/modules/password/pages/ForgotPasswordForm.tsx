@@ -3,14 +3,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Send, ArrowLeft } from 'lucide-react';
-import { Card, CardHeader, CardContent } from '../components/ui/card';
-import { Button } from '../components/ui/button';
-import { Label } from '../components/ui/label';
-import { Input } from '../components/ui/input';
-import companyLogo from '../assets/logo.png';
-import { emailValidationSchema } from '../lib/validations/validation';
-import { useForgotPassword } from '../hook/password/use-forgot-password';
+import companyLogo from '@/assets/logo.png';
 import { motion, AnimatePresence } from "framer-motion";
+import { emailValidationSchema } from '@/lib';
+import { useForgotPassword } from '../hooks';
+import { Button, Card, CardContent, CardHeader, Input, Label } from '@/components';
 
 const forgotPasswordSchema = z.object({
   email: emailValidationSchema,
@@ -18,9 +15,9 @@ const forgotPasswordSchema = z.object({
 
 type ForgotPasswordFormData = z.infer<typeof forgotPasswordSchema>;
 
-const ForgotPasswordForm = () => {
+export const ForgotPasswordForm = () => {
   const navigate = useNavigate();
-  const { isLoading, emailSent, error, sendResetEmail } = useForgotPassword();
+  const { isLoading, emailSent, sendResetEmail } = useForgotPassword();
 
   const form = useForm<ForgotPasswordFormData>({
     resolver: zodResolver(forgotPasswordSchema),
@@ -31,7 +28,7 @@ const ForgotPasswordForm = () => {
 
   if (emailSent) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+     <div className="flex min-h-screen items-center justify-center bg-background px-4">
         <div className="w-full max-w-md animate-fade-in">
           <Card className="bg-white backdrop-blur-sm rounded-2xl shadow-lg border border-gray-200 p-8">
             <CardHeader className="space-y-2 text-center">
@@ -119,7 +116,6 @@ const ForgotPasswordForm = () => {
                     {form.formState.errors.email && (
                       <p className="text-sm text-destructive">{form.formState.errors.email.message}</p>
                     )}
-                    {error && <p className="text-sm text-destructive">{error}</p>}
                   </div>
 
                   <Button
@@ -155,4 +151,3 @@ const ForgotPasswordForm = () => {
   );
 };
 
-export default ForgotPasswordForm;

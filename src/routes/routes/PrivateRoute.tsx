@@ -1,10 +1,6 @@
 import SuperAdminDashboard from "@/pages/super-admin/SuperAdminDashboard";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
-import HistoryAdmin from "@/pages/admin/HistoryAdmin";
-import HistoricoReservasPage from "@/pages/client/HistoricoReservasPage";
-
-import {  ClientHome, CourtsDetails, CourtsManagement, DeportsDetails, DeportsManagement, MallDetails, MallsManagement, ProfilePage } from "@/modules";
-
+import {  AdminHistoryReservations, ClientHistoryReservations, ClientHome, CourtsDetails, CourtsManagement, DeportsDetails, DeportsManagement, MallDetails, MallsManagement, ProfilePage } from "@/modules";
 
 export const privateRoutes = [
   // SUPER ADMIN
@@ -52,7 +48,7 @@ export const privateRoutes = [
   },
   {
     path: "/admin/history",
-    element: <HistoryAdmin />,
+    element: <AdminHistoryReservations />,
     allowedRoles: [2],
   },
 
@@ -69,7 +65,7 @@ export const privateRoutes = [
   },
   {
     path: "/client/historico",
-    element: <HistoricoReservasPage />,
+    element: <ClientHistoryReservations />,
     allowedRoles: [3],
   },
 

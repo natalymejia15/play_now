@@ -1,12 +1,11 @@
 import { createContext, useEffect, useState, type ReactNode } from "react";
-import type { UserContextType } from "@/types/userContext";
-import type { User } from "@/types/user";
 import { clearAuth, getStoredUser, getToken, setApiToken, setAuth } from "@/features";
+import type { UserContextType, Users } from "@/interfaces";
 
 export const UserContext = createContext<UserContextType | undefined>(undefined);
 
 export function UserProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<Users | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +20,7 @@ export function UserProvider({ children }: { children: ReactNode }) {
     setLoading(false);
   }, []);
 
-  const login = (userData: User, token: string) => {
+  const login = (userData: Users, token: string) => {
     setUser(userData);
     setAuth(userData, token);
   };
