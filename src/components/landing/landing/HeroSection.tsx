@@ -65,24 +65,6 @@ export const HeroSection = () => {
             <ArrowRight size={18} />
           </a>
         </motion.div>
-
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.5 }}
-          className="mt-20 grid grid-cols-3 gap-8 sm:gap-16"
-        >
-          {[
-            { value: "500+", label: "Canchas" },
-            { value: "10K+", label: "Jugadores" },
-            { value: "50+", label: "Centros" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <p className="font-display text-2xl font-bold text-primary sm:text-4xl">{stat.value}</p>
-              <p className="text-xs text-muted-foreground sm:text-sm">{stat.label}</p>
-            </div>
-          ))}
-        </motion.div>
       </div>
     </section>
   );

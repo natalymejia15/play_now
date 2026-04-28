@@ -11,8 +11,8 @@ export const JugadoresSection = () => {
           viewport={{ once: true }}
           className="mb-16 text-center"
         >
-          <span className="mb-4 inline-block rounded-full bg-accent/10 px-4 py-1.5 text-xs font-semibold text-accent">
-            Para Jugadores
+          <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary">
+             Para Jugadores
           </span>
           <h2 className="mb-4 font-display text-3xl font-bold text-foreground sm:text-5xl">
             Tu próximo partido <span className="text-accent">comienza aquí</span>
@@ -51,7 +51,7 @@ export const JugadoresSection = () => {
           transition={{ delay: 0.4 }}
           className="mt-14 flex flex-wrap items-center justify-center gap-3"
         >
-          {["⚽ Fútbol", "🏀 Básquetbol", "🏐 Vóleibol", "🎾 Tenis", "🏸 Pádel", "🏑 Hockey"].map(
+          {["⚽ Fútbol",  "🏸 Pádel"].map(
             (sport) => (
               <span
                 key={sport}
