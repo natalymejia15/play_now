@@ -3,8 +3,8 @@ import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
 import {  useLogin } from "@/modules";
 import { AdminLayout, Button, ClientLayout, ProfileForm, SuperAdminLayout } from "@/components";
-import { useUserRole } from "@/hook";
 import { ChangePasswordForm } from "@/modules/password/pages/ChangePassword";
+import { useUserRole } from "@/common";
 
 export const ProfilePage = () => {
   const { user, loading: authLoading, initializing } = useLogin();
