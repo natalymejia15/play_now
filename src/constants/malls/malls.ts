@@ -18,6 +18,3 @@ export const COLUMNS_MALLS: ColumnDef<IMall>[] = [
 ];
 
 export const PRIMARY_MALLS: ColumnDef<IMall> = { key: "nombreCentro", label: "Centro Comercial" };
-
-
-export const CIUDADES = ["Medellín", "Envigado", "Sabaneta", "Itagüí", "Bello", "La Estrella", "Copacabana"];

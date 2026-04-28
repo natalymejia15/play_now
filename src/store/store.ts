@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from '@/features/auth/authSlice'
-import { getInitialAuthState } from '@/features'
+import { getInitialAuthState } from '@/features/auth/authInitialState'
 
 export const store = configureStore({
   reducer: {
