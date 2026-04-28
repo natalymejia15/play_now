@@ -12,7 +12,13 @@ export interface ApiErrorResponseChangePassword {
   error?: string;
 }
 
-export interface PasswordParams {
-  currentPassword: string;
+export interface RecoverPasswordParams {
   newPassword: string;
+  confirmPassword: string;
+
+}
+
+export interface PasswordParams {
+  newPassword: string;
+  currentPassword: string;
 }

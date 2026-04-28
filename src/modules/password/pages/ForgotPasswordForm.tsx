@@ -5,9 +5,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Send, ArrowLeft } from 'lucide-react';
 import companyLogo from '@/assets/logo.png';
 import { motion, AnimatePresence } from "framer-motion";
-import { emailValidationSchema } from '@/lib';
 import { useForgotPassword } from '../hooks';
 import { Button, Card, CardContent, CardHeader, Input, Label } from '@/components';
+import { emailValidationSchema } from '@/lib/validations';
 
 const forgotPasswordSchema = z.object({
   email: emailValidationSchema,

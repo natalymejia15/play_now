@@ -5,3 +5,12 @@ export interface ResetPasswordRequest {
 export interface ResetPasswordResponse {
   message: string;
 }
+
+export interface ResetPasswordConfirmRequest {
+  token: string;
+  newPassword: string;
+}
+
+export interface ResetPasswordConfirmResponse {
+  message: string;
+}

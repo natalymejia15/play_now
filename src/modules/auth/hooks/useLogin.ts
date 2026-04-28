@@ -3,9 +3,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import type { LoginData } from "../interfaces";
 import { clearAuth, loginUser, logoutUser } from "@/features";
-import { useRegister } from "@/hook/users/use-register";
 import { extractErrorMessage, getRoleRoute, persistSession, showErrorToast, type RegisterFormData } from "@/lib";
 import type { User } from "@/interfaces";
+import { useRegister } from "./useRegister";
 
 
 export const useLogin = () => {

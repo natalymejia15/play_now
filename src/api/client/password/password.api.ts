@@ -1,4 +1,4 @@
-import type { ChangePasswordRequest, ChangePasswordResponse, ResetPasswordRequest, ResetPasswordResponse } from "@/modules";
+import type { ChangePasswordRequest, ChangePasswordResponse, ResetPasswordConfirmRequest, ResetPasswordConfirmResponse, ResetPasswordRequest, ResetPasswordResponse } from "@/modules";
 import { api } from "../instance";
 
 export const sendResetPasswordEmail = async (
@@ -16,6 +16,16 @@ export const changePasswordRequest = async (
 ): Promise<ChangePasswordResponse> => {
   const response = await api.put<ChangePasswordResponse>(
     "/auth/change-password",
+    payload
+  );
+  return response.data;
+};
+
+export const resetPasswordConfirm = async (
+  payload: ResetPasswordConfirmRequest
+): Promise<ResetPasswordConfirmResponse> => {
+  const response = await api.post<ResetPasswordConfirmResponse>(
+    "/users/reset-password/confirm",
     payload
   );
   return response.data;

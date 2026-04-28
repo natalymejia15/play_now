@@ -1,4 +1,4 @@
-import { useLogin } from "@/modules/auth/hooks/useLogin";
+import { useLogin } from "@/modules";
 import { useEffect, useState } from "react";
 
 export type UserRole = "superAdmin" | "admin" | "usuario" | null;
