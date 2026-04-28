@@ -31,7 +31,7 @@ export const DeportsTablet = () => {
     } = useDeportsTable(deports, deleteDeport);
 
     const { search, setSearch, visibleColumns, setVisibleColumns, filtered } =
-        useDataTable(deports, COLUMNS_DEPORTS, ["nombre", "activo"]);
+        useDataTable(deports, COLUMNS_DEPORTS, ["nombre"], PRIMARY_DEPORTS.key);
 
     const columns = COLUMNS_DEPORTS.map((col) => {
         if (col.key === "activo") {

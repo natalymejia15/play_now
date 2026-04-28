@@ -14,3 +14,7 @@ export const COLUMNS_COURTS: ColumnDef<ICourts>[] = [
 ]
 
 export const PRIMARY_COURTS: ColumnDef<ICourts> = { key: "nombreCancha", label: "Cancha" };
+
+export const diasSemana = [
+    "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"
+];

@@ -15,7 +15,7 @@ export type Props<T extends Record<string, any>> = {
   search: string;
   setSearch: (v: string) => void;
   actions?: Action<T>[];
-  keyExtractor: (row: T) => string | number | undefined;
+  keyExtractor?: (row: T) => string | number | undefined;
   emptyMessage?: string;
   searchPlaceholder?: string;
   primaryColumn: ColumnDef<T>;

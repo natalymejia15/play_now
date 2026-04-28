@@ -1,10 +1,7 @@
 import { useProfile } from "@/modules";
 import { Loader2, User } from "lucide-react";
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../ui";
-
-interface ProfileFormProps {
-  userId?: number;
-}
+import type { ProfileFormProps } from "@/interfaces";
 
 export const ProfileForm = ({ userId }: ProfileFormProps) => {
   const {

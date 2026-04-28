@@ -1,10 +1,10 @@
 import { useNavigate, NavLink } from "react-router-dom";
 import { LogOut, User } from "lucide-react";
-import type { AdminLayoutProps } from "@/interfaces/layout.interfaces";
 import { useLogin } from "@/modules";
-import { Button, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/components/ui";
 import { InnerContent } from "./InnerContent";
-import { menuItems } from "@/config/navItems";
+import type { AdminLayoutProps } from "@/interfaces";
+import { Button, Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider } from "@/components/ui";
+import { menuItems } from "@/config";
 
 export const AdminLayout = ({ children }: AdminLayoutProps) => {
   const navigate = useNavigate();

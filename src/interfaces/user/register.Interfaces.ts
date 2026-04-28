@@ -1,4 +1,4 @@
-import type { RegisterFormData as ValidationRegisterFormData } from "@/lib/validations/validation";
+import type { RegisterFormData as ValidationRegisterFormData } from "@/lib";
 
 export type RegisterFormData = ValidationRegisterFormData & { idRol?: number };
 

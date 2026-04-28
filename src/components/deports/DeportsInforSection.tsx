@@ -1,13 +1,8 @@
 import { Trophy } from "lucide-react";
 import { Input, Label } from "@/components";
+import type { DeportsProps } from "@/interfaces";
 
-type Props = {
-    values: { nombre: string; descripcion: string; cantidad: number };
-    onChange: (field: string, value: string) => void;
-    disabled?: boolean;
-};
-
-export const DeportsInfoSection = ({ values, onChange, disabled }: Props) => (
+export const DeportsInfoSection = ({ values, onChange, disabled }: DeportsProps) => (
     <div className="space-y-4 p-6 rounded-xl border border-green-100 bg-white/80 shadow-sm backdrop-blur-sm">
         <div className="flex items-center gap-2 mb-4">
             <Trophy className="h-5 w-5 text-green-600" />

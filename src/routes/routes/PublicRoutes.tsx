@@ -1,13 +1,10 @@
-import { Auth } from "@/modules";
-import { PagePrincipal } from "@/modules/index/page";
-import ChangePassword from "@/pages/ChangePassword";
-import ForgotPasswordForm from "@/pages/ForgotPasswordForm";
-import NotFound from "@/pages/NotFound";
+import { Auth,  ForgotPasswordForm, NotFound, PagePrincipal, RecoverPassword } from "@/modules";
+
 
 export const publicRoutes = [
     { path: '/', element: <PagePrincipal /> },
     { path: '/login', element: <Auth /> },
     { path: "/forgot-password", element: <ForgotPasswordForm /> },
-    { path: "/users/reset-password/:token", element: <ChangePassword /> },
+    { path: "/users/reset-password/:token", element: <RecoverPassword /> },
     { path: '*', element: <NotFound /> },
 ]

@@ -1,6 +1,7 @@
 import { UserContext } from "@/components";
 import { useContext } from "react";
 
+
 export function useAuth() {
   const ctx = useContext(UserContext);
   if (!ctx) {
