@@ -1,18 +1,11 @@
 import { useRef } from "react";
 import { Calendar, DollarSign, ImageIcon, MapPin } from "lucide-react";
 import { Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
-import { useImageCourts, type CourtsFormData, type CourtsFormValue } from "@/modules";
+import { useImageCourts } from "@/modules";
+import { diasSemana } from "@/constants";
+import type { CourtsProps } from "@/interfaces";
 
-type Props = {
-    values: CourtsFormData,
-    onChange: (field: keyof CourtsFormData, value: CourtsFormValue) => void;
-    disabled?: boolean;
-}
-const diasSemana = [
-    "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"
-];
-export const CourtsInfoSection = ({ values, onChange, disabled }: Props) => {
-
+export const CourtsInfoSection = ({ values, onChange, disabled }: CourtsProps) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
     const { deports, deportsLoading, previewUrl } = useImageCourts({ values, });
 

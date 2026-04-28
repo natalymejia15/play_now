@@ -45,9 +45,6 @@ export const useRegister = () => {
         });
       }
 
-      console.log("Payload enviado:", formData);
-      console.log("Error completo:", err);
-
       return { data: null, error: err };
     }
   };

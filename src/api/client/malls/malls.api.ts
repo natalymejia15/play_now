@@ -2,8 +2,8 @@ import type { ICreateMallPayload, IMall, UpdateMallPayload, UpdateMallsStatusPay
 import { api } from "../instance";
 
 export const getMalls = async (): Promise<IMall[]> => {
-  const response = await api.get<IMall[]>('/malls');
-  return response.data;
+  const response = await api.get<{ malls: IMall[] }>('/malls');
+  return response.data.malls ?? [];
 };
 
 export const getMallById = async (id: number): Promise<IMall> => {

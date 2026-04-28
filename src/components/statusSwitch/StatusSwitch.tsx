@@ -1,16 +1,6 @@
 import { useState } from "react";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, Switch } from "../ui";
-interface StatusSwitchProps {
-  checked: boolean;
-  entityName: string;
-  disabled?: boolean;
-  isUpdating?: boolean;
-  onActivate: () => Promise<void>;      
-  onDeactivate: () => Promise<void>;     
-  dialogTitle?: string;
-  dialogDescription?: (name: string) => React.ReactNode;
-  confirmLabel?: string;
-}
+import type { StatusSwitchProps } from "@/interfaces";
 
 export const StatusSwitch = ({
   checked,
@@ -29,7 +19,7 @@ export const StatusSwitch = ({
 
   const handleChange = async (value: boolean) => {
     if (!value) {
-      setOpen(true);   // solo pide confirmación al desactivar
+      setOpen(true);  
       return;
     }
     await onActivate();

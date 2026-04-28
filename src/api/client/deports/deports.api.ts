@@ -11,7 +11,6 @@ export const getDeportsActive = async (): Promise<IDeport[]> => {
 };
 
 export const deleteDeport = async (id: number): Promise<void> => {
-    console.log("API deleteDeport llamado con id:", id); 
   await api.delete(`/sports/${id}`);
 };
 

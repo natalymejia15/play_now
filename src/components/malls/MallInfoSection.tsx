@@ -1,15 +1,10 @@
 import { Building2 } from "lucide-react";
 import { Input, Label, Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components";
+import { CIUDADES } from "@/constants";
+import type { MallsProps } from "@/interfaces";
 
-const CIUDADES = ["Medellín", "Envigado", "Sabaneta", "Itagüí", "Bello", "La Estrella", "Copacabana"];
 
-type Props = {
-  values: { nombreCentro: string; ciudad: string; direccionMall: string; telefono: string };
-  onChange: (field: string, value: string) => void;
-  disabled?: boolean;
-};
-
-export const MallInfoSection = ({ values, onChange, disabled }: Props) => (
+export const MallInfoSection = ({ values, onChange, disabled }: MallsProps) => (
   <div className="space-y-4 p-6 rounded-xl border border-green-100 bg-white/80 shadow-sm backdrop-blur-sm">
     <div className="flex items-center gap-2 mb-4">
       <Building2 className="h-5 w-5 text-green-600" />

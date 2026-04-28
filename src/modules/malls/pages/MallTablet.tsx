@@ -26,7 +26,7 @@ export const MallsTable = () => {
   } = useMallsTable();
 
   const { search, setSearch, visibleColumns, setVisibleColumns, filtered } =
-    useDataTable(malls, COLUMNS_MALLS, ["nombreCentro", "ciudad", "direccion"]);
+    useDataTable(malls, COLUMNS_MALLS, ["nombreCentro", "ciudad", "direccion"], PRIMARY_MALLS.key);
 
   const columns = COLUMNS_MALLS.map((col) => {
     if (col.key === "activo") {
@@ -35,7 +35,7 @@ export const MallsTable = () => {
         render: (d: any) => (
           <StatusSwitch
             checked={d.activo}
-            entityName={d.nombre}
+            entityName={d.nombre}  
             onActivate={() => updateStatusMalls(d.id, true)}
             onDeactivate={() => updateStatusMalls(d.id, false)}
           />
