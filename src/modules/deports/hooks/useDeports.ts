@@ -1,6 +1,6 @@
 import { useParams, useLocation } from "react-router-dom";
 import type { ApiErrorResponseDeports, DeportsData, IDeport } from "../interfaces";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { deleteDeport, getDeports, getDeportsById, updateStatusDeports } from "@/api";
 import { extractApiErrorMessage, toast } from "@/lib";
 import type { AxiosError } from "axios";
@@ -68,7 +68,7 @@ export const useDeports = () => {
         }
     };
 
-    const fetchDeportsDetails = async () => {
+    const fetchDeportsDetails = useCallback(async () => {
         if (!id) return;
         setIsLoading(true);
         try {
@@ -83,7 +83,7 @@ export const useDeports = () => {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [id]);
 
     useEffect(() => {
         fetchDeports();

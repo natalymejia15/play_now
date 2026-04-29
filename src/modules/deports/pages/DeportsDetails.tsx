@@ -10,7 +10,7 @@ export const DeportsDetails = () => {
         if (id) {
             fetchDeportsDetails();
         }
-    }, [id]);
+    }, [id, fetchDeportsDetails]);
     const navigate = useNavigate();
 
     if (isLoading) {
