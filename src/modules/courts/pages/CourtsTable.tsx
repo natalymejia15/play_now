@@ -14,6 +14,7 @@ import {
 } from "@/components";
 import { useCourts, useCourtsTable } from "../hooks";
 import { EditCourtsDialog } from "./EditCourtsDialog";
+import type { ICourts } from "../interfaces";
 
 
 export const CourtsTablet = () => {
@@ -39,10 +40,10 @@ export const CourtsTablet = () => {
         if (col.key === "activo") {
             return {
                 ...col,
-                render: (d: any) => (
+                render: (d: ICourts) => (
                     <StatusSwitch
                         checked={d.activo}
-                        entityName={d.nombre}
+                        entityName={d.nombreCancha}
                         onActivate={() => updateStatusCourts(d.id, true)}
                         onDeactivate={() => updateStatusCourts(d.id, false)}
                     />

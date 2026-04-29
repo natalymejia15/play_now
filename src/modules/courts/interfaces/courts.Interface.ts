@@ -11,6 +11,7 @@ export interface ICourts {
     detalles?: string;
     sportId: number | null;
     imagen: string | null;
+    activo: boolean;
     mallId: number | null;
     deporte?: {
         id: number;
