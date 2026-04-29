@@ -14,6 +14,7 @@ import {
 } from "@/components";
 import { EditDeportsDialog } from "./EditDeportsDialog";
 import { useDeports, useDeportsTable } from "../hooks";
+import type { IDeport } from "../interfaces";
 
 export const DeportsTablet = () => {
     const { deports, deleteDeport, updateStatusDeport } = useDeports();
@@ -37,7 +38,7 @@ export const DeportsTablet = () => {
         if (col.key === "activo") {
             return {
                 ...col,
-                render: (d: any) => (
+                render: (d: IDeport) => (
                     <StatusSwitch
                         checked={d.activo}
                         entityName={d.nombre}
