@@ -1,0 +1,32 @@
+import type { ICreateDeportsRequest, IDeport, UpdateDeportsPayload, UpdateStatusDeportsPayload } from "@/modules";
+import { api } from "../instance";
+
+export const getDeports = async (): Promise<IDeport[]> => {
+  const response = await api.get<IDeport[]>('/sports');
+  return response.data;
+};
+export const getDeportsActive = async (): Promise<IDeport[]> => {
+  const response = await api.get<IDeport[]>('/sports/active/all');
+  return response.data;
+};
+
+export const deleteDeport = async (id: number): Promise<void> => {
+  await api.delete(`/sports/${id}`);
+};
+
+export const getDeportsById = async (id: number): Promise<IDeport> => {
+  const response = await api.get<IDeport>(`/sports/${id}`);
+  return response.data; 
+};
+
+export const createDeports = async (payload: ICreateDeportsRequest): Promise<void> => {
+  await api.post<IDeport>('/sports', payload);
+};
+
+export const updateDeports = async (id: number, payload: UpdateDeportsPayload): Promise<void> => {
+  await api.put(`/sports/${id}`, payload);
+};
+
+export const updateStatusDeports = async (id: number, payload: UpdateStatusDeportsPayload): Promise<void> => {
+  await api.patch(`/sports/${id}/status`, payload);
+};

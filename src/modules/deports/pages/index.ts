@@ -1,0 +1,5 @@
+export * from './DeportsDetails'
+export * from './DeportsTablet'
+export * from './DeportsManagement'
+export * from './CreateDeportsDialog'
+export * from './EditDeportsDialog'
