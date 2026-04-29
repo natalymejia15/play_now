@@ -56,7 +56,7 @@ export const Header = () => {
             <a href="#centros" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>Centros Comerciales</a>
             <a href="#jugadores" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>Jugadores</a>
             <a href="#contacto" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>Contacto</a>
-            <a href="#login" className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground">
+            <a href="/login" className="inline-flex w-full items-center justify-center rounded-lg bg-primary px-5 py-2.5 text-sm font-semibold text-primary-foreground">
               Iniciar Sesión
             </a>
           </nav>
