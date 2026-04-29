@@ -1,9 +1,10 @@
 export interface IMall {
-  id?: number;
+  id: number;
   nombreCentro: string;
   direccion: string;
   telefono: string;
   ciudad: string;
+  activo: boolean;
   created_at: string;
   administrador?: IAdmin;
 }

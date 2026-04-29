@@ -8,6 +8,7 @@ import {
   AlertDialogContent, AlertDialogDescription,
   AlertDialogFooter, AlertDialogHeader, AlertDialogTitle,
 } from "@/components";
+import type { IMall } from "../interfaces";
 
 export const MallsTable = () => {
   const {
@@ -32,10 +33,10 @@ export const MallsTable = () => {
     if (col.key === "activo") {
       return {
         ...col,
-        render: (d: any) => (
+        render: (d: IMall) => (
           <StatusSwitch
             checked={d.activo}
-            entityName={d.nombre}  
+            entityName={d.nombreCentro}  
             onActivate={() => updateStatusMalls(d.id, true)}
             onDeactivate={() => updateStatusMalls(d.id, false)}
           />
