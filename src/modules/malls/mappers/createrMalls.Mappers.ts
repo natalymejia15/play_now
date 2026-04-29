@@ -3,9 +3,11 @@ import type { ICreateMallPayload } from "../interfaces";
 
 export const mapCreateMallFormToPayload = (formData: UserFormData): ICreateMallPayload => ({
   mall: {
+    id: 0, 
     nombreCentro: formData.nombreCentro,
     direccion: formData.direccionMall,
     telefono: formData.telefono,
+    activo: formData.activo === "true",
     ciudad: formData.ciudad,
     created_at: new Date().toISOString(),
   },

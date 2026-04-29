@@ -1,127 +1,149 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useToast } from "@/lib";
 import { getProfileById, updateProfile } from "@/api";
-import { apiToIProfile, mapFormToPayload, mapProfileToFormData } from "../mappers";
-import { INITIAL_FORM, INITIAL_PROFILE, type ApiProfile, type IProfile, type ProfileFormData } from "../interfaces";
+import {
+  apiToIProfile,
+  mapFormToPayload,
+  mapProfileToFormData,
+} from "../mappers";
+import {
+  INITIAL_FORM,
+  INITIAL_PROFILE,
+  type ApiProfile,
+  type IProfile,
+  type ProfileFormData,
+} from "../interfaces";
+import type { AxiosError } from "axios";
 
 export const useProfile = (userId?: number) => {
-     const { toast } = useToast();
+  const { toast } = useToast();
 
-     const [profile, setProfile] = useState<IProfile>(INITIAL_PROFILE);
-     const [backup, setBackup] = useState<IProfile>(INITIAL_PROFILE);
-     const [form, setForm] = useState<ProfileFormData>(INITIAL_FORM);
+  const [profile, setProfile] = useState<IProfile>(INITIAL_PROFILE);
+  const [backup, setBackup] = useState<IProfile>(INITIAL_PROFILE);
+  const [form, setForm] = useState<ProfileFormData>(INITIAL_FORM);
 
-     const [loading, setLoading] = useState(false);
-     const [editing, setEditing] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [editing, setEditing] = useState(false);
 
-     useEffect(() => {
-          if (!userId) return;
+  const loadProfile = useCallback(
+    async (id?: number, signal?: AbortSignal) => {
+      if (!id) return;
 
-          const controller = new AbortController();
-          // call loadProfile with abort signal and clean up on userId change / unmount
-          loadProfile(userId, controller.signal);
+      try {
+        setLoading(true);
 
-          return () => controller.abort();
-     }, [userId]);
+        const data = (await getProfileById(id, { signal })) as ApiProfile;
 
-     const loadProfile = async (id?: number, signal?: AbortSignal) => {
-          if (!id) return;
+        const normalized = apiToIProfile(data);
+        const mappedForm = mapProfileToFormData(normalized);
 
-          try {
-               setLoading(true);
-               const data = (await getProfileById(id, { signal })) as ApiProfile;
+        setForm(mappedForm);
+        setProfile(normalized);
+        setBackup(normalized);
+      } catch (error: unknown) {
+        const err = error as AxiosError;
 
-               const normalized = apiToIProfile(data);
-               const mappedForm = mapProfileToFormData(normalized);
+        const isCanceled =
+          err.code === "ERR_CANCELED" ||
+          err.name === "CanceledError" ||
+          (signal && signal.aborted);
 
-               setForm(mappedForm);
-               setProfile(normalized);
-               setBackup(normalized);
-          } catch (error: unknown) {
-               console.error("Error loading profile:", error);
+        if (isCanceled) return;
 
-               // If the request was aborted (e.g. logout or userId change), don't show an error toast
-               const anyErr = error as any;
-               const isCanceled = anyErr?.code === "ERR_CANCELED" || anyErr?.name === "CanceledError" || (signal && signal.aborted);
-               const status = anyErr?.response?.status;
-               if (isCanceled || status === 401) {
-                    // silently ignore cancellations and unauthorized errors (likely caused by logout)
-                    return;
-               }
+        const status = err.response?.status;
 
-               toast({
-                    title: "Error",
-                    description: "No se pudo cargar el perfil",
-                    variant: "destructive",
-               });
-          } finally {
-               setLoading(false);
-          }
-     };
+        if (status === 401) return;
 
-     const handleChange = (
-          e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-     ) => {
-          const { name, value } = e.target;
-          const key = name as keyof IProfile;
-          setProfile((prev) => ({
-               ...prev,
-               [key]: value,
-          }));
-          setForm((prev) => ({
-               ...prev,
-               [key]: value,
-          }));
-     };
+        console.error("Error loading profile:", err);
 
-     const handleCancel = () => {
-          setProfile(backup);
-          setForm(mapProfileToFormData(backup));
-          setEditing(false);
-     };
+        toast({
+          title: "Error",
+          description: "No se pudo cargar el perfil",
+          variant: "destructive",
+        });
+      } finally {
+        setLoading(false);
+      }
+    },
+    [toast]
+  );
 
-     const handleSubmit = async (e?: React.FormEvent) => {
-          if (e) e.preventDefault();
-          if (!profile?.id) return;
+  useEffect(() => {
+    if (!userId) return;
 
-          try {
-               setLoading(true);
+    const controller = new AbortController();
 
-               const payload = mapFormToPayload(profile);
+    loadProfile(userId, controller.signal);
 
-               await updateProfile(profile.id, payload);
+    return () => controller.abort();
+  }, [userId, loadProfile]);
 
-               toast({
-                    title: "Éxito",
-                    description: "Perfil actualizado correctamente",
-                    variant: "success",
-               });
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    const key = name as keyof IProfile;
 
-               setEditing(false);
-               setBackup(profile);
-          } catch (error: unknown) {
-               console.error("Error updating profile:", error);
+    setProfile((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
 
-               toast({
-                    title: "Error",
-                    description: "No se pudo actualizar el perfil",
-                    variant: "destructive",
-               });
-          } finally {
-               setLoading(false);
-          }
-     };
-     return {
-          profile,
-          setProfile,
-          form,
-          setForm,
-          loading,
-          editing,
-          setEditing,
-          handleChange,
-          handleCancel,
-          handleSubmit,
-          loadProfile,
-     };
+    setForm((prev) => ({
+      ...prev,
+      [key]: value,
+    }));
+  };
+
+  const handleCancel = () => {
+    setProfile(backup);
+    setForm(mapProfileToFormData(backup));
+    setEditing(false);
+  };
+
+  const handleSubmit = async (e?: React.FormEvent) => {
+    if (e) e.preventDefault();
+    if (!profile?.id) return;
+
+    try {
+      setLoading(true);
+
+      const payload = mapFormToPayload(profile);
+
+      await updateProfile(profile.id, payload);
+
+      toast({
+        title: "Éxito",
+        description: "Perfil actualizado correctamente",
+        variant: "success",
+      });
+
+      setEditing(false);
+      setBackup(profile);
+    } catch (error: unknown) {
+      console.error("Error updating profile:", error);
+
+      toast({
+        title: "Error",
+        description: "No se pudo actualizar el perfil",
+        variant: "destructive",
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    profile,
+    setProfile,
+    form,
+    setForm,
+    loading,
+    editing,
+    setEditing,
+    handleChange,
+    handleCancel,
+    handleSubmit,
+    loadProfile,
+  };
 };

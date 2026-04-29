@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import type { ApiErrorResponseCourts, CourtsData, ICourts } from "../interfaces";
 import { deleteCourts, getCourts, getCourtsById, getCourtsByIdMalls, updateStatusCourt } from "@/api";
@@ -58,8 +58,9 @@ export const useCourts = () => {
         }
     };
 
-    const fetchCourtsDetails = async () => {
+    const fetchCourtsDetails = useCallback(async () => {
         if (!id) return;
+
         setIsLoading(true);
         try {
             const data = await getCourtsById(Number(id));
@@ -74,7 +75,7 @@ export const useCourts = () => {
         } finally {
             setIsLoading(false);
         }
-    };
+    }, [id]);
 
     const fetchCourtsByMall = async (mallId: string) => {
         if (!mallId) return;

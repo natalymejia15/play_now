@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Loader2 } from "lucide-react";
-import {  useLogin } from "@/modules";
+import { useLogin } from "@/modules";
 import { AdminLayout, Button, ClientLayout, ProfileForm, SuperAdminLayout } from "@/components";
 import { ChangePasswordForm } from "@/modules/password/pages/ChangePassword";
 import { useUserRole } from "@/common";
@@ -16,7 +16,7 @@ export const ProfilePage = () => {
     if (!authLoading && !initializing && !user) {
       navigate("/auth");
     }
-  }, [user, authLoading, navigate]);
+  }, [user, authLoading, initializing, navigate]);
 
   if (authLoading || roleLoading) {
     return (
@@ -31,22 +31,20 @@ export const ProfilePage = () => {
       <div className="flex justify-start gap-4 mb-2">
         <Button
           variant={activeTab === "profile" ? "default" : "outline"}
-          className={`px-6 py-3 text-lg rounded-xl ${
-            activeTab === "profile"
+          className={`px-6 py-3 text-lg rounded-xl ${activeTab === "profile"
               ? "bg-green-600 text-white"
               : "border-gray-300 text-gray-700 hover:bg-gray-100"
-          }`}
+            }`}
           onClick={() => setActiveTab("profile")}
         >
           Perfil
         </Button>
         <Button
           variant={activeTab === "password" ? "default" : "outline"}
-          className={`px-6 py-3 text-lg rounded-xl ${
-            activeTab === "password"
+          className={`px-6 py-3 text-lg rounded-xl ${activeTab === "password"
               ? "bg-green-600 text-white"
               : "border-gray-300 text-gray-700 hover:bg-gray-100"
-          }`}
+            }`}
           onClick={() => setActiveTab("password")}
         >
           Cambiar contraseña

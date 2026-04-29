@@ -9,7 +9,9 @@ export const useClientHome = () => {
   const [selectedMall, setSelectedMall] = useState<IMall | null>(null);
   const [selectedCourt, setSelectedCourt] = useState<ICourts | null>(null);
 
-  const mallList: IMall[] = Array.isArray(malls) ? malls : [];
+  const mallList: IMall[] = useMemo(() => {
+    return Array.isArray(malls) ? malls : [];
+  }, [malls]);
 
   const filteredMalls = useMemo(() => {
     return mallList.filter((mall) =>

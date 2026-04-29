@@ -1,7 +1,17 @@
 import type { ColumnDef } from "@/interfaces";
 import { useState, useMemo } from "react";
 
-export function useDataTable<T extends Record<string, any>>(
+function getNestedValue(row: object, key: string): unknown {
+  if (!key) return undefined;
+  const r = row as Record<string, unknown>;
+  if (Object.prototype.hasOwnProperty.call(r, key)) return r[key];
+  return key.split('.').reduce((acc: unknown, part: string) => {
+    if (acc === null || acc === undefined) return undefined;
+    return (acc as Record<string, unknown>)[part];
+  }, r);
+}
+
+export function useDataTable<T extends object>(  
   data: T[],
   columns: ColumnDef<T>[],
   searchKeys: (keyof T)[],
@@ -22,29 +32,17 @@ export function useDataTable<T extends Record<string, any>>(
         ? searchKeys.map((k) => String(k))
         : columns.map((c) => String(c.key));
 
-    // always include primary key if provided
     if (primaryKey && !effectiveKeys.includes(primaryKey)) {
       effectiveKeys.unshift(primaryKey);
     }
-    const getValue = (row: Record<string, any>, key: string) => {
-      if (!key) return undefined;
-      if (Object.prototype.hasOwnProperty.call(row, key)) return row[key];
-      const parts = key.split('.');
-      const value = parts.reduce((acc: any, part: string) => {
-        if (acc === undefined || acc === null) return undefined;
-        return acc[part];
-      }, row as any);
-      return value;
-    };
 
     return data.filter((row) =>
       effectiveKeys.some((key) => {
-        const value = getValue(row as Record<string, any>, key);
+        const value = getNestedValue(row, key);
         if (value === undefined || value === null) return false;
         if (typeof value === 'object') {
           try {
-            const text = Object.values(value).join(' ').toLowerCase();
-            return text.includes(q);
+            return Object.values(value as Record<string, unknown>).join(' ').toLowerCase().includes(q);
           } catch {
             return JSON.stringify(value).toLowerCase().includes(q);
           }
@@ -52,7 +50,7 @@ export function useDataTable<T extends Record<string, any>>(
         return String(value).toLowerCase().includes(q);
       })
     );
-  }, [data, search, searchKeys]);
+  }, [data, search, searchKeys, columns, primaryKey]);
 
   return { search, setSearch, visibleColumns, setVisibleColumns, filtered };
 }

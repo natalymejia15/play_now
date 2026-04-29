@@ -7,7 +7,7 @@ export type Action<T> = {
   onClick: (row: T) => void;
 };
 
-export type Props<T extends Record<string, any>> = {
+export type Props<T extends object> = {
   data: T[];
   columns: ColumnDef<T>[];
   visibleColumns: Record<string, boolean>;

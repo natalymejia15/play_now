@@ -1,2 +1,2 @@
-export * from './useRedux'
+export * from './redux'
 export * from './users'
