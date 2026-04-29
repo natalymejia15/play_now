@@ -1,5 +1,5 @@
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components";
-import { Users, DollarSign, ImageIcon, Clock } from "lucide-react";
+import { Users, DollarSign, ImageIcon, Clock, Trophy, Calendar } from "lucide-react";
 import type { CourtCardProps } from "../interfaces";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
@@ -36,20 +36,43 @@ export function CourtCard({ court, onSelect }: CourtCardProps) {
 
         <CardDescription className="space-y-2 mt-3">
           <div className="flex items-center gap-2 text-muted-foreground">
+            <Trophy className="h-4 w-4 text-green-600" />
+            <span className="text-sm">
+              Deporte:{" "}
+              <span className="font-medium text-foreground">
+                {court.deporteNombre}
+              </span>
+            </span>
+          </div>
+          <div className="flex items-center gap-2 text-muted-foreground">
             <Users className="h-4 w-4 text-green-600" />
             <span className="text-sm">
               Capacidad:{" "}
               <span className="font-medium text-foreground">
-                {court.sportId} personas
+                {court.cantidadCancha} personas
               </span>
             </span>
           </div>
-
+          <div className="flex flex-wrap gap-1">
+            <Calendar className="h-4 w-4 text-green-600" />
+            Días disponibles:{" "}
+            {court.diasDisponibles
+              ?.split(",")
+              .map((dia: string) => dia.trim())
+              .map((dia: string) => (
+                <span
+                  key={dia}
+                  className="px-2 py-1 text-xs bg-green-100 text-green-700 rounded-md"
+                >
+                  {dia}
+                </span>
+              ))}
+          </div>
           <div className="flex items-center gap-2 text-green-700 font-semibold">
             <DollarSign className="h-4 w-4" />
             ${court.valorHora.toLocaleString()} por hora
           </div>
-           <div className="flex items-center gap-2 text-muted-foreground">
+          <div className="flex items-center gap-2 text-muted-foreground">
             <Clock className="h-4 w-4 text-green-600" />
             <span className="text-sm">
               Horarios:{" "}
