@@ -25,7 +25,7 @@ export const CourtsDetails = () => {
     if (id) {
       fetchCourtsDetails();
     }
-  }, [id]);
+  }, [id, fetchCourtsDetails]);
 
   if (isLoading) {
     return (
@@ -150,7 +150,7 @@ export const CourtsDetails = () => {
                 <img
                   src={imageUrl}
                   alt={court.nombreCancha}
-                 className="rounded-2xl shadow-md object-cover w-full max-w-md h-[500px]"
+                  className="rounded-2xl shadow-md object-cover w-full max-w-md h-[500px]"
                 />
               ) : (
                 <div className="flex flex-col items-center justify-center border border-dashed border-gray-300 rounded-xl w-full max-w-md h-64 bg-muted/10">
