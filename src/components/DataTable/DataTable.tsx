@@ -18,9 +18,9 @@ import {
 } from "../ui";
 
 import type { Props } from "@/interfaces";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 
-export function DataTable<T extends Record<string, any>>({
+export function DataTable<T extends object>({
   data,
   columns,
   visibleColumns,
@@ -42,7 +42,11 @@ export function DataTable<T extends Record<string, any>>({
   const [page, setPage] = useState(1);
   const pageSize = 5;
 
-  const safeData = Array.isArray(data) ? data : [];
+  // ✅ FIX warning useEffect
+  const safeData = useMemo(() => {
+    return Array.isArray(data) ? data : [];
+  }, [data]);
+
   const totalPages = Math.ceil(safeData.length / pageSize);
 
   useEffect(() => {
@@ -60,13 +64,23 @@ export function DataTable<T extends Record<string, any>>({
     page * pageSize
   );
 
-  const getValue = (row: Record<string, any>, key: string) => {
+  // ✅ SIN any
+  const getValue = (row: T, key: string): unknown => {
     if (!key) return undefined;
-    if (Object.prototype.hasOwnProperty.call(row, key)) return row[key];
-    return key.split('.').reduce((acc: any, part: string) => {
+
+    if (Object.prototype.hasOwnProperty.call(row, key)) {
+      return row[key as keyof T];
+    }
+
+    return key.split(".").reduce<unknown>((acc, part) => {
       if (acc === undefined || acc === null) return undefined;
-      return acc[part];
-    }, row as any);
+
+      if (typeof acc === "object") {
+        return (acc as Record<string, unknown>)[part];
+      }
+
+      return undefined;
+    }, row);
   };
 
   return (
@@ -129,20 +143,28 @@ export function DataTable<T extends Record<string, any>>({
               </TableCell>
             </TableRow>
           ) : (
-            paginatedData.map((row) => (
-              <TableRow key={keyExtractor?.(row)}>
+            paginatedData.map((row, index) => (
+              <TableRow
+                key={
+                  keyExtractor
+                    ? keyExtractor(row)
+                    : index
+                }
+              >
 
                 {/* Columna primaria */}
                 <TableCell>
                   {primaryColumn.render
                     ? primaryColumn.render(row)
-                    : getValue(row, primaryColumn.key)}
+                    : String(getValue(row, primaryColumn.key) ?? "-")}
                 </TableCell>
 
                 {/* Columnas visibles */}
                 {activeColumns.map((col) => (
                   <TableCell key={col.key}>
-                    {col.render ? col.render(row) : getValue(row, col.key) ?? "-"}
+                    {col.render
+                      ? col.render(row)
+                      : String(getValue(row, col.key) ?? "-")}
                   </TableCell>
                 ))}
 
@@ -150,7 +172,6 @@ export function DataTable<T extends Record<string, any>>({
                 {actions && (
                   <TableCell>
                     <div className="flex justify-end gap-1">
-
                       {actions.map((action, i) => (
                         <Tooltip key={i}>
                           <TooltipTrigger asChild>
@@ -167,10 +188,8 @@ export function DataTable<T extends Record<string, any>>({
                           <TooltipContent>
                             {action.label}
                           </TooltipContent>
-
                         </Tooltip>
                       ))}
-
                     </div>
                   </TableCell>
                 )}
