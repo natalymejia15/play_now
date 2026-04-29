@@ -20,7 +20,7 @@ export const MallDetails = () => {
     if (id) {
       fetchMallDetails();
     }
-  }, [id]);
+  }, [id, fetchMallDetails]);
 
   if (isLoading) {
     return (
