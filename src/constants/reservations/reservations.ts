@@ -20,8 +20,8 @@ export const PRYMARY_ADMIN_RESERVATIONS: ColumnDef<IReservations> = {
 };
 
 export const COLUMNS_CLIENT_RESERVATIONS: ColumnDef<IReservations>[] = [
-  { key: 'centroComercial.nombre', label: 'Centro comercial', defaultVisible: true },
-  { key: 'centroComercial.ciudad', label: 'Ciudad', defaultVisible: true },
+  { key: 'cancha.mall.nombreCentro', label: 'Centro comercial', defaultVisible: true },
+  { key: 'cancha.mall.ciudad', label: 'Ciudad', defaultVisible: true },
   { key: 'cancha.direccion', label: 'Dirección', defaultVisible: true },
   { key: 'fechaReserva', label: 'Fecha de Reserva', defaultVisible: true },
   { key: 'horaReserva', label: 'Hora de Reserva', defaultVisible: false },

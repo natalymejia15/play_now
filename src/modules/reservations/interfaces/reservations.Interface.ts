@@ -16,7 +16,10 @@ export interface IReservations {
         valorHora: number;
         horarioInicio: string;
         horarioFin: string;
-        mallId: number;
+        mall: {
+            id: number;
+            nombreCentro: string;
+        }
     };
     cliente: {
         id: number;
@@ -50,7 +53,10 @@ export interface ReservationsFormData {
         valorHora: number;
         horarioInicio: string;
         horarioFin: string;
-        mallId: number;
+        mall: {
+            id: number;
+            nombreCentro: string;
+        }
     };
     cliente: {
         id: number;
@@ -78,7 +84,10 @@ export const INITIAL_DATA_RESERVATIONS: ReservationsFormData = {
         valorHora: 0,
         horarioInicio: "",
         horarioFin: "",
-        mallId: 0,
+        mall: {
+            id: 0,
+            nombreCentro: "",
+        }
     },
     cliente: {
         id: 0,
