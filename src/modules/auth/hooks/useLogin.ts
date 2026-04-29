@@ -70,7 +70,7 @@ export const useLogin = () => {
         password?: string
     ) => {
         e.preventDefault();
-        const resolvedEmail    = email    ?? formData.email;
+        const resolvedEmail = email ?? formData.email;
         const resolvedPassword = password ?? formData.password;
         const { user, error } = await signIn(resolvedEmail, resolvedPassword);
 
@@ -88,7 +88,8 @@ export const useLogin = () => {
     const signOut = async () => {
         try {
             await dispatch(logoutUser()).unwrap();
-        } catch {
+        } catch (err) {
+            console.error("Error al cerrar sesión:", err);
         } finally {
             clearAuth();
             setUser(null);
