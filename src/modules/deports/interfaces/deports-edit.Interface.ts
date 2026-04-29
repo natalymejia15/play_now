@@ -5,7 +5,6 @@ export interface EditDeportsFormData {
     nombre: string;
     descripcion: string;
     cantidad: number;
-    activo: boolean;
     
 }
 
@@ -21,7 +20,6 @@ export interface UpdateDeportsPayload {
     nombre: string;
     descripcion: string;
     cantidad: number;
-    activo: boolean;
 }
 
 export interface UpdateStatusDeportsPayload {

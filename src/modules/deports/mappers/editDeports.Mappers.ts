@@ -18,5 +18,4 @@ export const mapEditDeportsFormToPayload = (form: EditDeportsFormData): UpdateDe
     nombre: form.nombre,
     descripcion: form.descripcion,
     cantidad: form.cantidad,
-    activo: form.activo,
 });
