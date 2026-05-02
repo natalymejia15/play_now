@@ -30,7 +30,6 @@
         "src/*"
       ]
     },
-    "ignoreDeprecations": "6.0",
   },
   "include": [
     "vite.config.ts"
