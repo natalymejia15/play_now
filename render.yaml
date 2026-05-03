@@ -2,3 +2,13 @@ staticSites:
   - name: play-now
     buildCommand: npm install && npm run build
     publishPath: dist
+    redirects:
+      - source: /assets/*
+        destination: /assets/:splat
+        status: 200
+      - source: /favicon.ico
+        destination: /favicon.ico
+        status: 200
+      - source: /*
+        destination: /index.html
+        status: 200
