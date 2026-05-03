@@ -1,6 +1,6 @@
 staticSites:
   - name: play-now
-    buildCommand: npm install && npm run build
+    buildCommand: npm install && npm run build && cp -a dist/. .
     publishPath: dist
     redirects:
       - source: /assets/*
