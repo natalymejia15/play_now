@@ -1,5 +1,4 @@
-services:
-  - type: static_site
-    name: play-now
+staticSites:
+  - name: play-now
     buildCommand: npm install && npm run build
     publishPath: dist
