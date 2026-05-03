@@ -1,10 +1,5 @@
 services:
-  - type: web
+  - type: static_site
     name: play-now
-    runtime: node
     buildCommand: npm install && npm run build
-    startCommand: npx serve -s dist -l 3000
-    envVars:
-      - key: NODE_ENV
-        value: production
-    publicDir: dist
+    publishPath: dist
