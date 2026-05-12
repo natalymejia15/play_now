@@ -1,4 +1,3 @@
-export * from './useFetch'
 export * from './useDashboardKpis'
 export * from './useDashboardMalls'
 export * from './useDashboardSports'
