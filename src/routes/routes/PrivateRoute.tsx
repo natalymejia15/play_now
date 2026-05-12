@@ -1,6 +1,5 @@
-import SuperAdminDashboard from "@/pages/super-admin/SuperAdminDashboard";
 import AdminDashboard from "@/pages/admin/AdminDashboard";
-import {  AdminHistoryReservations, ClientHistoryReservations, ClientHome, CourtsDetails, CourtsManagement, DeportsDetails, DeportsManagement, MallDetails, MallsManagement, ProfilePage } from "@/modules";
+import {  AdminHistoryReservations, ClientHistoryReservations, ClientHome, CourtsDetails, CourtsManagement, DeportsDetails, DeportsManagement, MallDetails, MallsManagement, ProfilePage, SuperAdminDashboard } from "@/modules";
 
 export const privateRoutes = [
   // SUPER ADMIN

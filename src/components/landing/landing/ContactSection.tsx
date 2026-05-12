@@ -1,14 +1,16 @@
+import { useCreateContact } from "@/hook";
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { Send, CheckCircle } from "lucide-react";
+import { Send, CheckCircle, Loader2 } from "lucide-react";
 
 export const ContactSection = () => {
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
+  const {
+    form,
+    loading,
+    submitted,
+    handleChange,
+    handleSubmit,
+    resetForm
+  } = useCreateContact();
 
   return (
     <section id="contacto" className="relative py-24 sm:py-32">
@@ -24,11 +26,14 @@ export const ContactSection = () => {
             <span className="mb-4 inline-block rounded-full bg-primary/10 px-4 py-1.5 text-xs font-semibold text-primary">
               Contacto
             </span>
+
             <h2 className="mb-4 font-display text-3xl font-bold text-foreground sm:text-5xl">
               ¿Listo para <span className="text-primary">empezar</span>?
             </h2>
+
             <p className="text-muted-foreground">
-              Cuéntanos sobre tu centro deportivo o tu necesidad como jugador. Te responderemos en menos de 24 horas.
+              Cuéntanos sobre tu centro deportivo o tu necesidad como jugador.
+              Te responderemos en menos de 24 horas.
             </p>
           </motion.div>
 
@@ -41,8 +46,20 @@ export const ContactSection = () => {
             {submitted ? (
               <div className="flex flex-col items-center gap-4 rounded-2xl border border-primary/30 bg-card p-12 text-center shadow-[var(--shadow-card)]">
                 <CheckCircle size={48} className="text-primary" />
-                <h3 className="font-display text-2xl font-bold text-foreground">¡Mensaje enviado!</h3>
-                <p className="text-muted-foreground">Nos pondremos en contacto contigo pronto.</p>
+
+                <h3 className="font-display text-2xl font-bold text-foreground">
+                  ¡Mensaje enviado!
+                </h3>
+
+                <p className="text-muted-foreground">
+                  Nos pondremos en contacto contigo pronto.
+                </p>
+                <button
+                  onClick={resetForm}
+                  className="mt-2 rounded-xl border border-primary/20 bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground transition-all hover:scale-[1.02] hover:brightness-110"
+                >
+                  Enviar otro mensaje
+                </button>
               </div>
             ) : (
               <form
@@ -51,18 +68,31 @@ export const ContactSection = () => {
               >
                 <div className="mb-6 grid gap-6 sm:grid-cols-2">
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-foreground">Nombre</label>
+                    <label className="mb-2 block text-sm font-medium text-foreground">
+                      Nombre
+                    </label>
+
                     <input
                       type="text"
+                      name="nombre"
+                      value={form.nombre}
+                      onChange={handleChange}
                       required
                       placeholder="Tu nombre"
                       className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                     />
                   </div>
+
                   <div>
-                    <label className="mb-2 block text-sm font-medium text-foreground">Email</label>
+                    <label className="mb-2 block text-sm font-medium text-foreground">
+                      Email
+                    </label>
+
                     <input
                       type="email"
+                      name="email"
+                      value={form.email}
+                      onChange={handleChange}
                       required
                       placeholder="tu@email.com"
                       className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
@@ -71,20 +101,32 @@ export const ContactSection = () => {
                 </div>
 
                 <div className="mb-6">
-                  <label className="mb-2 block text-sm font-medium text-foreground">Tipo</label>
+                  <label className="mb-2 block text-sm font-medium text-foreground">
+                    Tipo
+                  </label>
+
                   <select
+                    name="tipo"
+                    value={form.tipo}
+                    onChange={handleChange}
                     required
                     className="w-full rounded-lg border border-input bg-background px-4 py-3 text-sm text-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
                   >
                     <option value="">Selecciona una opción</option>
-                    <option value="centro">Centro Comercial</option>
+                    <option value="centroComercial">Centro Comercial</option>
                     <option value="jugador">Jugador</option>
                   </select>
                 </div>
 
                 <div className="mb-6">
-                  <label className="mb-2 block text-sm font-medium text-foreground">Mensaje</label>
+                  <label className="mb-2 block text-sm font-medium text-foreground">
+                    Mensaje
+                  </label>
+
                   <textarea
+                    name="mensaje"
+                    value={form.mensaje}
+                    onChange={handleChange}
                     required
                     rows={4}
                     placeholder="Cuéntanos cómo podemos ayudarte..."
@@ -94,10 +136,20 @@ export const ContactSection = () => {
 
                 <button
                   type="submit"
-                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-[var(--shadow-glow)] transition-all hover:scale-[1.02] hover:brightness-110"
+                  disabled={loading}
+                  className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3.5 text-sm font-bold text-primary-foreground shadow-[var(--shadow-glow)] transition-all hover:scale-[1.02] hover:brightness-110 disabled:pointer-events-none disabled:opacity-70"
                 >
-                  Enviar Mensaje
-                  <Send size={16} />
+                  {loading ? (
+                    <>
+                      <Loader2 size={16} className="animate-spin" />
+                      Enviando...
+                    </>
+                  ) : (
+                    <>
+                      Enviar Mensaje
+                      <Send size={16} />
+                    </>
+                  )}
                 </button>
               </form>
             )}
@@ -107,4 +159,3 @@ export const ContactSection = () => {
     </section>
   );
 };
-
