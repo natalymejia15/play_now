@@ -2,8 +2,8 @@ export interface Admin {
   id: number;
   nombre: string;
   initials: string;
-  mall: string;
-  canchas: number;
+  centroAsignado: string;
+  correo: string;
   activo: boolean;
 }
 
