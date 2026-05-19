@@ -41,7 +41,7 @@ export const AdminsTable = ({
               </th>
 
               <th className="px-3 py-2.5 text-left font-semibold text-slate-700">
-                Canchas
+                Correo
               </th>
 
               <th className="px-3 py-2.5 text-left font-semibold text-slate-700">
@@ -83,7 +83,7 @@ export const AdminsTable = ({
                 </td>
 
                 <td className="px-3 py-2.5">
-                  {admin.mall}
+                  {admin.centroAsignado}
                 </td>
 
                 <td className="px-3 py-2.5">
@@ -98,7 +98,7 @@ export const AdminsTable = ({
                       text-purple-700
                     "
                   >
-                    {admin.canchas} canchas
+                    {admin.correo}
                   </div>
 
                 </td>
