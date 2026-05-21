@@ -1,3 +1,5 @@
 export * from './MallsTable'
 export * from './SportsTable'
 export * from './AdminsTable'
+export * from './CourtsTable'
+export * from './RecentReservationsTable'
