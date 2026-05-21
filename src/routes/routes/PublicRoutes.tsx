@@ -1,6 +1,5 @@
 import { Auth,  ForgotPasswordForm, NotFound, PagePrincipal, RecoverPassword } from "@/modules";
 
-
 export const publicRoutes = [
     { path: '/', element: <PagePrincipal /> },
     { path: '/login', element: <Auth /> },

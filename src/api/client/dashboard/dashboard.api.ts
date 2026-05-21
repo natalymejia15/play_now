@@ -24,3 +24,28 @@ export const getDashboardActivity = async () => {
   const { data } = await api.get("/admin/dashboard/activity");
   return data.data;
 };
+
+export const getAdminDashboardKpis = async () => {
+  const { data } = await api.get("/admin/dashboard/mall-kpis");
+  return data.data;
+};
+
+export const getAdminDashboardCourts = async () => {
+  const { data } = await api.get("/admin/dashboard/my-courts");
+  return data.data;
+};
+
+export const getAdminDashboardReservations = async () => {
+  const { data } = await api.get("/admin/dashboard/recent-reservations");
+  return data.data;
+};
+
+export const getAdminDashboardTopCourts = async () => {
+  const { data } = await api.get("/admin/dashboard/top-courts");
+  return data.data;
+};
+
+export const getAdminDashboardDayStatus = async () => {
+  const { data } = await api.get("/admin/dashboard/day-status");
+  return data.data;
+};
