@@ -20,9 +20,6 @@ import {
   Bar,
   BarChart,
   CartesianGrid,
-  Cell,
-  Pie,
-  PieChart,
   ResponsiveContainer,
   Tooltip,
   XAxis,
@@ -32,12 +29,6 @@ import {
 import { useAdminDashboard } from "../hooks";
 import type { IDayStatus } from "@/interfaces";
 
-const COLORS = [
-  "#06b6d4",
-  "#10b981",
-  "#8b5cf6",
-  "#f59e0b",
-];
 
 export const AdminDashboard = () => {
   const {
