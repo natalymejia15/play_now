@@ -71,3 +71,26 @@ export default defineConfig([
   },
 ])
 ```
+
+## Entorno (Local vs Despliegue)
+
+- **Local:** Para desarrollo local usamos `VITE_SUPABASE_URL` apuntando a la API local. Crea o usa el archivo [/.env.development](./.env.development) con:
+
+  VITE_SUPABASE_URL="http://localhost:4000/api"
+
+- **Producción (Render):** En despliegue la URL debe ser la de la app en Render. Añade la variable de entorno `VITE_SUPABASE_URL` en el dashboard de Render o crea [/.env.production](./.env.production) con:
+
+  VITE_SUPABASE_URL="https://play-now-qd6t.onrender.com/api"
+
+- **No comitees credenciales:** `.gitignore` ya incluye `*.env` para evitar subir claves sensibles al repositorio.
+
+- **Cómo funciona Vite:** Vite carga `.env`, `.env.local`, `.env.development`, `.env.production` según el modo. Para fuerza explícita del modo puedes usar:
+
+```bash
+# modo desarrollo
+npm run dev
+
+# modo producción (build)
+npm run build
+```
+
