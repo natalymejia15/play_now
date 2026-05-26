@@ -82,26 +82,30 @@ export const useCreateReservation = ({
     });
   };
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
+const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  setIsLoading(true);
 
-    try {
-      const payload = mapCreateReservationsFormToPayload({
-        ...reservationsData,
-        courtId: selectedCourt.id,
-      });
+  try {
+    const payload = mapCreateReservationsFormToPayload({
+      ...reservationsData,
+      courtId: selectedCourt.id,
+    });
 
-      await createReservations(payload);
-      handleSuccess();
-    } catch (error) {
-      handleError(error as AxiosError<ApiErrorResponseReservations>);
-      throw error;
-    } finally {
-      setIsLoading(false);
+    const response = await createReservations(payload);
+
+    if (response?.paymentUrl) {
+      window.open(response.paymentUrl, '_blank');
     }
-  };
 
+    handleSuccess();
+  } catch (error) {
+    handleError(error as AxiosError<ApiErrorResponseReservations>);
+    throw error;
+  } finally {
+    setIsLoading(false);
+  }
+};
   return {
     isLoading,
     handleSubmit,

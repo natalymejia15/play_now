@@ -1,4 +1,4 @@
-import type { ICreateReservationsPayload, IReservations } from "@/modules";
+import type { ICreateReservationResponse, ICreateReservationsPayload, ICreateReservationsRequest, IReservations } from "@/modules";
 import { api } from "../instance";
 
 export const getReservations = async (): Promise<IReservations[]> => {
@@ -11,6 +11,9 @@ export const getReservationById = async (id: number): Promise<IReservations> => 
   return response.data;
 };
 
-export const createReservations = async (payload: ICreateReservationsPayload): Promise<void> => {
-  await api.post<IReservations>('/reservations', payload);
+export const createReservations = async (
+  payload: ICreateReservationsRequest
+): Promise<ICreateReservationResponse> => {
+  const response = await api.post<ICreateReservationResponse>('/reservations', payload);
+  return response.data;
 };

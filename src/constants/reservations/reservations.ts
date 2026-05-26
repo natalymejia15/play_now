@@ -25,7 +25,7 @@ export const COLUMNS_CLIENT_RESERVATIONS: ColumnDef<IReservations>[] = [
   { key: 'cancha.direccion', label: 'Dirección', defaultVisible: true },
   { key: 'fechaReserva', label: 'Fecha de Reserva', defaultVisible: true },
   { key: 'horaReserva', label: 'Hora de Reserva', defaultVisible: false },
-  { key: 'estado', label: 'Estado', defaultVisible: false },
+  { key: 'estado', label: 'Estado', defaultVisible: true },
   { key: 'cantidadHoras', label: 'Cantidad Horas', defaultVisible: false },
   { key: 'valorTotal', label: 'Valor Total', defaultVisible: true },
 ]
