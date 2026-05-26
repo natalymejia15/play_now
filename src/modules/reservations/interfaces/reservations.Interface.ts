@@ -37,6 +37,24 @@ export interface ApiErrorResponseReservations {
     [key: string]: unknown;
 }
 
+export interface ICreateReservationsRequest {
+  courtId: number;
+  fechaReserva: string;
+  horaReserva: string;
+  cantidadHoras: number;
+}
+
+export interface ICreateReservationResponse {
+  message: string;
+  reserva: IReservations;
+  transaction: {
+    id: string;
+    status: string;
+    redirect_url: string;
+  };
+  paymentUrl: string;
+}
+
 export interface ReservationsFormData {
     id: number;
     fechaReserva: string;
