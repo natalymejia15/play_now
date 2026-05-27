@@ -1,2 +1,7 @@
 export * from './reservations.Interface'
-export * from './reservations-create.Interface'
+export type {
+	CreateReservationsDialogProps,
+	CourtReservation,
+	BookingFormProps,
+	UseCreateReservationProps,
+} from './reservations-create.Interface'
