@@ -1,10 +1,3 @@
-export interface ICreateReservationsPayload {
-    courtId: number;
-    fechaReserva: string;
-    horaReserva: string;
-    cantidadHoras: number;
-}
-
 export interface ICreateReservationsRequest {
     courtId: number;
     fechaReserva: string;
