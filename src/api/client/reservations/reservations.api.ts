@@ -1,4 +1,4 @@
-import type { ICreateReservationResponse, ICreateReservationsPayload, ICreateReservationsRequest, IReservations } from "@/modules";
+import type { ICreateReservationResponse, ICreateReservationsRequest, IReservations } from "@/modules";
 import { api } from "../instance";
 
 export const getReservations = async (): Promise<IReservations[]> => {
