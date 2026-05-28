@@ -2,7 +2,7 @@ import { Card, CardDescription, CardHeader, CardTitle } from "@/components";
 import { Users, DollarSign, ImageIcon, Clock, Trophy, Calendar } from "lucide-react";
 import type { CourtCardProps } from "../interfaces";
 
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:4000/api";
+const API_URL = import.meta.env.VITE_SUPABASE_URL ;
 
 export function CourtCard({ court, onSelect }: CourtCardProps) {
   const imageUrl = court.imagen
