@@ -68,6 +68,6 @@ export const useCourtImage = ({ imagen }: PropsImagen) => {
 
         return `${API_URL}/uploads/${encodeURIComponent(imagen)}`;
     }, [imagen]);
-
+console.log("useCourtImage - imageUrl:", imageUrl);
     return { imageUrl };
 };
